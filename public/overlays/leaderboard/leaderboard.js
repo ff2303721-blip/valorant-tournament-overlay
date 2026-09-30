@@ -35,11 +35,15 @@ function renderLeaderboard(state) {
   currentData = state;
 
   const urlParams = new URLSearchParams(window.location.search);
-  const isPreview = urlParams.has('preview') || urlParams.has('always');
+  const isPreview = urlParams.has('preview') || urlParams.has('always') || urlParams.has('size') || urlParams.has('scale');
   if (!state.leaderboardVisible && !isPreview) {
     container.classList.add('hidden-board');
   } else {
     container.classList.remove('hidden-board');
+  }
+
+  if (isPreview || urlParams.has('dark')) {
+    document.body.style.backgroundColor = '#070c14';
   }
 
   const sizeParam = urlParams.get('size');
@@ -143,4 +147,12 @@ fetch('/api/state')
   .catch(err => console.warn('Could not fetch initial state:', err));
 
 connectWS();
+setInterval(() => {
+  if (!ws || ws.readyState !== WebSocket.OPEN) {
+    fetch('/api/state')
+      .then(res => res.json())
+      .then(state => renderLeaderboard(state))
+      .catch(() => {});
+  }
+}, 3000);
 

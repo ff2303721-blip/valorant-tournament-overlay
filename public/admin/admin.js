@@ -61,12 +61,21 @@ function connectWebSocket() {
 }
 
 function sendAction(action, payload) {
+  const msg = payload !== undefined ? { action, payload } : { action };
   if (ws && ws.readyState === WebSocket.OPEN) {
-    const msg = payload !== undefined ? { action, payload } : { action };
     ws.send(JSON.stringify(msg));
-  } else {
-    console.error('[Admin] WebSocket not open. Cannot send:', action);
   }
+  // Dual-send via HTTP REST endpoint to guarantee reliability on cloud deployments
+  fetch('/api/action', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(msg)
+  }).then(r => r.json()).then(res => {
+    if (res && res.state) {
+      currentState = res.state;
+      syncUI(res.state);
+    }
+  }).catch(() => {});
 }
 
 // Sync UI Elements from Server State

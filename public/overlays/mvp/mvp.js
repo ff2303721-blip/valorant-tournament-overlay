@@ -38,11 +38,15 @@ function renderMVP(state) {
   if (!container) return;
 
   const urlParams = new URLSearchParams(window.location.search);
-  const isPreview = urlParams.has('preview') || urlParams.has('always');
+  const isPreview = urlParams.has('preview') || urlParams.has('always') || urlParams.has('size') || urlParams.has('scale');
   if (!state.mvpVisible && !isPreview) {
     container.classList.add('hidden-mvp');
   } else {
     container.classList.remove('hidden-mvp');
+  }
+
+  if (isPreview || urlParams.has('dark')) {
+    document.body.style.backgroundColor = '#070c14';
   }
 
   const sizeParam = urlParams.get('size');
@@ -93,4 +97,12 @@ fetch('/api/state')
   .catch(err => console.warn('Could not fetch initial state:', err));
 
 connectWS();
+setInterval(() => {
+  if (!ws || ws.readyState !== WebSocket.OPEN) {
+    fetch('/api/state')
+      .then(res => res.json())
+      .then(state => renderMVP(state))
+      .catch(() => {});
+  }
+}, 3000);
 
