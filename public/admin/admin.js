@@ -64,18 +64,19 @@ function sendAction(action, payload) {
   const msg = payload !== undefined ? { action, payload } : { action };
   if (ws && ws.readyState === WebSocket.OPEN) {
     ws.send(JSON.stringify(msg));
+  } else {
+    // Only fallback to HTTP REST when WebSocket is not connected
+    fetch('/api/action', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(msg)
+    }).then(r => r.json()).then(res => {
+      if (res && res.state) {
+        currentState = res.state;
+        syncUI(res.state);
+      }
+    }).catch(() => {});
   }
-  // Dual-send via HTTP REST endpoint to guarantee reliability on cloud deployments
-  fetch('/api/action', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(msg)
-  }).then(r => r.json()).then(res => {
-    if (res && res.state) {
-      currentState = res.state;
-      syncUI(res.state);
-    }
-  }).catch(() => {});
 }
 
 // Sync UI Elements from Server State
@@ -525,7 +526,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Casters
   document.getElementById('btn-toggle-casters').addEventListener('click', () => {
-    sendAction('TOGGLE_CASTERS');
+    const target = currentState ? !currentState.castersVisible : true;
+    sendAction('TOGGLE_CASTERS', target);
   });
 
   document.getElementById('btn-save-casters').addEventListener('click', () => {
@@ -616,28 +618,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnToggleStreamLd = document.getElementById('btn-toggle-stream-leaderboard');
   if (btnToggleStreamLd) {
     btnToggleStreamLd.addEventListener('click', () => {
-      sendAction('TOGGLE_LEADERBOARD');
+      const target = currentState ? !currentState.leaderboardVisible : true;
+      sendAction('TOGGLE_LEADERBOARD', target);
     });
   }
 
   const btnNavToggleLd = document.getElementById('btn-nav-toggle-leaderboard');
   if (btnNavToggleLd) {
     btnNavToggleLd.addEventListener('click', () => {
-      sendAction('TOGGLE_LEADERBOARD');
+      const target = currentState ? !currentState.leaderboardVisible : true;
+      sendAction('TOGGLE_LEADERBOARD', target);
     });
   }
 
   const btnToggleStreamMvp = document.getElementById('btn-toggle-stream-mvp');
   if (btnToggleStreamMvp) {
     btnToggleStreamMvp.addEventListener('click', () => {
-      sendAction('TOGGLE_MVP');
+      const target = currentState ? !currentState.mvpVisible : true;
+      sendAction('TOGGLE_MVP', target);
     });
   }
 
   const btnNavToggleMvp = document.getElementById('btn-nav-toggle-mvp');
   if (btnNavToggleMvp) {
     btnNavToggleMvp.addEventListener('click', () => {
-      sendAction('TOGGLE_MVP');
+      const target = currentState ? !currentState.mvpVisible : true;
+      sendAction('TOGGLE_MVP', target);
     });
   }
 
