@@ -12,6 +12,11 @@ html, body {
   color: #f1f5f9;
 }
 
+body.preview-mode {
+  background: #070c14 !important;
+  background-color: #070c14 !important;
+}
+
 :root {
   --gold: #ffb800;
   --gold-glow: rgba(255, 184, 0, 0.45);

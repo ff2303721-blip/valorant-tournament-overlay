@@ -38,15 +38,15 @@ function renderLeaderboard(state) {
   if (!container) return;
 
   const urlParams = new URLSearchParams(window.location.search);
-  const isPreview = urlParams.has('preview') || urlParams.has('always');
-  if (!state.leaderboardVisible && !isPreview) {
+  const isForcedAlways = urlParams.get('always') === '1' || urlParams.get('force') === '1';
+  if (!state.leaderboardVisible && !isForcedAlways) {
     container.classList.add('hidden-board');
   } else {
     container.classList.remove('hidden-board');
   }
 
-  if (isPreview || urlParams.has('dark')) {
-    document.body.style.backgroundColor = '#070c14';
+  if (urlParams.has('preview') || urlParams.has('dark')) {
+    document.body.classList.add('preview-mode');
   }
 
   const sizeParam = urlParams.get('size');
