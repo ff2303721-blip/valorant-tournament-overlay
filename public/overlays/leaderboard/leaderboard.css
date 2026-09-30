@@ -40,20 +40,34 @@ html, body {
 }
 
 .board-container {
-  width: 1740px;
-  max-width: 1740px;
+  width: 1840px;
+  max-width: 1840px;
   background: var(--bg-dark);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-gold);
-  border-radius: 14px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(255, 184, 0, 0.12);
-  padding: 26px 36px;
+  border-radius: 18px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(255, 184, 0, 0.15);
+  padding: 30px 42px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
   transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.board-container.size-large {
+  width: 1880px;
+  max-width: 1880px;
+  padding: 36px 46px;
+  transform: scale(1.03);
+}
+
+.board-container.size-compact {
+  width: 1560px;
+  max-width: 1560px;
+  padding: 22px 30px;
+  gap: 16px;
 }
 
 .board-container.hidden-board {
@@ -67,36 +81,36 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 18px;
+  padding-bottom: 20px;
   border-bottom: 1px solid var(--border-subtle);
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
 }
 
 .val-icon-box {
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   background: var(--val-red);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 10px;
   color: #fff;
-  box-shadow: 0 0 16px rgba(255, 70, 85, 0.4);
+  box-shadow: 0 0 20px rgba(255, 70, 85, 0.45);
 }
 
 .val-icon-box svg {
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
 }
 
 .header-subtitle {
   font-family: var(--font-sub);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
   color: var(--gold);
@@ -106,8 +120,8 @@ html, body {
 .header-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 34px;
-  letter-spacing: 2.5px;
+  font-size: 40px;
+  letter-spacing: 3px;
   color: #fff;
   line-height: 1;
 }
@@ -116,26 +130,26 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .map-badge {
   font-family: var(--font-display);
-  font-size: 28px;
-  letter-spacing: 3px;
+  font-size: 32px;
+  letter-spacing: 4px;
   color: #fff;
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.5);
 }
 
 .series-badge {
   font-family: var(--font-sub);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.8px;
   color: #94a3b8;
-  background: rgba(255, 255, 255, 0.06);
-  padding: 2px 10px;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 3px 12px;
+  border-radius: 5px;
 }
 
 .header-right {
@@ -146,32 +160,32 @@ html, body {
 .score-pill {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: rgba(0, 0, 0, 0.6);
+  gap: 14px;
+  background: rgba(0, 0, 0, 0.65);
   border: 1px solid var(--border-gold);
-  padding: 8px 18px;
-  border-radius: 8px;
+  padding: 10px 22px;
+  border-radius: 10px;
   font-family: var(--font-sub);
   font-weight: 800;
 }
 
 .score-team {
-  font-size: 18px;
+  font-size: 20px;
   color: #cbd5e1;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
 }
 
 .score-val {
   font-family: var(--font-display);
-  font-size: 32px;
+  font-size: 38px;
   color: #fff;
-  min-width: 24px;
+  min-width: 28px;
   text-align: center;
 }
 
 .score-div {
   color: var(--gold);
-  font-size: 24px;
+  font-size: 28px;
 }
 
 /* ═══ TEAMS GRID ═════════════════════════════════════════ */
@@ -201,7 +215,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 20px;
+  padding: 16px 24px;
   background: rgba(0, 0, 0, 0.35);
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -209,20 +223,20 @@ html, body {
 .col-team-brand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .col-logo {
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.6));
 }
 
 .col-team-name {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: 32px;
   letter-spacing: 2px;
   color: #fff;
   line-height: 1;
@@ -230,15 +244,15 @@ html, body {
 
 .col-side-badge {
   font-family: var(--font-sub);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   color: #94a3b8;
 }
 
 .col-score-display {
   font-family: var(--font-display);
-  font-size: 38px;
+  font-size: 46px;
   color: #fff;
   line-height: 1;
 }
@@ -246,15 +260,15 @@ html, body {
 /* Table Head */
 .table-head {
   display: grid;
-  grid-template-columns: 240px 110px 70px 70px 70px 75px 85px;
-  padding: 10px 18px;
+  grid-template-columns: minmax(260px, 2.2fr) 115px 75px 75px 75px 85px 110px;
+  padding: 12px 22px;
   font-family: var(--font-sub);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.8px;
   color: #64748b;
   border-bottom: 1px solid var(--border-subtle);
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.25);
 }
 
 .th-stat {
@@ -263,7 +277,7 @@ html, body {
 
 .th-acs {
   text-align: right;
-  padding-right: 8px;
+  padding-right: 12px;
 }
 
 /* Player Rows */
@@ -274,9 +288,9 @@ html, body {
 
 .player-row {
   display: grid;
-  grid-template-columns: 240px 110px 70px 70px 70px 75px 85px;
+  grid-template-columns: minmax(260px, 2.2fr) 115px 75px 75px 75px 85px 110px;
   align-items: center;
-  padding: 10px 18px;
+  padding: 13px 22px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   transition: background 0.15s ease;
 }
@@ -286,24 +300,25 @@ html, body {
 }
 
 .player-row.is-mvp-row {
-  background: rgba(255, 184, 0, 0.08) !important;
-  border-left: 3px solid var(--gold);
+  background: rgba(255, 184, 0, 0.09) !important;
+  border-left: 4px solid var(--gold);
 }
 
 .cell-player {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .player-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
+  width: 48px;
+  height: 48px;
+  border-radius: 9px;
   object-fit: cover;
   background: #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .player-meta {
@@ -314,7 +329,7 @@ html, body {
 
 .player-ign {
   font-family: var(--font-sub);
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: 0.8px;
   color: #fff;
@@ -324,7 +339,7 @@ html, body {
 }
 
 .player-role-badge {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.8px;
   color: var(--gold);
@@ -338,19 +353,19 @@ html, body {
 
 .agent-tag {
   font-family: var(--font-sub);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
-  padding: 3px 10px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.08);
+  padding: 4px 12px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.09);
   color: #e2e8f0;
   text-transform: uppercase;
 }
 
 .cell-stat {
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 28px;
   letter-spacing: 1px;
   text-align: center;
   color: #cbd5e1;
@@ -358,14 +373,14 @@ html, body {
 
 .cell-stat.stat-kills {
   color: #fff;
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 900;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
 }
 
 .cell-stat.stat-diff {
   font-family: var(--font-sub);
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 800;
 }
 
@@ -383,9 +398,9 @@ html, body {
 
 .cell-stat.stat-acs {
   text-align: right;
-  padding-right: 8px;
+  padding-right: 12px;
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: 28px;
   color: var(--gold);
   letter-spacing: 1px;
 }

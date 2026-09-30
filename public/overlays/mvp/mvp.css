@@ -35,17 +35,24 @@ html, body {
 }
 
 .mvp-card-wrap {
-  width: 1060px;
+  width: 1240px;
+  max-width: 1260px;
   background: var(--bg-dark);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-gold);
-  border-radius: 16px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(255, 184, 0, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.9), 0 0 60px rgba(255, 184, 0, 0.22);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mvp-card-wrap.size-large {
+  width: 1380px;
+  max-width: 1400px;
+  transform: scale(1.05);
 }
 
 .mvp-card-wrap.hidden-mvp {
@@ -88,8 +95,8 @@ html, body {
 /* Portrait */
 .mvp-portrait-area {
   position: relative;
-  width: 320px;
-  height: 380px;
+  width: 360px;
+  height: 430px;
   border-radius: 12px;
   overflow: hidden;
   background: radial-gradient(circle at center, #1e293b, #0f172a);

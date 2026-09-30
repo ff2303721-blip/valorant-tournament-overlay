@@ -17,8 +17,12 @@ function initAutoScale(targetSelector = '.auto-stage, .vs-root, #hud', options =
     const baseW = 1920;
     const baseH = 1080;
 
-    // Calculate uniform scale factor to fit cleanly within the viewport
-    const scale = Math.min(vw / baseW, vh / baseH);
+    const urlParams = new URLSearchParams(window.location.search);
+    const customScale = parseFloat(urlParams.get('scale')) || options.userScale || 1.0;
+    const fitMode = urlParams.get('fit') || options.fit || 'contain';
+
+    // Calculate scale factor
+    let scale = (fitMode === 'cover' ? Math.max(vw / baseW, vh / baseH) : Math.min(vw / baseW, vh / baseH)) * customScale;
 
     // Calculate offsets based on anchor
     let offsetX = (vw - baseW * scale) / 2;

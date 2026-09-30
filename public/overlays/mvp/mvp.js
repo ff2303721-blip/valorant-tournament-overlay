@@ -34,12 +34,17 @@ function renderMVP(state) {
   const p = state.mvpPlayer;
   if (!p) return;
 
-  const container = document.getElementById('mvp-container');
-  const isPreview = window.location.search.includes('preview') || window.location.search.includes('always');
+  const urlParams = new URLSearchParams(window.location.search);
+  const isPreview = urlParams.has('preview') || urlParams.has('always');
   if (!state.mvpVisible && !isPreview) {
     container.classList.add('hidden-mvp');
   } else {
     container.classList.remove('hidden-mvp');
+  }
+
+  const sizeParam = urlParams.get('size');
+  if (sizeParam === 'large' || sizeParam === 'full') {
+    container.classList.add('size-large');
   }
 
   // Portrait & Agent
