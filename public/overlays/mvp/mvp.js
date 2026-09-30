@@ -34,6 +34,9 @@ function renderMVP(state) {
   const p = state.mvpPlayer;
   if (!p) return;
 
+  const container = document.getElementById('mvp-container');
+  if (!container) return;
+
   const urlParams = new URLSearchParams(window.location.search);
   const isPreview = urlParams.has('preview') || urlParams.has('always');
   if (!state.mvpVisible && !isPreview) {
