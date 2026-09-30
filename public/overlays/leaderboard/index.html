@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valorant Post-Match Leaderboard Overlay</title>
+  <link rel="stylesheet" href="/common/styles.css">
+  <link rel="stylesheet" href="leaderboard.css">
+</head>
+<body>
+  <div class="auto-stage">
+    <div id="board-container" class="board-container">
+      
+      <!-- Top Broadcast Header -->
+      <header class="board-header">
+        <div class="header-left">
+          <div class="val-icon-box">
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <path d="M99.2 16.5l-44.8 67h-21l44.8-67h21zm-65.8 0l-33.4 34.2h21l22.4-23 10-11.2h-20z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="header-subtitle" id="board-stage">GROUP STAGE • MATCH 1</div>
+            <h1 class="header-title" id="board-title">POST-MATCH COMBAT LEADERBOARD</h1>
+          </div>
+        </div>
+
+        <div class="header-center">
+          <div class="map-badge" id="board-map">ASCENT</div>
+          <div class="series-badge" id="board-series">MAP 1 OF 3 (BO3)</div>
+        </div>
+
+        <div class="header-right">
+          <div class="score-pill">
+            <span class="score-team" id="hdr-tag-a">NDL</span>
+            <span class="score-val" id="hdr-score-a">13</span>
+            <span class="score-div">:</span>
+            <span class="score-val" id="hdr-score-b">11</span>
+            <span class="score-team" id="hdr-tag-b">ATX</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Dual Team Rosters Grid -->
+      <main class="teams-grid">
+        
+        <!-- TEAM A COLUMN -->
+        <section class="team-col team-a-col" id="col-team-a">
+          <div class="team-col-header" id="team-a-header">
+            <div class="col-team-brand">
+              <img id="team-a-logo" class="col-logo" src="/logos/naadan-legacy.png" alt="Logo">
+              <div>
+                <h2 class="col-team-name" id="team-a-name">NAADAN LEGACY</h2>
+                <span class="col-side-badge" id="team-a-side">ATTACKERS</span>
+              </div>
+            </div>
+            <div class="col-score-display" id="team-a-score">13</div>
+          </div>
+
+          <!-- Table Header -->
+          <div class="table-head">
+            <div class="th-player">PLAYER</div>
+            <div class="th-agent">AGENT</div>
+            <div class="th-stat">K</div>
+            <div class="th-stat">D</div>
+            <div class="th-stat">A</div>
+            <div class="th-stat">+/-</div>
+            <div class="th-stat th-acs">ACS</div>
+          </div>
+
+          <!-- Player Rows -->
+          <div class="roster-rows" id="team-a-rows">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+        <!-- TEAM B COLUMN -->
+        <section class="team-col team-b-col" id="col-team-b">
+          <div class="team-col-header" id="team-b-header">
+            <div class="col-team-brand">
+              <img id="team-b-logo" class="col-logo" src="/logos/aetrix.png" alt="Logo">
+              <div>
+                <h2 class="col-team-name" id="team-b-name">AETRIX</h2>
+                <span class="col-side-badge" id="team-b-side">DEFENDERS</span>
+              </div>
+            </div>
+            <div class="col-score-display" id="team-b-score">11</div>
+          </div>
+
+          <!-- Table Header -->
+          <div class="table-head">
+            <div class="th-player">PLAYER</div>
+            <div class="th-agent">AGENT</div>
+            <div class="th-stat">K</div>
+            <div class="th-stat">D</div>
+            <div class="th-stat">A</div>
+            <div class="th-stat">+/-</div>
+            <div class="th-stat th-acs">ACS</div>
+          </div>
+
+          <!-- Player Rows -->
+          <div class="roster-rows" id="team-b-rows">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Bottom Broadcast Footer -->
+      <footer class="board-footer">
+        <div class="footer-left">
+          <span class="live-dot"></span>
+          <span>VALORANT TOURNAMENT BROADCAST • OFFICIAL MATCH REPORT</span>
+        </div>
+        <div class="footer-right">
+          <span id="mvp-highlight-pill" class="mvp-highlight-pill">MATCH MVP: <strong id="mvp-name-tag">DOMINIC TORETTO (NDL)</strong></span>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <script src="/common/autoscale.js"></script>
+  <script src="leaderboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Versus – Intermission</title>
+  <style>
+    /* ── OBS CRITICAL ─────────────────────────────── */
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: rgba(0,0,0,0) !important;
+      background-color: rgba(0,0,0,0) !important;
+    }
+  </style>
+  <link rel="stylesheet" href="versus.css">
+</head>
+<body>
+
+<div class="vs-root">
+
+  <!-- ── BACKGROUND LAYERS ─────────────────────── -->
+  <div class="bg-base"></div>
+  <div class="bg-aura aura-a"></div>
+  <div class="bg-aura aura-b"></div>
+  <div class="bg-grid"></div>
+
+  <!-- ── TOP BANNER ────────────────────────────── -->
+  <header class="top-banner">
+    <div class="top-left-accent"></div>
+    <div class="tournament-info">
+      <span class="tournament-label" id="vs-stage">GRAND FINALS</span>
+      <span class="tournament-name" id="vs-title">VALORANT CHAMPIONSHIP</span>
+    </div>
+    <div class="series-indicator" id="vs-series">BEST OF 3</div>
+    <div class="top-right-accent"></div>
+  </header>
+
+  <!-- ── MAIN MATCHUP ───────────────────────────── -->
+  <main class="matchup">
+
+    <!-- TEAM A PANEL -->
+    <div class="team-panel panel-a" id="panel-a">
+      <!-- Gradient wash behind team A -->
+      <div class="panel-wash wash-a"></div>
+
+      <div class="panel-content">
+        <div class="side-label" id="vs-side-a">ATTACKERS</div>
+        <img id="vs-logo-a" class="vs-team-crest" src="/logos/naadan-legacy.png" alt="Logo">
+        <div class="team-acronym" id="vs-tag-a">NDL</div>
+        <div class="team-fullname" id="vs-name-a">NAADAN LEGACY</div>
+
+        <div class="map-wins-row">
+          <span class="mw-label">MAPS WON</span>
+          <span class="mw-count" id="vs-wins-a">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER DIVIDER -->
+    <div class="center-piece">
+      <div class="vs-ring">
+        <div class="vs-ring-inner">VS</div>
+      </div>
+      <div class="map-card">
+        <span class="map-card-label">NEXT MAP</span>
+        <span class="map-card-name" id="vs-map">ASCENT</span>
+      </div>
+      <div class="series-pips-wrap">
+        <div class="pips-row" id="pips-a"></div>
+        <div class="pips-spacer">:</div>
+        <div class="pips-row" id="pips-b"></div>
+      </div>
+    </div>
+
+    <!-- TEAM B PANEL -->
+    <div class="team-panel panel-b" id="panel-b">
+      <div class="panel-wash wash-b"></div>
+
+      <div class="panel-content">
+        <div class="side-label" id="vs-side-b">DEFENDERS</div>
+        <img id="vs-logo-b" class="vs-team-crest" src="/logos/aetrix.png" alt="Logo">
+        <div class="team-acronym" id="vs-tag-b">ATX</div>
+        <div class="team-fullname" id="vs-name-b">AETRIX</div>
+
+        <div class="map-wins-row">
+          <span class="mw-label">MAPS WON</span>
+          <span class="mw-count" id="vs-wins-b">0</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── BOTTOM STATUS BAR ──────────────────────── -->
+  <footer class="bottom-bar">
+    <div class="bottom-left-line"></div>
+    <span class="status-msg" id="vs-status">MATCH WILL BEGIN SHORTLY</span>
+    <div class="bottom-right-line"></div>
+  </footer>
+
+</div><!-- /vs-root -->
+
+  <script src="/common/autoscale.js"></script>
+  <script src="versus.js"></script>
+</body>
+</html>

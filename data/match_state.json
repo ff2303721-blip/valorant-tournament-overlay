@@ -1,0 +1,417 @@
+{
+  "match": {
+    "title": "VALORANT TOURNAMENT",
+    "stage": "GRAND FINALS",
+    "seriesType": "BO3",
+    "currentMapIndex": 1,
+    "mapName": "Ascent",
+    "phase": "live",
+    "statusBanner": "TECHNICAL PAUSE"
+  },
+  "teamsList": [
+    {
+      "id": "naadan-legacy",
+      "name": "NAADAN LEGACY",
+      "tag": "NDL",
+      "logo": "/logos/naadan-legacy.png"
+    },
+    {
+      "id": "aetrix",
+      "name": "AETRIX",
+      "tag": "ATX",
+      "logo": "/logos/aetrix.png"
+    },
+    {
+      "id": "bitter-blade-z",
+      "name": "BITTER BLADE Z",
+      "tag": "BBZ",
+      "logo": "/logos/bitter-blade-z.png"
+    },
+    {
+      "id": "veyron",
+      "name": "VEYRON",
+      "tag": "VRN",
+      "logo": "/logos/veyron.png"
+    }
+  ],
+  "fixturesList": [
+    {
+      "matchNumber": 1,
+      "label": "M1: NDL vs ATX (Lotus)",
+      "stage": "Group Stage",
+      "t1": "naadan-legacy",
+      "t2": "aetrix",
+      "map": "Lotus",
+      "bestOf": "BO1"
+    },
+    {
+      "matchNumber": 2,
+      "label": "M2: NDL vs BBZ (Sunset)",
+      "stage": "Group Stage",
+      "t1": "naadan-legacy",
+      "t2": "bitter-blade-z",
+      "map": "Sunset",
+      "bestOf": "BO1"
+    },
+    {
+      "matchNumber": 3,
+      "label": "M3: NDL vs VRN (Haven)",
+      "stage": "Group Stage",
+      "t1": "naadan-legacy",
+      "t2": "veyron",
+      "map": "Haven",
+      "bestOf": "BO1"
+    },
+    {
+      "matchNumber": 4,
+      "label": "M4: ATX vs BBZ (Split)",
+      "stage": "Group Stage",
+      "t1": "aetrix",
+      "t2": "bitter-blade-z",
+      "map": "Split",
+      "bestOf": "BO1"
+    },
+    {
+      "matchNumber": 5,
+      "label": "M5: ATX vs VRN (Ascent)",
+      "stage": "Group Stage",
+      "t1": "aetrix",
+      "t2": "veyron",
+      "map": "Ascent",
+      "bestOf": "BO1"
+    },
+    {
+      "matchNumber": 6,
+      "label": "M6: BBZ vs VRN (Bind)",
+      "stage": "Group Stage",
+      "t1": "bitter-blade-z",
+      "t2": "veyron",
+      "map": "Bind",
+      "bestOf": "BO1"
+    },
+    {
+      "matchNumber": 7,
+      "label": "M7: ATX vs NDL (Breeze)",
+      "stage": "Group Stage",
+      "t1": "aetrix",
+      "t2": "naadan-legacy",
+      "map": "Breeze",
+      "bestOf": "BO1"
+    },
+    {
+      "matchNumber": 8,
+      "label": "M8: BBZ vs NDL (Bind)",
+      "stage": "Group Stage",
+      "t1": "bitter-blade-z",
+      "t2": "naadan-legacy",
+      "map": "Bind",
+      "bestOf": "BO1"
+    },
+    {
+      "matchNumber": 9,
+      "label": "M9: VRN vs NDL (Lotus)",
+      "stage": "Group Stage",
+      "t1": "veyron",
+      "t2": "naadan-legacy",
+      "map": "Lotus",
+      "bestOf": "BO1"
+    },
+    {
+      "matchNumber": 10,
+      "label": "M10: BBZ vs ATX (Sunset)",
+      "stage": "Group Stage",
+      "t1": "bitter-blade-z",
+      "t2": "aetrix",
+      "map": "Sunset",
+      "bestOf": "BO1"
+    },
+    {
+      "matchNumber": 11,
+      "label": "M11: VRN vs ATX (Haven)",
+      "stage": "Group Stage",
+      "t1": "veyron",
+      "t2": "aetrix",
+      "map": "Haven",
+      "bestOf": "BO1"
+    },
+    {
+      "matchNumber": 12,
+      "label": "M12: VRN vs BBZ (Ascent)",
+      "stage": "Group Stage",
+      "t1": "veyron",
+      "t2": "bitter-blade-z",
+      "map": "Ascent",
+      "bestOf": "BO1"
+    },
+    {
+      "matchNumber": 13,
+      "label": "M13: Playoff Q1 (Rank 1 vs 2)",
+      "stage": "Playoffs: Q1",
+      "t1": "naadan-legacy",
+      "t2": "aetrix",
+      "map": "Ascent",
+      "bestOf": "BO3"
+    },
+    {
+      "matchNumber": 14,
+      "label": "M14: Eliminator (Rank 3 vs 4)",
+      "stage": "Playoffs: Eliminator",
+      "t1": "bitter-blade-z",
+      "t2": "veyron",
+      "map": "Haven",
+      "bestOf": "BO3"
+    },
+    {
+      "matchNumber": 15,
+      "label": "M15: Playoff Q2",
+      "stage": "Playoffs: Q2",
+      "t1": "aetrix",
+      "t2": "bitter-blade-z",
+      "map": "Lotus",
+      "bestOf": "BO3"
+    },
+    {
+      "matchNumber": 16,
+      "label": "M16: Grand Finals",
+      "stage": "Grand Finals",
+      "t1": "naadan-legacy",
+      "t2": "aetrix",
+      "map": "Sunset",
+      "bestOf": "BO5"
+    }
+  ],
+  "teamA": {
+    "id": "naadan-legacy",
+    "name": "NAADAN LEGACY",
+    "tag": "NDL",
+    "score": 0,
+    "mapWins": 0,
+    "side": "attack",
+    "color": "#ff4655",
+    "logo": "/logos/naadan-legacy.png",
+    "players": [
+      {
+        "id": "ndl-1",
+        "name": "DOMINIC TORETTO",
+        "role": "Captain",
+        "photo": "/players/DOMINIC.png",
+        "agent": "Jett",
+        "kills": 40,
+        "deaths": 19,
+        "assists": 6,
+        "acs": 12048
+      },
+      {
+        "id": "ndl-2",
+        "name": "OUTLAWS",
+        "role": "Player",
+        "photo": "/players/DOMINIC.png",
+        "agent": "Jett",
+        "kills": 33,
+        "deaths": 19,
+        "assists": 5,
+        "acs": 10159
+      },
+      {
+        "id": "ndl-3",
+        "name": "Light yagami",
+        "role": "Player",
+        "photo": "/players/DRAIVEN.png",
+        "agent": "Raze",
+        "kills": 32,
+        "deaths": 19,
+        "assists": 7,
+        "acs": 10085
+      },
+      {
+        "id": "ndl-4",
+        "name": "TRICKY",
+        "role": "Player",
+        "photo": "/players/TRICKY.png",
+        "agent": "Viper",
+        "kills": 27,
+        "deaths": 23,
+        "assists": 9,
+        "acs": 8684
+      },
+      {
+        "id": "ndl-5",
+        "name": "zippaz007",
+        "role": "Player",
+        "photo": "/players/DOMINIC.png",
+        "agent": "Jett",
+        "kills": 21,
+        "deaths": 23,
+        "assists": 11,
+        "acs": 6698
+      },
+      {
+        "id": "ndl-6",
+        "name": "DRAIVEN",
+        "role": "Sub",
+        "photo": "/players/DRAIVEN.png",
+        "agent": "Breach",
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 150
+      }
+    ]
+  },
+  "teamB": {
+    "id": "aetrix",
+    "name": "AETRIX",
+    "tag": "ATX",
+    "score": 0,
+    "mapWins": 0,
+    "side": "defense",
+    "color": "#00f0ff",
+    "logo": "/logos/aetrix.png",
+    "players": [
+      {
+        "id": "atx-1",
+        "name": "AEGON XD",
+        "role": "Captain",
+        "photo": "/players/AEGON.png",
+        "agent": "Chamber",
+        "kills": 20,
+        "deaths": 18,
+        "assists": 9,
+        "acs": 6221
+      },
+      {
+        "id": "atx-2",
+        "name": "Luxy",
+        "role": "Player",
+        "photo": "/players/LUXY.png",
+        "agent": "Jett",
+        "kills": 15,
+        "deaths": 19,
+        "assists": 10,
+        "acs": 5319
+      },
+      {
+        "id": "atx-3",
+        "name": "Thakudu Scarlet",
+        "role": "Player",
+        "photo": "/players/SCARLET.png",
+        "agent": "Jett",
+        "kills": 16,
+        "deaths": 20,
+        "assists": 6,
+        "acs": 4955
+      },
+      {
+        "id": "atx-4",
+        "name": "SHREYA",
+        "role": "Player",
+        "photo": "/players/SREYA.png",
+        "agent": "Sage",
+        "kills": 13,
+        "deaths": 26,
+        "assists": 7,
+        "acs": 4172
+      },
+      {
+        "id": "atx-5",
+        "name": "PorottaBeef",
+        "role": "Player",
+        "photo": "/players/POROTTA.png",
+        "agent": "Jett",
+        "kills": 11,
+        "deaths": 25,
+        "assists": 5,
+        "acs": 3849
+      },
+      {
+        "id": "atx-6",
+        "name": "NANDU",
+        "role": "Sub",
+        "photo": "/players/NANDU.png",
+        "agent": "Brimstone",
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 140
+      }
+    ]
+  },
+  "leaderboardVisible": {},
+  "mvpVisible": {},
+  "mvpPlayer": {
+    "name": "DOMINIC TORETTO",
+    "teamTag": "NDL",
+    "teamName": "NAADAN LEGACY",
+    "role": "Match MVP",
+    "agent": "Jett",
+    "photo": "/players/DOMINIC.png",
+    "logo": "/logos/naadan-legacy.png",
+    "kills": 40,
+    "deaths": 19,
+    "assists": 6,
+    "acs": 12048
+  },
+  "timeout": {
+    "active": false,
+    "team": "NDL",
+    "duration": 60,
+    "remaining": 0
+  },
+  "casters": [
+    {
+      "name": "Apex",
+      "handle": "@apexcast",
+      "role": "Play-by-Play"
+    },
+    {
+      "name": "Vortex",
+      "handle": "@vortex_val",
+      "role": "Color Caster"
+    }
+  ],
+  "castersVisible": false,
+  "veto": [
+    {
+      "map": "Ascent",
+      "status": "PICK",
+      "team": "SEN",
+      "score": ""
+    },
+    {
+      "map": "Bind",
+      "status": "BAN",
+      "team": "FNC",
+      "score": ""
+    },
+    {
+      "map": "Haven",
+      "status": "PICK",
+      "team": "FNC",
+      "score": ""
+    },
+    {
+      "map": "Lotus",
+      "status": "BAN",
+      "team": "SEN",
+      "score": ""
+    },
+    {
+      "map": "Sunset",
+      "status": "DECIDER",
+      "team": "REMAINING",
+      "score": ""
+    },
+    {
+      "map": "Split",
+      "status": "BAN",
+      "team": "SEN",
+      "score": ""
+    },
+    {
+      "map": "Abyss",
+      "status": "BAN",
+      "team": "FNC",
+      "score": ""
+    }
+  ]
+}

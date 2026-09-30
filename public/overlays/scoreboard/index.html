@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valorant Scoreboard Overlay</title>
+  <link rel="stylesheet" href="/common/styles.css">
+  <style>
+    /* ── TRANSPARENCY FIX for OBS ─────────────────────────── */
+    html, body {
+      background: rgba(0,0,0,0) !important;
+      background-color: rgba(0,0,0,0) !important;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      margin: 0; padding: 0;
+      user-select: none;
+    }
+  </style>
+  <link rel="stylesheet" href="scoreboard.css">
+</head>
+<body>
+
+  <div class="auto-stage">
+    <!-- ═══ TOP SCOREBOARD HUD ══════════════════════════════ -->
+    <div id="hud" class="hud">
+
+    <!-- Status Banner (drops down when active) -->
+    <div id="status-banner" class="status-banner hidden">
+      <span class="banner-pip"></span>
+      <span id="status-text">MATCH POINT</span>
+      <span class="banner-pip"></span>
+    </div>
+
+    <!-- Main Bar -->
+    <div class="main-bar">
+
+      <!-- TEAM A -->
+      <div class="team-block team-left" id="block-a">
+        <div class="team-series-pips" id="pips-a"></div>
+        <img id="logo-a" class="team-logo-hud" src="/logos/naadan-legacy.png" alt="Logo">
+        <div class="team-identity left-identity">
+          <span class="t-name" id="name-a">NAADAN LEGACY</span>
+          <span class="t-tag"  id="tag-a">NDL</span>
+        </div>
+        <div class="side-badge" id="side-a">
+          <span id="side-text-a">ATK</span>
+        </div>
+      </div>
+
+      <!-- Score Area -->
+      <div class="score-section">
+        <div class="score-block" id="score-a-block">
+          <span class="score-num" id="score-a">0</span>
+        </div>
+        <div class="map-info-center">
+          <div class="val-logo-wrap">
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <path d="M99.2 16.5l-44.8 67h-21l44.8-67h21zm-65.8 0l-33.4 34.2h21l22.4-23 10-11.2h-20z"/>
+            </svg>
+          </div>
+          <span id="map-name" class="map-name">ASCENT</span>
+          <span id="map-num"  class="map-num">MAP 1 OF 3</span>
+        </div>
+        <div class="score-block" id="score-b-block">
+          <span class="score-num" id="score-b">0</span>
+        </div>
+      </div>
+
+      <!-- TEAM B -->
+      <div class="team-block team-right" id="block-b">
+        <div class="side-badge" id="side-b">
+          <span id="side-text-b">DEF</span>
+        </div>
+        <div class="team-identity right-identity">
+          <span class="t-tag"  id="tag-b">ATX</span>
+          <span class="t-name" id="name-b">AETRIX</span>
+        </div>
+        <img id="logo-b" class="team-logo-hud" src="/logos/aetrix.png" alt="Logo">
+        <div class="team-series-pips" id="pips-b"></div>
+      </div>
+
+    </div><!-- /main-bar -->
+    </div><!-- /hud -->
+  </div><!-- /auto-stage -->
+
+  <script src="/common/autoscale.js"></script>
+  <script src="scoreboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@600;700;800&family=Inter:wght@600;700;800&display=swap');
+
+html, body {
+  background: rgba(0, 0, 0, 0) !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: #fff;
+}
+
+:root {
+  --gold: #ffb800;
+  --gold-glow: rgba(255, 184, 0, 0.45);
+  --val-red: #ff4655;
+  --bg-dark: rgba(8, 14, 22, 0.95);
+  --border-gold: rgba(255, 184, 0, 0.4);
+  --font-display: 'Bebas Neue', cursive;
+  --font-sub: 'Rajdhani', sans-serif;
+}
+
+.auto-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mvp-card-wrap {
+  width: 1060px;
+  background: var(--bg-dark);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-gold);
+  border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(255, 184, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mvp-card-wrap.hidden-mvp {
+  opacity: 0;
+  transform: translateY(30px) scale(0.96);
+  pointer-events: none;
+}
+
+/* ═══ TOP RIBBON ═══════════════════════════════════════════ */
+.mvp-top-ribbon {
+  background: linear-gradient(90deg, rgba(255, 184, 0, 0.1), rgba(255, 184, 0, 0.3), rgba(255, 184, 0, 0.1));
+  border-bottom: 1px solid var(--border-gold);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.mvp-trophy-icon {
+  font-size: 20px;
+}
+
+.mvp-ribbon-text {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-shadow: 0 0 16px rgba(255, 184, 0, 0.6);
+}
+
+/* ═══ CARD BODY ════════════════════════════════════════════ */
+.mvp-card-body {
+  display: flex;
+  padding: 32px 40px;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Portrait */
+.mvp-portrait-area {
+  position: relative;
+  width: 320px;
+  height: 380px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #1e293b, #0f172a);
+  border: 2px solid var(--border-gold);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.portrait-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 184, 0, 0.2), transparent 70%);
+  pointer-events: none;
+}
+
+.mvp-portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  z-index: 1;
+}
+
+.mvp-agent-badge {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  z-index: 2;
+  font-family: var(--font-sub);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid var(--border-gold);
+  color: var(--gold);
+  padding: 4px 14px;
+  border-radius: 6px;
+}
+
+/* Details */
+.mvp-details-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.mvp-team-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mvp-team-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.mvp-team-tag {
+  font-family: var(--font-sub);
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+}
+
+.tag-divider {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.mvp-team-name {
+  font-family: var(--font-sub);
+  font-size: 16px;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 1px;
+}
+
+.mvp-player-name {
+  margin: 6px 0 0 0;
+  font-family: var(--font-display);
+  font-size: 54px;
+  letter-spacing: 2.5px;
+  color: #fff;
+  line-height: 1;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Stats Grid */
+.mvp-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.stat-box {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-box.highlight-stat {
+  background: rgba(255, 184, 0, 0.08);
+  border-color: var(--border-gold);
+}
+
+.stat-box.highlight-stat .stat-value {
+  color: var(--gold);
+  text-shadow: 0 0 16px rgba(255, 184, 0, 0.4);
+}
+
+.stat-box.acs-stat {
+  grid-column: span 2;
+  background: linear-gradient(135deg, rgba(255, 70, 85, 0.1), rgba(15, 23, 42, 0.7));
+  border-color: rgba(255, 70, 85, 0.3);
+}
+
+.stat-box.acs-stat .stat-value {
+  color: #ff4655;
+}
+
+.stat-label {
+  font-family: var(--font-sub);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #64748b;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1;
+  color: #fff;
+}
+
+.mvp-footer-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sub);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.footer-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}

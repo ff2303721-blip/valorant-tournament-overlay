@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valorant — Broadcast Control Cockpit</title>
+  <link rel="stylesheet" href="/common/styles.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="admin-wrapper">
+
+    <!-- ═══ NAV BAR ══════════════════════════════════════════ -->
+    <header class="admin-nav">
+      <div class="nav-brand">
+        <svg class="val-icon" viewBox="0 0 100 100" fill="currentColor">
+          <path d="M99.2 16.5l-44.8 67h-21l44.8-67h21zm-65.8 0l-33.4 34.2h21l22.4-23 10-11.2h-20z"/>
+        </svg>
+        <span class="nav-title">BROADCAST COCKPIT</span>
+        <span class="nav-badge" id="ws-status">CONNECTED</span>
+      </div>
+      <div class="nav-actions">
+        <!-- View Density Selector -->
+        <div class="theme-selector-wrap">
+          <span class="theme-selector-label">FIT</span>
+          <select id="select-ui-density" class="theme-select">
+            <option value="normal" selected>🖥️ Normal (100% Large)</option>
+            <option value="fit">⚡ Fit (90%)</option>
+            <option value="compact">💻 Compact (80%)</option>
+          </select>
+        </div>
+
+        <!-- UI Theme Selector -->
+        <div class="theme-selector-wrap">
+          <span class="theme-selector-label">THEME</span>
+          <select id="select-ui-theme" class="theme-select">
+            <option value="champions">🏆 Champions Gold</option>
+            <option value="crimson">🔴 Radiant Crimson</option>
+            <option value="cyberpunk">💜 Cyberpunk Neon</option>
+            <option value="stealth">🖤 OLED Stealth</option>
+          </select>
+        </div>
+
+        <a href="/overlays/leaderboard" target="_blank" class="btn btn-secondary btn-mini" style="text-decoration:none;">📊 Leaderboard</a>
+        <a href="/overlays/mvp" target="_blank" class="btn btn-secondary btn-mini" style="text-decoration:none;">⭐ MVP Card</a>
+        <button id="btn-quick-swap" class="btn btn-warning btn-mini">⇄ Swap Sides</button>
+        <button id="btn-reset-rounds" class="btn btn-secondary btn-mini">Reset Rounds</button>
+        <button id="btn-reset-all" class="btn btn-danger btn-mini">Reset Match</button>
+      </div>
+    </header>
+
+    <!-- ═══ MAIN COCKPIT GRID ═════════════════════════════════ -->
+    <div class="admin-grid">
+
+      <!-- LEFT: LIVE MATCH & ROSTER CONTROLLER -->
+      <section class="card match-deck">
+        <div class="card-header">
+          <div class="header-fixtures-bar">
+            <h2>Live Match Controller</h2>
+            <div class="fixture-selector-wrap">
+              <span class="fixture-label">⚡ FIXTURE:</span>
+              <select id="select-tournament-fixture" class="fixture-select">
+                <option value="">-- Select Scheduled Match --</option>
+                <option value="1">Match 1: NDL vs ATX (Lotus · BO1)</option>
+                <option value="2">Match 2: NDL vs BBZ (Sunset · BO1)</option>
+                <option value="3">Match 3: NDL vs VRN (Haven · BO1)</option>
+                <option value="4">Match 4: ATX vs BBZ (Split · BO1)</option>
+                <option value="5">Match 5: ATX vs VRN (Ascent · BO1)</option>
+                <option value="6">Match 6: BBZ vs VRN (Bind · BO1)</option>
+                <option value="7">Match 7: ATX vs NDL (Breeze · BO1)</option>
+                <option value="8">Match 8: BBZ vs NDL (Bind · BO1)</option>
+                <option value="9">Match 9: VRN vs NDL (Lotus · BO1)</option>
+                <option value="10">Match 10: BBZ vs ATX (Sunset · BO1)</option>
+                <option value="11">Match 11: VRN vs ATX (Haven · BO1)</option>
+                <option value="12">Match 12: VRN vs BBZ (Ascent · BO1)</option>
+                <option value="13">Match 13: Playoff Q1 (Seed 1 vs 2 · BO3)</option>
+                <option value="14">Match 14: Eliminator (Seed 3 vs 4 · BO3)</option>
+                <option value="15">Match 15: Playoff Q2 (BO3)</option>
+                <option value="16">Match 16: Grand Finals (BO5)</option>
+              </select>
+              <button id="btn-load-fixture" class="btn btn-primary btn-mini">AUTO LOAD</button>
+            </div>
+          </div>
+          <span class="hotkey-tip" title="Team A: [1] add / [Q] minus | Team B: [2] add / [W] minus | Shift+1/2 also works | [S] Swap Sides | [T] Timeout">⚡ HOTKEYS: [1] Team A (+1) / [Q] (−1) · [2] Team B (+1) / [W] (−1) · [S] Swap · [T] Timeout</span>
+        </div>
+
+        <!-- TEAMS CONTROL ROW -->
+        <div class="teams-control-row">
+
+          <!-- TEAM A -->
+          <div class="team-ctrl-box attack-side" id="ctrl-team-a-wrap">
+            <div class="team-ctrl-header">
+              <div class="team-ctrl-top-bar">
+                <span class="team-side-pill attack-pill" id="badge-side-a">ATTACK</span>
+                <select id="select-preset-a" class="team-preset-select">
+                  <option value="naadan-legacy">Preset: NDL</option>
+                  <option value="aetrix">Preset: ATX</option>
+                  <option value="bitter-blade-z">Preset: BBZ</option>
+                  <option value="veyron">Preset: VRN</option>
+                  <option value="custom">Manual</option>
+                </select>
+              </div>
+              <div class="team-header-identity">
+                <img id="logo-preview-a" class="team-logo-preview" src="/logos/naadan-legacy.png" alt="Logo">
+                <div class="team-inputs-wrap">
+                  <input type="text" id="input-team-a-tag"  class="input-tag"  value="NDL" maxlength="6" autocomplete="off">
+                  <input type="text" id="input-team-a-name" class="input-name" value="NAADAN LEGACY" autocomplete="off">
+                </div>
+              </div>
+            </div>
+            <div class="score-deck">
+              <button id="btn-dec-score-a" class="btn-step">−</button>
+              <div class="big-score-display" id="display-score-a">0</div>
+              <button id="btn-inc-score-a" class="btn-step btn-primary">+1</button>
+            </div>
+            <div class="series-win-ctrl">
+              <span>MAPS WON</span>
+              <button id="btn-dec-map-a" class="btn-mini btn-sub">−</button>
+              <span class="map-win-count" id="display-map-a">0</span>
+              <button id="btn-inc-map-a" class="btn-mini btn-gold">+1</button>
+            </div>
+          </div>
+
+          <!-- CENTER CONFIG -->
+          <div class="mid-ctrl-box">
+            <div class="mid-title">Series Format</div>
+            <select id="select-series-type" class="form-select select-gold">
+              <option value="BO1">Best of 1</option>
+              <option value="BO3" selected>Best of 3</option>
+              <option value="BO5">Best of 5</option>
+            </select>
+
+            <div class="mid-title">Current Map</div>
+            <select id="select-current-map" class="form-select">
+              <option value="Ascent">Ascent</option>
+              <option value="Bind">Bind</option>
+              <option value="Breeze">Breeze</option>
+              <option value="Fracture">Fracture</option>
+              <option value="Haven">Haven</option>
+              <option value="Icebox">Icebox</option>
+              <option value="Lotus">Lotus</option>
+              <option value="Pearl">Pearl</option>
+              <option value="Split">Split</option>
+              <option value="Sunset">Sunset</option>
+              <option value="Abyss">Abyss</option>
+            </select>
+
+            <div class="map-index-row">
+              <span>Map #</span>
+              <input type="number" id="input-map-index" min="1" max="5" value="1" class="input-num">
+            </div>
+          </div>
+
+          <!-- TEAM B -->
+          <div class="team-ctrl-box defense-side" id="ctrl-team-b-wrap">
+            <div class="team-ctrl-header">
+              <div class="team-ctrl-top-bar">
+                <span class="team-side-pill defense-pill" id="badge-side-b">DEFENSE</span>
+                <select id="select-preset-b" class="team-preset-select">
+                  <option value="aetrix">Preset: ATX</option>
+                  <option value="naadan-legacy">Preset: NDL</option>
+                  <option value="bitter-blade-z">Preset: BBZ</option>
+                  <option value="veyron">Preset: VRN</option>
+                  <option value="custom">Manual</option>
+                </select>
+              </div>
+              <div class="team-header-identity">
+                <img id="logo-preview-b" class="team-logo-preview" src="/logos/aetrix.png" alt="Logo">
+                <div class="team-inputs-wrap">
+                  <input type="text" id="input-team-b-tag"  class="input-tag"  value="ATX" maxlength="6" autocomplete="off">
+                  <input type="text" id="input-team-b-name" class="input-name" value="AETRIX" autocomplete="off">
+                </div>
+              </div>
+            </div>
+            <div class="score-deck">
+              <button id="btn-dec-score-b" class="btn-step">−</button>
+              <div class="big-score-display" id="display-score-b">0</div>
+              <button id="btn-inc-score-b" class="btn-step btn-cyan">+1</button>
+            </div>
+            <div class="series-win-ctrl">
+              <span>MAPS WON</span>
+              <button id="btn-dec-map-b" class="btn-mini btn-sub">−</button>
+              <span class="map-win-count" id="display-map-b">0</span>
+              <button id="btn-inc-map-b" class="btn-mini btn-gold">+1</button>
+            </div>
+          </div>
+
+        </div><!-- /teams-control-row -->
+
+        <!-- QUICK ALERTS ROW -->
+        <div class="quick-alerts-row">
+
+          <div class="action-card">
+            <h3>Tactical Timeout</h3>
+            <div class="action-inputs">
+              <select id="select-timeout-team" class="form-select">
+                <option value="">Loading teams…</option>
+              </select>
+              <button id="btn-start-timeout" class="btn btn-warning btn-mini">Start 60s</button>
+              <button id="btn-stop-timeout" class="btn btn-secondary btn-mini">Stop</button>
+            </div>
+          </div>
+
+          <div class="action-card">
+            <h3>Status Banner</h3>
+            <div class="action-inputs">
+              <input type="text" id="input-status-banner" class="form-input" placeholder="e.g. MATCH POINT, OVERTIME…">
+              <button id="btn-set-banner" class="btn btn-primary btn-mini">Apply</button>
+              <button id="btn-clear-banner" class="btn btn-secondary btn-mini">Clear</button>
+            </div>
+            <div class="preset-pills">
+              <button class="pill-btn" data-banner="MATCH POINT">Match Point</button>
+              <button class="pill-btn" data-banner="OVERTIME">Overtime</button>
+              <button class="pill-btn" data-banner="HALFTIME">Halftime</button>
+              <button class="pill-btn" data-banner="TECHNICAL PAUSE">Tech Pause</button>
+            </div>
+          </div>
+
+        </div><!-- /quick-alerts-row -->
+
+        <!-- ═══ PLAYER STATS & LIVE KILLS DECK ════════════════════ -->
+        <div class="player-stats-deck">
+          <div class="player-deck-header">
+            <div class="deck-title-wrap">
+              <h2 class="deck-title">🎯 Player Stats &amp; Live Kills Deck</h2>
+              <span class="deck-subtitle">Syncs with Post-Match Leaderboard &amp; MVP overlay</span>
+            </div>
+            <div class="deck-actions-wrap">
+              <button id="btn-import-match" class="btn btn-warning btn-mini" title="Auto-fetch official kills, deaths, assists & MVP from completed match">⚡ Import Match Results</button>
+              <button id="btn-toggle-stream-leaderboard" class="btn btn-secondary btn-mini">📊 Show Leaderboard</button>
+              <button id="btn-toggle-stream-mvp" class="btn btn-secondary btn-mini">⭐ Show MVP Card</button>
+              <button id="btn-reset-player-stats" class="btn btn-danger btn-mini">Reset Stats</button>
+            </div>
+          </div>
+
+          <div class="player-teams-container">
+            
+            <!-- TEAM A ROSTER -->
+            <div class="team-roster-box" id="roster-box-team-a">
+              <div class="team-roster-hdr team-a-hdr">
+                <div class="roster-brand">
+                  <img id="roster-logo-a" class="roster-thumb-logo" src="/logos/naadan-legacy.png" alt="Logo">
+                  <span id="roster-team-name-a" class="roster-team-title">NAADAN LEGACY</span>
+                </div>
+                <span class="roster-tag-pill" id="roster-tag-pill-a">NDL</span>
+              </div>
+              <div class="roster-list-body" id="admin-roster-a">
+                <!-- Dynamically generated rows -->
+              </div>
+            </div>
+
+            <!-- TEAM B ROSTER -->
+            <div class="team-roster-box" id="roster-box-team-b">
+              <div class="team-roster-hdr team-b-hdr">
+                <div class="roster-brand">
+                  <img id="roster-logo-b" class="roster-thumb-logo" src="/logos/aetrix.png" alt="Logo">
+                  <span id="roster-team-name-b" class="roster-team-title">AETRIX</span>
+                </div>
+                <span class="roster-tag-pill" id="roster-tag-pill-b">ATX</span>
+              </div>
+              <div class="roster-list-body" id="admin-roster-b">
+                <!-- Dynamically generated rows -->
+              </div>
+            </div>
+
+          </div>
+        </div><!-- /player-stats-deck -->
+
+      </section>
+
+      <!-- RIGHT: SIDEBAR (COMPACT ACCORDION / CARDS) -->
+      <aside class="sidebar-column">
+
+        <!-- TOURNAMENT INFO (SLIM) -->
+        <div class="card compact-card">
+          <h2>Tournament Info</h2>
+          <div class="dual-input">
+            <input type="text" id="input-match-title" class="form-input" value="VALORANT TOURNAMENT" placeholder="Tournament Name">
+            <input type="text" id="input-match-stage" class="form-input" value="GRAND FINALS" placeholder="Stage / Subtitle">
+          </div>
+          <button id="btn-save-meta" class="btn btn-secondary btn-mini mt-1 w-100">Update Info</button>
+        </div>
+
+        <!-- AUTO-SYNC LIVE GAME (OCR) -->
+        <div class="card auto-tracker-card compact-card">
+          <div class="card-header-flex">
+            <h2>⚡ Live OCR Screen Sync</h2>
+            <span id="tracker-status-badge" class="tracker-badge offline">OFFLINE</span>
+          </div>
+
+          <div class="tracker-readout-box">
+            <div class="readout-values">
+              <span class="readout-team" id="readout-tag-a">NDL</span>
+              <span class="readout-num" id="readout-score-a">0</span>
+              <span class="readout-sep">:</span>
+              <span class="readout-num" id="readout-score-b">0</span>
+              <span class="readout-team" id="readout-tag-b">ATX</span>
+            </div>
+            <div class="readout-meta" id="readout-last-checked">Ready to monitor</div>
+          </div>
+
+          <button id="btn-toggle-tracker" class="btn btn-primary btn-mini w-100 mt-1">▶ START AUTO-SYNC</button>
+        </div>
+
+        <!-- CASTERS LOWER THIRD (SLIM) -->
+        <div class="card compact-card">
+          <div class="card-header-flex">
+            <h2>Casters Lower Third</h2>
+            <div class="btn-group-mini">
+              <button id="btn-save-casters" class="btn btn-mini btn-secondary">Save</button>
+              <button id="btn-toggle-casters" class="btn btn-mini btn-primary">SHOW</button>
+            </div>
+          </div>
+          <div class="dual-input">
+            <input type="text" id="input-caster1-name"   class="form-input" placeholder="Caster 1"  value="Apex">
+            <input type="text" id="input-caster1-handle" class="form-input" placeholder="@handle"   value="@apexcast">
+          </div>
+          <div class="dual-input mt-1">
+            <input type="text" id="input-caster2-name"   class="form-input" placeholder="Caster 2"  value="Vortex">
+            <input type="text" id="input-caster2-handle" class="form-input" placeholder="@handle"   value="@vortex_val">
+          </div>
+        </div>
+
+        <!-- OBS BROWSER SOURCES (COMPACT GRID WITH COPY & OPEN) -->
+        <details class="card compact-card obs-details-card" open>
+          <summary class="card-header-flex summary-header">
+            <h2>🎥 OBS Browser Sources</h2>
+            <span class="obs-count-badge">6 Overlays</span>
+          </summary>
+
+          <div class="obs-links-compact-list">
+            <div class="obs-link-item">
+              <div class="obs-item-info">
+                <span class="obs-item-name">Top HUD (Compact)</span>
+              </div>
+              <div class="obs-item-btns">
+                <button class="btn-copy" data-url="/overlays/scoreboard?compact=1">Copy URL</button>
+                <a href="/overlays/scoreboard?compact=1" target="_blank" class="btn-open-link">Open</a>
+              </div>
+            </div>
+
+            <div class="obs-link-item">
+              <div class="obs-item-info">
+                <span class="obs-item-name">Top HUD (Full)</span>
+              </div>
+              <div class="obs-item-btns">
+                <button class="btn-copy" data-url="/overlays/scoreboard">Copy URL</button>
+                <a href="/overlays/scoreboard" target="_blank" class="btn-open-link">Open</a>
+              </div>
+            </div>
+
+            <div class="obs-link-item">
+              <div class="obs-item-info">
+                <span class="obs-item-name">Post-Match Leaderboard</span>
+              </div>
+              <div class="obs-item-btns">
+                <button class="btn-copy" data-url="/overlays/leaderboard">Copy URL</button>
+                <a href="/overlays/leaderboard" target="_blank" class="btn-open-link">Open</a>
+              </div>
+            </div>
+
+            <div class="obs-link-item">
+              <div class="obs-item-info">
+                <span class="obs-item-name">Match MVP Spotlight</span>
+              </div>
+              <div class="obs-item-btns">
+                <button class="btn-copy" data-url="/overlays/mvp">Copy URL</button>
+                <a href="/overlays/mvp" target="_blank" class="btn-open-link">Open</a>
+              </div>
+            </div>
+
+            <div class="obs-link-item">
+              <div class="obs-item-info">
+                <span class="obs-item-name">Map Veto / Pick &amp; Ban</span>
+              </div>
+              <div class="obs-item-btns">
+                <button class="btn-copy" data-url="/overlays/veto">Copy URL</button>
+                <a href="/overlays/veto" target="_blank" class="btn-open-link">Open</a>
+              </div>
+            </div>
+
+            <div class="obs-link-item">
+              <div class="obs-item-info">
+                <span class="obs-item-name">Versus Screen</span>
+              </div>
+              <div class="obs-item-btns">
+                <button class="btn-copy" data-url="/overlays/versus">Copy URL</button>
+                <a href="/overlays/versus" target="_blank" class="btn-open-link">Open</a>
+              </div>
+            </div>
+
+            <div class="obs-link-item">
+              <div class="obs-item-info">
+                <span class="obs-item-name">Casters Lower Third</span>
+              </div>
+              <div class="obs-item-btns">
+                <button class="btn-copy" data-url="/overlays/casters">Copy URL</button>
+                <a href="/overlays/casters" target="_blank" class="btn-open-link">Open</a>
+              </div>
+            </div>
+          </div>
+        </details>
+
+      </aside>
+    </div><!-- /admin-grid -->
+
+    <!-- ═══ MAP VETO TABLE (COLLAPSIBLE DRAWER) ═══════════════ -->
+    <details class="card mt-2 collapsible-veto" id="veto-details-card">
+      <summary class="card-header veto-summary">
+        <div class="summary-left">
+          <h2>🗺️ Map Veto / Pick &amp; Ban</h2>
+          <span class="badge-sub">Click to expand / edit</span>
+        </div>
+        <button id="btn-save-veto" class="btn btn-primary btn-mini">Save Veto</button>
+      </summary>
+      <div class="veto-table-wrap">
+        <table class="veto-table">
+          <thead>
+            <tr>
+              <th>Map</th>
+              <th>Status</th>
+              <th>Team</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="veto-tbody"></tbody>
+        </table>
+      </div>
+    </details>
+
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valorant Map Veto Overlay</title>
+  <link rel="stylesheet" href="/common/styles.css">
+  <link rel="stylesheet" href="veto.css">
+</head>
+<body>
+  <div class="auto-stage">
+  <div class="veto-canvas">
+    
+    <!-- Top Header -->
+    <header class="veto-header">
+      <div class="header-left">
+        <span class="sub-title">MAP SELECTION PROCESS</span>
+        <h1 class="main-title">MAP VETO & PICKS</h1>
+      </div>
+      <div class="header-teams">
+        <span id="veto-team-a" class="team-tag tag-a">SEN</span>
+        <span class="vs-text">VS</span>
+        <span id="veto-team-b" class="team-tag tag-b">FNC</span>
+      </div>
+      <div class="header-right">
+        <span id="veto-series-type" class="series-pill">BEST OF 3</span>
+      </div>
+    </header>
+
+    <!-- Map Cards Grid -->
+    <main id="maps-grid" class="maps-grid">
+      <!-- Dynamically generated map cards -->
+    </main>
+
+    <!-- Footer Bar -->
+    <footer class="veto-footer">
+      <div class="footer-badge">OFFICIAL BROADCAST POOL</div>
+      <div id="veto-status-summary" class="footer-summary">CURRENT STAGE: MAP SELECTIONS LOCKED</div>
+    </footer>
+
+  </div>
+  </div><!-- /auto-stage -->
+
+  <script src="/common/autoscale.js"></script>
+  <script src="veto.js"></script>
+</body>
+</html>

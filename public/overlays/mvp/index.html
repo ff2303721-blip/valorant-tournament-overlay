@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valorant Match MVP Overlay</title>
+  <link rel="stylesheet" href="/common/styles.css">
+  <link rel="stylesheet" href="mvp.css">
+</head>
+<body>
+  <div class="auto-stage">
+    <div id="mvp-container" class="mvp-card-wrap">
+      
+      <!-- Top Glow Accent -->
+      <div class="mvp-top-ribbon">
+        <div class="mvp-trophy-icon">🏆</div>
+        <span class="mvp-ribbon-text">VCT MATCH MVP</span>
+        <div class="mvp-trophy-icon">🏆</div>
+      </div>
+
+      <div class="mvp-card-body">
+        
+        <!-- Left: Player Portrait Card -->
+        <div class="mvp-portrait-area">
+          <div class="portrait-glow"></div>
+          <img id="mvp-photo" class="mvp-portrait-img" src="/players/DOMINIC.png" alt="Player Portrait" onerror="this.src='/logos/naadan-legacy.png'">
+          <div class="mvp-agent-badge" id="mvp-agent">JETT</div>
+        </div>
+
+        <!-- Right: Player & Match Stats -->
+        <div class="mvp-details-area">
+          
+          <div class="mvp-identity">
+            <div class="mvp-team-row">
+              <img id="mvp-team-logo" class="mvp-team-logo" src="/logos/naadan-legacy.png" alt="Team Logo">
+              <span id="mvp-team-tag" class="mvp-team-tag">NDL</span>
+              <span class="tag-divider">•</span>
+              <span id="mvp-team-name" class="mvp-team-name">NAADAN LEGACY</span>
+            </div>
+            <h1 class="mvp-player-name" id="mvp-name">DOMINIC TORETTO</h1>
+          </div>
+
+          <!-- Combat Stats Grid -->
+          <div class="mvp-stats-grid">
+            
+            <div class="stat-box highlight-stat">
+              <span class="stat-label">TOTAL KILLS</span>
+              <span class="stat-value" id="mvp-kills">24</span>
+            </div>
+
+            <div class="stat-box">
+              <span class="stat-label">DEATHS</span>
+              <span class="stat-value" id="mvp-deaths">11</span>
+            </div>
+
+            <div class="stat-box">
+              <span class="stat-label">ASSISTS</span>
+              <span class="stat-value" id="mvp-assists">6</span>
+            </div>
+
+            <div class="stat-box">
+              <span class="stat-label">K / D RATIO</span>
+              <span class="stat-value" id="mvp-kd">2.18</span>
+            </div>
+
+            <div class="stat-box acs-stat">
+              <span class="stat-label">COMBAT SCORE</span>
+              <span class="stat-value" id="mvp-acs">342</span>
+            </div>
+
+          </div>
+
+          <div class="mvp-footer-tag">
+            <span class="footer-dot"></span>
+            <span id="mvp-match-info">MATCH REPORT • ASCENT</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script src="/common/autoscale.js"></script>
+  <script src="mvp.js"></script>
+</body>
+</html>

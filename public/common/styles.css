@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Rajdhani:wght@500;600;700&family=Teko:wght@500;600;700&display=swap');
+
+:root {
+  /* Valorant Core Palette */
+  --val-red: #ff4655;
+  --val-red-glow: rgba(255, 70, 85, 0.4);
+  --val-cyan: #00f0ff;
+  --val-cyan-glow: rgba(0, 240, 255, 0.4);
+  --val-green: #05d3b3;
+  --val-gold: #ffb800;
+  --val-gold-glow: rgba(255, 184, 0, 0.45);
+  
+  --val-dark: #0f1923;
+  --val-darker: #0b1117;
+  --val-glass: rgba(15, 25, 35, 0.88);
+  --val-glass-border: rgba(255, 255, 255, 0.15);
+  --val-light: #ece8e1;
+  --val-muted: #8b978f;
+
+  /* Typography */
+  --font-display: 'Teko', 'Barlow Condensed', sans-serif;
+  --font-sub: 'Rajdhani', sans-serif;
+  --font-body: 'Barlow Condensed', sans-serif;
+
+  /* Angles & Geometry */
+  --angle-cut: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: transparent;
+  color: var(--val-light);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tactical Cut Classes */
+.cut-top-left {
+  clip-path: polygon(var(--angle-cut) 0%, 100% 0%, 100% 100%, 0% 100%, 0% var(--angle-cut));
+}
+
+.cut-corner-diag {
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+
+.cut-skew-left {
+  transform: skewX(-15deg);
+}
+
+.cut-skew-left > * {
+  transform: skewX(15deg);
+}
+
+.cut-skew-right {
+  transform: skewX(15deg);
+}
+
+.cut-skew-right > * {
+  transform: skewX(-15deg);
+}
+
+/* Animations */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.9; filter: drop-shadow(0 0 8px var(--val-gold-glow)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 18px var(--val-gold)); }
+}
+
+@keyframes slideDownIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

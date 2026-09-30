@@ -1,0 +1,461 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@600;700&family=Inter:wght@400;600;700&display=swap');
+
+/* ─── RESET ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── OBS BODY ─────────────────────────────────────── */
+html, body {
+  background: rgba(0,0,0,0) !important;
+  background-color: rgba(0,0,0,0) !important;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── VARIABLES ─────────────────────────────────────── */
+:root {
+  --red:      #ff4655;
+  --red-d:    #c4202e;
+  --cyan:     #00f0ff;
+  --cyan-d:   #00a0b0;
+  --gold:     #ffb800;
+  --gold-d:   #d49500;
+  --bg-deep:  #04080f;
+  --bg-mid:   rgba(8, 16, 28, 0.95);
+  --text:     #f0eee8;
+  --muted:    #5a7080;
+  --fh: 'Bebas Neue', sans-serif;
+  --fl: 'Rajdhani', sans-serif;
+  --fn: 'Inter', sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════
+   ROOT CANVAS
+═══════════════════════════════════════════════════ */
+.vs-root {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── BACKGROUNDS ─────────────────────────────────── */
+.bg-base {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #06101c 0%, #030810 40%, #06101a 100%);
+  z-index: 0;
+}
+
+.bg-aura {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.aura-a {
+  width: 900px; height: 700px;
+  top: -200px; left: -150px;
+  background: radial-gradient(ellipse, rgba(255,70,85,0.18) 0%, transparent 70%);
+}
+
+.aura-b {
+  width: 900px; height: 700px;
+  bottom: -200px; right: -150px;
+  background: radial-gradient(ellipse, rgba(0,240,255,0.14) 0%, transparent 70%);
+}
+
+/* Subtle grid lines */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   TOP BANNER
+═══════════════════════════════════════════════════ */
+.top-banner {
+  position: relative;
+  z-index: 10;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  background: rgba(4,8,15,0.70);
+  backdrop-filter: blur(12px);
+}
+
+.top-left-accent,
+.top-right-accent {
+  position: absolute;
+  top: 0;
+  width: 300px; height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--red) 100%);
+}
+.top-left-accent  { left: 0; }
+.top-right-accent { right: 0; transform: scaleX(-1); }
+
+/* Gold line on bottom of banner */
+.top-banner::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+}
+
+.tournament-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.tournament-label {
+  font-family: var(--fl);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.tournament-name {
+  font-family: var(--fh);
+  font-size: 34px;
+  letter-spacing: 5px;
+  color: var(--text);
+  line-height: 1;
+}
+
+.series-indicator {
+  position: absolute;
+  right: 48px;
+  font-family: var(--fl);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--gold);
+  background: rgba(255,184,0,0.10);
+  border: 1px solid rgba(255,184,0,0.30);
+  padding: 5px 16px;
+}
+
+/* ═══════════════════════════════════════════════════
+   MAIN MATCHUP ROW
+═══════════════════════════════════════════════════ */
+.matchup {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+}
+
+/* ─── TEAM PANELS ─────────────────────────────────── */
+.team-panel {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Panel coloured inner wash */
+.panel-wash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.wash-a {
+  background:
+    linear-gradient(135deg, rgba(255,70,85,0.14) 0%, rgba(4,8,15,0) 60%),
+    linear-gradient(180deg, rgba(255,70,85,0.06) 0%, transparent 100%);
+}
+
+.wash-b {
+  background:
+    linear-gradient(225deg, rgba(0,240,255,0.12) 0%, rgba(4,8,15,0) 60%),
+    linear-gradient(180deg, rgba(0,240,255,0.05) 0%, transparent 100%);
+}
+
+/* Accent vertical line */
+.panel-a::after {
+  content: '';
+  position: absolute;
+  top: 15%; bottom: 15%; right: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent 0%, rgba(255,70,85,0.5) 50%, transparent 100%);
+}
+
+.panel-b::before {
+  content: '';
+  position: absolute;
+  top: 15%; bottom: 15%; left: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,240,255,0.5) 50%, transparent 100%);
+  z-index: 2;
+}
+
+/* Panel inner content */
+.panel-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.side-label {
+  font-family: var(--fn);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  padding: 4px 14px;
+  border-left: 3px solid var(--red);
+  background: rgba(255,70,85,0.10);
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+}
+
+.panel-b .side-label {
+  border-left: none;
+  border-right: 3px solid var(--cyan);
+  background: rgba(0,240,255,0.08);
+.vs-team-crest {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  filter: drop-shadow(0 10px 25px rgba(0,0,0,0.85));
+  transition: transform 0.3s ease;
+}
+.panel-a .vs-team-crest {
+  filter: drop-shadow(0 0 30px rgba(255, 70, 85, 0.40)) drop-shadow(0 10px 25px rgba(0,0,0,0.85));
+}
+.panel-b .vs-team-crest {
+  filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.35)) drop-shadow(0 10px 25px rgba(0,0,0,0.85));
+}
+
+.team-acronym {
+  font-family: var(--fh);
+  font-size: 140px;
+  letter-spacing: 6px;
+  line-height: 0.9;
+  color: var(--text);
+  text-shadow: 0 8px 60px rgba(0,0,0,0.8);
+  transition: text-shadow 0.3s;
+}
+
+.panel-a .team-acronym {
+  text-shadow: 0 0 80px rgba(255,70,85,0.20), 0 8px 60px rgba(0,0,0,0.8);
+}
+
+.panel-b .team-acronym {
+  text-shadow: 0 0 80px rgba(0,240,255,0.18), 0 8px 60px rgba(0,0,0,0.8);
+}
+
+.team-fullname {
+  font-family: var(--fl);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.map-wins-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 8px 24px;
+  margin-top: 16px;
+}
+
+.mw-label {
+  font-family: var(--fl);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.mw-count {
+  font-family: var(--fh);
+  font-size: 48px;
+  line-height: 1;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(255,184,0,0.50);
+}
+
+/* ═══════════════════════════════════════════════════
+   CENTER PIECE
+═══════════════════════════════════════════════════ */
+.center-piece {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  width: 220px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 20;
+}
+
+/* VS Ring */
+.vs-ring {
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,70,85,0.3) 0%, rgba(0,240,255,0.3) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 0 1px rgba(255,184,0,0.5),
+    0 0 40px rgba(255,184,0,0.20),
+    0 0 80px rgba(255,184,0,0.10);
+}
+
+.vs-ring-inner {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  background: var(--bg-deep);
+  border: 2px solid rgba(255,184,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fh);
+  font-size: 46px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-shadow: 0 0 18px var(--gold);
+}
+
+/* Map card */
+.map-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: rgba(4,8,15,0.90);
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 10px 24px;
+  min-width: 160px;
+  text-align: center;
+}
+
+.map-card-label {
+  font-family: var(--fn);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.map-card-name {
+  font-family: var(--fh);
+  font-size: 30px;
+  letter-spacing: 3px;
+  color: var(--text);
+  line-height: 1;
+}
+
+/* Series pips */
+.series-pips-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pips-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.pip {
+  width: 12px; height: 12px;
+  transform: rotate(45deg);
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pip.won {
+  background: var(--gold);
+  border-color: rgba(255,255,255,0.5);
+  box-shadow: 0 0 10px var(--gold), 0 0 20px rgba(255,184,0,0.4);
+}
+
+.pips-spacer {
+  font-family: var(--fh);
+  font-size: 24px;
+  color: var(--muted);
+  line-height: 1;
+}
+
+/* ═══════════════════════════════════════════════════
+   BOTTOM BAR
+═══════════════════════════════════════════════════ */
+.bottom-bar {
+  position: relative;
+  z-index: 10;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  background: rgba(4,8,15,0.70);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.bottom-left-line,
+.bottom-right-line {
+  flex: 1;
+  height: 1px;
+  max-width: 400px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,184,0,0.4) 100%);
+}
+
+.bottom-right-line {
+  transform: scaleX(-1);
+}
+
+.status-msg {
+  font-family: var(--fl);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  animation: status-pulse 2.5s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
