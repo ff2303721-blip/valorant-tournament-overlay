@@ -38,7 +38,7 @@ function renderMVP(state) {
   if (!container) return;
 
   const urlParams = new URLSearchParams(window.location.search);
-  const isPreview = urlParams.has('preview') || urlParams.has('always') || urlParams.has('size') || urlParams.has('scale');
+  const isPreview = urlParams.has('preview') || urlParams.has('always');
   if (!state.mvpVisible && !isPreview) {
     container.classList.add('hidden-mvp');
   } else {

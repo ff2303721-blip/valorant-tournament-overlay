@@ -34,8 +34,11 @@ function renderLeaderboard(state) {
   if (!state) return;
   currentData = state;
 
+  const container = document.getElementById('board-container');
+  if (!container) return;
+
   const urlParams = new URLSearchParams(window.location.search);
-  const isPreview = urlParams.has('preview') || urlParams.has('always') || urlParams.has('size') || urlParams.has('scale');
+  const isPreview = urlParams.has('preview') || urlParams.has('always');
   if (!state.leaderboardVisible && !isPreview) {
     container.classList.add('hidden-board');
   } else {
