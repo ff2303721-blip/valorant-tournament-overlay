@@ -193,8 +193,9 @@ try {
     if (!state.mvpPlayer) {
       state.mvpPlayer = defaultState.mvpPlayer;
     }
-    if (state.leaderboardVisible === undefined) state.leaderboardVisible = false;
-    if (state.mvpVisible === undefined) state.mvpVisible = false;
+    state.leaderboardVisible = typeof state.leaderboardVisible === 'boolean' ? state.leaderboardVisible : false;
+    state.mvpVisible = typeof state.mvpVisible === 'boolean' ? state.mvpVisible : false;
+    state.castersVisible = typeof state.castersVisible === 'boolean' ? state.castersVisible : false;
     console.log('[Server] Loaded existing match state from disk and verified rosters.');
   } else {
     state.teamsList = TOURNAMENT_TEAMS;
@@ -431,7 +432,7 @@ function handleClientAction(data) {
       break;
 
     case 'TOGGLE_CASTERS':
-      state.castersVisible = payload !== undefined ? payload : !state.castersVisible;
+      state.castersVisible = typeof payload === 'boolean' ? payload : !state.castersVisible;
       broadcastStateUpdate();
       break;
 
@@ -472,12 +473,12 @@ function handleClientAction(data) {
     }
 
     case 'TOGGLE_LEADERBOARD':
-      state.leaderboardVisible = payload !== undefined ? payload : !state.leaderboardVisible;
+      state.leaderboardVisible = typeof payload === 'boolean' ? payload : !state.leaderboardVisible;
       broadcastStateUpdate();
       break;
 
     case 'TOGGLE_MVP':
-      state.mvpVisible = payload !== undefined ? payload : !state.mvpVisible;
+      state.mvpVisible = typeof payload === 'boolean' ? payload : !state.mvpVisible;
       broadcastStateUpdate();
       break;
 

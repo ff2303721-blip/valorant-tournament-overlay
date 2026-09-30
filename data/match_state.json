@@ -336,8 +336,8 @@
       }
     ]
   },
-  "leaderboardVisible": {},
-  "mvpVisible": {},
+  "leaderboardVisible": false,
+  "mvpVisible": false,
   "mvpPlayer": {
     "name": "DOMINIC TORETTO",
     "teamTag": "NDL",

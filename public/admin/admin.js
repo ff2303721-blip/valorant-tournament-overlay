@@ -60,9 +60,10 @@ function connectWebSocket() {
   };
 }
 
-function sendAction(action, payload = {}) {
+function sendAction(action, payload) {
   if (ws && ws.readyState === WebSocket.OPEN) {
-    ws.send(JSON.stringify({ action, payload }));
+    const msg = payload !== undefined ? { action, payload } : { action };
+    ws.send(JSON.stringify(msg));
   } else {
     console.error('[Admin] WebSocket not open. Cannot send:', action);
   }
@@ -215,15 +216,30 @@ function renderPlayerStatsRosters(state) {
   if (tagB) tagB.textContent = state.teamB.tag || 'ATX';
 
   // Toggle buttons
+  const isLdVisible = !!state.leaderboardVisible;
+  const isMvpVisible = !!state.mvpVisible;
+
   const btnLd = document.getElementById('btn-toggle-stream-leaderboard');
   if (btnLd) {
-    btnLd.textContent = state.leaderboardVisible ? '📊 Hide Leaderboard' : '📊 Show Leaderboard';
-    btnLd.className = state.leaderboardVisible ? 'btn btn-danger btn-sm' : 'btn btn-secondary btn-sm';
+    btnLd.textContent = isLdVisible ? '📊 HIDE LEADERBOARD' : '📊 SHOW LEADERBOARD';
+    btnLd.className = isLdVisible ? 'btn btn-danger btn-sm' : 'btn btn-secondary btn-sm';
   }
   const btnMvp = document.getElementById('btn-toggle-stream-mvp');
   if (btnMvp) {
-    btnMvp.textContent = state.mvpVisible ? '⭐ Hide MVP Card' : '⭐ Show MVP Card';
-    btnMvp.className = state.mvpVisible ? 'btn btn-danger btn-sm' : 'btn btn-secondary btn-sm';
+    btnMvp.textContent = isMvpVisible ? '⭐ HIDE MVP CARD' : '⭐ SHOW MVP CARD';
+    btnMvp.className = isMvpVisible ? 'btn btn-danger btn-sm' : 'btn btn-secondary btn-sm';
+  }
+
+  // Top navbar toggle buttons
+  const navBtnLd = document.getElementById('btn-nav-toggle-leaderboard');
+  if (navBtnLd) {
+    navBtnLd.textContent = isLdVisible ? '📊 Leaderboard: ON' : '📊 Leaderboard: OFF';
+    navBtnLd.className = isLdVisible ? 'btn btn-danger btn-mini' : 'btn btn-secondary btn-mini';
+  }
+  const navBtnMvp = document.getElementById('btn-nav-toggle-mvp');
+  if (navBtnMvp) {
+    navBtnMvp.textContent = isMvpVisible ? '⭐ MVP Card: ON' : '⭐ MVP Card: OFF';
+    navBtnMvp.className = isMvpVisible ? 'btn btn-danger btn-mini' : 'btn btn-secondary btn-mini';
   }
 
   // Populate rows
@@ -595,9 +611,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const btnNavToggleLd = document.getElementById('btn-nav-toggle-leaderboard');
+  if (btnNavToggleLd) {
+    btnNavToggleLd.addEventListener('click', () => {
+      sendAction('TOGGLE_LEADERBOARD');
+    });
+  }
+
   const btnToggleStreamMvp = document.getElementById('btn-toggle-stream-mvp');
   if (btnToggleStreamMvp) {
     btnToggleStreamMvp.addEventListener('click', () => {
+      sendAction('TOGGLE_MVP');
+    });
+  }
+
+  const btnNavToggleMvp = document.getElementById('btn-nav-toggle-mvp');
+  if (btnNavToggleMvp) {
+    btnNavToggleMvp.addEventListener('click', () => {
       sendAction('TOGGLE_MVP');
     });
   }
