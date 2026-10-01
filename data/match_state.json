@@ -401,18 +401,7 @@
     "duration": 60,
     "remaining": 0
   },
-  "casters": [
-    {
-      "name": "SRB TROLLERS",
-      "handle": "@srbtrollersyt",
-      "role": "Play-by-Play"
-    },
-    {
-      "name": "SHEIKH KUNJAPPU",
-      "handle": "@sheikh_kunjappu",
-      "role": "Color Caster"
-    }
-  ],
+  "casters": [],
   "castersVisible": true,
   "veto": [
     {
