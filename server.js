@@ -732,10 +732,92 @@ function handlePollerResult(result) {
   console.log(`[Poller] 📡 Broadcast TOURNAMENT_RESULT for M${fixtureMatchNumber}`);
 }
 
+// ── Tournament Poller: auto-update player stats & MVP ────────────
+function handlePollerStats(statsArray) {
+  if (!statsArray || statsArray.length === 0) return;
+
+  let updated = 0;
+
+  // Helper: fuzzy name match (lowercase, ignore spaces/special chars)
+  function normalize(s) {
+    return (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+
+  // Update players in both rosters
+  const rosters = [
+    { team: state.teamA, players: state.teamA.players },
+    { team: state.teamB, players: state.teamB.players },
+  ];
+
+  for (const stat of statsArray) {
+    const normStat = normalize(stat.name);
+    for (const { players } of rosters) {
+      if (!Array.isArray(players)) continue;
+      const player = players.find(p => normalize(p.name) === normStat ||
+        normalize(p.name).includes(normStat) ||
+        normStat.includes(normalize(p.name)));
+      if (player) {
+        player.kills = stat.kills;
+        player.deaths = stat.deaths;
+        player.assists = stat.assists;
+        player.acs = stat.acs;
+        player.adr = stat.adr;
+        player.hs = stat.hs;
+        player.kd = stat.kd;
+        updated++;
+      }
+    }
+  }
+
+  if (updated === 0) {
+    console.log('[Poller] 📊 Stats received but no roster matches found yet.');
+    return;
+  }
+
+  // Auto-pick MVP: player with highest ACS across both rosters
+  const allPlayers = [
+    ...(state.teamA.players || []).map(p => ({ ...p, teamTag: state.teamA.tag, teamName: state.teamA.name, logo: state.teamA.logo })),
+    ...(state.teamB.players || []).map(p => ({ ...p, teamTag: state.teamB.tag, teamName: state.teamB.name, logo: state.teamB.logo })),
+  ].filter(p => p.acs > 0);
+
+  if (allPlayers.length > 0) {
+    const mvp = allPlayers.reduce((best, p) => p.acs > best.acs ? p : best, allPlayers[0]);
+    state.mvpPlayer = {
+      name: mvp.name,
+      teamTag: mvp.teamTag,
+      teamName: mvp.teamName,
+      role: mvp.role || 'Player',
+      agent: mvp.agent || '',
+      photo: mvp.photo || '',
+      logo: mvp.logo || '',
+      kills: mvp.kills || 0,
+      deaths: mvp.deaths || 0,
+      assists: mvp.assists || 0,
+      acs: mvp.acs || 0,
+    };
+    console.log(`[Poller] ⭐ Auto-MVP: ${mvp.name} (${mvp.teamTag}) — ACS ${mvp.acs}`);
+  }
+
+  saveStateToDisk();
+  broadcastStateUpdate();
+
+  // Also send a dedicated stats event so the admin can show a toast
+  broadcast({
+    type: 'STATS_UPDATE',
+    playersUpdated: updated,
+    totalPlayers: statsArray.length,
+    mvp: state.mvpPlayer,
+    importedAt: new Date().toISOString(),
+  });
+
+  console.log(`[Poller] 📊 Updated ${updated} player(s) in roster from site stats.`);
+}
+
 function startTournamentPoller() {
   tournamentPoller.start(
     handlePollerResult,
-    (statusUpdate) => broadcast({ type: 'POLLER_STATUS', ...statusUpdate })
+    (statusUpdate) => broadcast({ type: 'POLLER_STATUS', ...statusUpdate }),
+    handlePollerStats
   );
 }
 

@@ -154,7 +154,110 @@ async function pollMatch(siteId) {
   }
 }
 
+// ── Stats page scraper ────────────────────────────────────────────
+/**
+ * Fetches /stats from the tournament site and parses per-player stats.
+ * Returns an array of:
+ *   { name, teamTag, acs, kd, hs, adr, kills, deaths, assists, matches }
+ *
+ * The site uses Next.js RSC. Player stat rows look like (in RSC JSON):
+ *   ["PlayerName","TEAMTAG","285","1.24","23%","182","24","20","5","3"]
+ * When no stats: the values show as "–" (en-dash) or "–––" placeholders.
+ */
+async function pollStats() {
+  try {
+    const html = await fetchUrl(`${BASE_URL}/stats`);
+    return parseStatsPage(html);
+  } catch (err) {
+    console.warn(`[Poller] Failed to fetch stats page: ${err.message}`);
+    return [];
+  }
+}
+
+function parseStatsPage(html) {
+  const players = [];
+
+  /**
+   * Strategy: extract RSC flight JSON blocks and scan for player stat rows.
+   * RSC lines look like:  N:["PlayerName","TAG","285","1.24","23%","182","24","20","5","3"]
+   * We also try to match from rendered HTML tables.
+   */
+
+  // Known team tags for validation
+  const VALID_TAGS = new Set(['ATX', 'BBZ', 'NDL', 'VRN']);
+
+  // ── Method 1: RSC array rows ─────────────────────────────────
+  // Pattern: ["Name","TAG","ACS","KD","HS%","ADR","K","D","A","Matches"]
+  const rscRowRegex = /\["([^"]+)","([A-Z]{2,4})","([\d.]+)","([\d.]+)","([\d.]+)%?","([\d.]+)","(\d+)","(\d+)","(\d+)","(\d+)"\]/g;
+  let m;
+  while ((m = rscRowRegex.exec(html)) !== null) {
+    const [, name, teamTag, acs, kd, hs, adr, kills, deaths, assists, matches] = m;
+    if (!VALID_TAGS.has(teamTag)) continue;
+    players.push({
+      name: name.trim(),
+      teamTag,
+      acs: parseFloat(acs),
+      kd: parseFloat(kd),
+      hs: parseFloat(hs),
+      adr: parseFloat(adr),
+      kills: parseInt(kills),
+      deaths: parseInt(deaths),
+      assists: parseInt(assists),
+      matches: parseInt(matches),
+    });
+  }
+
+  if (players.length > 0) return players;
+
+  // ── Method 2: Escaped RSC JSON ────────────────────────────────
+  // When RSC data is JSON-string-escaped inside a script block
+  const escapedRowRegex = /\[\\"([^\\"]+)\\",\\"([A-Z]{2,4})\\",\\"([\d.]+)\\",\\"([\d.]+)\\",\\"([\d.]+)%?\\",\\"([\d.]+)\\",\\"(\d+)\\",\\"(\d+)\\",\\"(\d+)\\",\\"(\d+)\\"\]/g;
+  while ((m = escapedRowRegex.exec(html)) !== null) {
+    const [, name, teamTag, acs, kd, hs, adr, kills, deaths, assists, matches] = m;
+    if (!VALID_TAGS.has(teamTag)) continue;
+    players.push({
+      name: name.trim(),
+      teamTag,
+      acs: parseFloat(acs),
+      kd: parseFloat(kd),
+      hs: parseFloat(hs),
+      adr: parseFloat(adr),
+      kills: parseInt(kills),
+      deaths: parseInt(deaths),
+      assists: parseInt(assists),
+      matches: parseInt(matches),
+    });
+  }
+
+  if (players.length > 0) return players;
+
+  // ── Method 3: Rendered HTML table rows ────────────────────────
+  // <td>PlayerName</td><td>TAG</td><td>285</td>...
+  const htmlRowRegex = /<tr[^>]*>[\s\S]*?<td[^>]*>([\w\s]+)<\/td>\s*<td[^>]*>([A-Z]{2,4})<\/td>\s*<td[^>]*>([\d.]+)<\/td>\s*<td[^>]*>([\d.]+)<\/td>\s*<td[^>]*>([\d.]+)%?<\/td>\s*<td[^>]*>([\d.]+)<\/td>\s*<td[^>]*>(\d+)<\/td>\s*<td[^>]*>(\d+)<\/td>\s*<td[^>]*>(\d+)<\/td>\s*<td[^>]*>(\d+)<\/td>/g;
+  while ((m = htmlRowRegex.exec(html)) !== null) {
+    const [, name, teamTag, acs, kd, hs, adr, kills, deaths, assists, matches] = m;
+    if (!VALID_TAGS.has(teamTag)) continue;
+    players.push({
+      name: name.trim(),
+      teamTag,
+      acs: parseFloat(acs),
+      kd: parseFloat(kd),
+      hs: parseFloat(hs),
+      adr: parseFloat(adr),
+      kills: parseInt(kills),
+      deaths: parseInt(deaths),
+      assists: parseInt(assists),
+      matches: parseInt(matches),
+    });
+  }
+
+  return players;
+}
+
 // ── Main poll cycle ───────────────────────────────────────────────
+let lastStatsHash = ''; // detect stats changes without re-broadcasting identical data
+let onStatsCallback = null;
+
 async function pollCycle() {
   if (isPolling) return; // Skip if already running
   isPolling = true;
@@ -208,6 +311,21 @@ async function pollCycle() {
     await new Promise(r => setTimeout(r, 300));
   }
 
+  // ── Also poll /stats for player leaderboard & MVP data ─────────
+  try {
+    const statsData = await pollStats();
+    if (statsData.length > 0) {
+      const hash = JSON.stringify(statsData);
+      if (hash !== lastStatsHash) {
+        lastStatsHash = hash;
+        console.log(`[Poller] 📊 Stats updated: ${statsData.length} players found`);
+        if (onStatsCallback) onStatsCallback(statsData);
+      }
+    }
+  } catch (err) {
+    console.warn(`[Poller] Stats poll error: ${err.message}`);
+  }
+
   if (newResults === 0) {
     console.log(`[Poller] ℹ️ No new results found.`);
   } else {
@@ -231,21 +349,23 @@ async function pollCycle() {
  * Start the poller.
  * @param {Function} onResult  - called with result object when a match result is found
  * @param {Function} onStatus  - called with status updates
+ * @param {Function} onStats   - called with player stats array when stats change
  */
-function start(onResult, onStatus) {
+function start(onResult, onStatus, onStats) {
   if (pollTimer) {
     console.log('[Poller] Already running.');
     return;
   }
   onResultCallback = onResult;
   onStatusCallback = onStatus;
+  onStatsCallback = onStats || null;
 
-  console.log('[Poller] 🚀 Starting tournament result auto-poller (every 2 min)...');
+  console.log(`[Poller] 🚀 Starting tournament result auto-poller (every ${POLL_INTERVAL_MS/1000}s)...`);
 
   // Run immediately on start
   pollCycle().catch(console.error);
 
-  // Then every 2 minutes
+  // Then on interval
   pollTimer = setInterval(() => {
     pollCycle().catch(console.error);
   }, POLL_INTERVAL_MS);
@@ -274,4 +394,5 @@ function pollNow() {
   return pollCycle();
 }
 
-module.exports = { start, stop, getStatus, pollNow, SITE_ID_TO_FIXTURE };
+module.exports = { start, stop, getStatus, pollNow, pollStats, SITE_ID_TO_FIXTURE };
+
