@@ -32,7 +32,7 @@ const SITE_ID_TO_FIXTURE = {
   16: 16,  // M16 Grand Final
 };
 
-const POLL_INTERVAL_MS = 2 * 60 * 1000; // 2 minutes
+const POLL_INTERVAL_MS = 30 * 1000; // 30 seconds
 const BASE_URL = 'https://tournament.xmdofficial.in';
 
 let pollTimer = null;
@@ -263,7 +263,7 @@ function stop() {
 function getStatus() {
   return {
     running: !!pollTimer,
-    pollIntervalMinutes: POLL_INTERVAL_MS / 60000,
+    pollIntervalSeconds: POLL_INTERVAL_MS / 1000,
     lastKnownResults,
     siteIdToFixtureMap: SITE_ID_TO_FIXTURE,
   };
