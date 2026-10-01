@@ -667,7 +667,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       const preset = btn.dataset.preset;
       let newCasters = [];
-      if (preset === 'duo') {
+      if (preset === 'official') {
+        newCasters = [
+          { name: 'SRB TROLLERS', handle: '@srbtrollersyt', role: 'Play-by-Play' },
+          { name: 'SHEIKH KUNJAPPU', handle: '@sheikh_kunjappu', role: 'Color Caster' }
+        ];
+      } else if (preset === 'duo') {
         newCasters = [
           { name: 'CRONUS', handle: '@cronusval', role: 'Play-by-Play' },
           { name: 'VORTEX', handle: '@vortex_val', role: 'Color Caster' }

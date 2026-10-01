@@ -38,22 +38,22 @@ const TOURNAMENT_TEAMS = [
 
 // Official 16 Match Tournament Fixtures
 const TOURNAMENT_FIXTURES = [
-  { matchNumber: 1, label: "M1: NDL vs ATX (Lotus)", stage: "Group Stage", t1: "naadan-legacy", t2: "aetrix", map: "Lotus", bestOf: "BO1" },
-  { matchNumber: 2, label: "M2: NDL vs BBZ (Sunset)", stage: "Group Stage", t1: "naadan-legacy", t2: "bitter-blade-z", map: "Sunset", bestOf: "BO1" },
-  { matchNumber: 3, label: "M3: NDL vs VRN (Haven)", stage: "Group Stage", t1: "naadan-legacy", t2: "veyron", map: "Haven", bestOf: "BO1" },
-  { matchNumber: 4, label: "M4: ATX vs BBZ (Split)", stage: "Group Stage", t1: "aetrix", t2: "bitter-blade-z", map: "Split", bestOf: "BO1" },
-  { matchNumber: 5, label: "M5: ATX vs VRN (Ascent)", stage: "Group Stage", t1: "aetrix", t2: "veyron", map: "Ascent", bestOf: "BO1" },
-  { matchNumber: 6, label: "M6: BBZ vs VRN (Bind)", stage: "Group Stage", t1: "bitter-blade-z", t2: "veyron", map: "Bind", bestOf: "BO1" },
-  { matchNumber: 7, label: "M7: ATX vs NDL (Breeze)", stage: "Group Stage", t1: "aetrix", t2: "naadan-legacy", map: "Breeze", bestOf: "BO1" },
-  { matchNumber: 8, label: "M8: BBZ vs NDL (Bind)", stage: "Group Stage", t1: "bitter-blade-z", t2: "naadan-legacy", map: "Bind", bestOf: "BO1" },
-  { matchNumber: 9, label: "M9: VRN vs NDL (Lotus)", stage: "Group Stage", t1: "veyron", t2: "naadan-legacy", map: "Lotus", bestOf: "BO1" },
-  { matchNumber: 10, label: "M10: BBZ vs ATX (Sunset)", stage: "Group Stage", t1: "bitter-blade-z", t2: "aetrix", map: "Sunset", bestOf: "BO1" },
-  { matchNumber: 11, label: "M11: VRN vs ATX (Haven)", stage: "Group Stage", t1: "veyron", t2: "aetrix", map: "Haven", bestOf: "BO1" },
-  { matchNumber: 12, label: "M12: VRN vs BBZ (Ascent)", stage: "Group Stage", t1: "veyron", t2: "bitter-blade-z", map: "Ascent", bestOf: "BO1" },
-  { matchNumber: 13, label: "M13: Playoff Q1 (Rank 1 vs 2)", stage: "Playoffs: Q1", t1: "naadan-legacy", t2: "aetrix", map: "Ascent", bestOf: "BO3" },
-  { matchNumber: 14, label: "M14: Eliminator (Rank 3 vs 4)", stage: "Playoffs: Eliminator", t1: "bitter-blade-z", t2: "veyron", map: "Haven", bestOf: "BO3" },
-  { matchNumber: 15, label: "M15: Playoff Q2", stage: "Playoffs: Q2", t1: "aetrix", t2: "bitter-blade-z", map: "Lotus", bestOf: "BO3" },
-  { matchNumber: 16, label: "M16: Grand Finals", stage: "Grand Finals", t1: "naadan-legacy", t2: "aetrix", map: "Sunset", bestOf: "BO5" }
+  { matchNumber: 1, label: "M1: VRN vs NDL (Bind · Fri 2 Oct)", stage: "Group Stage · Week 1", t1: "veyron", t2: "naadan-legacy", map: "Bind", bestOf: "BO1", side1: "defense", side2: "attack", time: "Fri 2 Oct, 15:30" },
+  { matchNumber: 2, label: "M2: ATX vs BBZ (Abyss · Fri 2 Oct)", stage: "Group Stage · Week 1", t1: "aetrix", t2: "bitter-blade-z", map: "Abyss", bestOf: "BO1", side1: "defense", side2: "attack", time: "Fri 2 Oct, 16:30" },
+  { matchNumber: 3, label: "M3: BBZ vs NDL (Corrode · Sat 3 Oct)", stage: "Group Stage · Week 1", t1: "bitter-blade-z", t2: "naadan-legacy", map: "Corrode", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 3 Oct, 15:30" },
+  { matchNumber: 4, label: "M4: ATX vs NDL (Icebox · Sat 3 Oct)", stage: "Group Stage · Week 1", t1: "aetrix", t2: "naadan-legacy", map: "Icebox", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 3 Oct, 16:30" },
+  { matchNumber: 5, label: "M5: NDL vs BBZ (Pearl · Sun 4 Oct)", stage: "Group Stage · Week 1", t1: "naadan-legacy", t2: "bitter-blade-z", map: "Pearl", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sun 4 Oct, 15:30" },
+  { matchNumber: 6, label: "M6: ATX vs NDL (Corrode · Sun 4 Oct)", stage: "Group Stage · Week 1", t1: "aetrix", t2: "naadan-legacy", map: "Corrode", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sun 4 Oct, 16:30" },
+  { matchNumber: 7, label: "M7: BBZ vs VRN (Split · Sat 10 Oct)", stage: "Group Stage · Week 3", t1: "bitter-blade-z", t2: "veyron", map: "Split", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 10 Oct, 15:30" },
+  { matchNumber: 8, label: "M8: VRN vs ATX (Ascent · Sat 10 Oct)", stage: "Group Stage · Week 2", t1: "veyron", t2: "aetrix", map: "Ascent", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 10 Oct, 16:30" },
+  { matchNumber: 9, label: "M9: VRN vs NDL (Bind · Sun 11 Oct)", stage: "Group Stage · Week 2", t1: "veyron", t2: "naadan-legacy", map: "Bind", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sun 11 Oct, 15:30" },
+  { matchNumber: 10, label: "M10: VRN vs BBZ (Bind · Sun 11 Oct)", stage: "Group Stage · Week 2", t1: "veyron", t2: "bitter-blade-z", map: "Bind", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sun 11 Oct, 16:30" },
+  { matchNumber: 11, label: "M11: VRN vs ATX (Breeze · Sun 11 Oct)", stage: "Group Stage · Week 2", t1: "veyron", t2: "aetrix", map: "Breeze", bestOf: "BO1", side1: "attack", side2: "defense", time: "Sun 11 Oct, 17:30" },
+  { matchNumber: 12, label: "M12: BBZ vs ATX (Bind · Sat 17 Oct)", stage: "Group Stage · Week 3", t1: "bitter-blade-z", t2: "aetrix", map: "Bind", bestOf: "BO1", side1: "attack", side2: "defense", time: "Sat 17 Oct, 15:30" },
+  { matchNumber: 13, label: "M13: Qualifier 1 (Seed 1 vs 2)", stage: "Playoffs: Qualifier 1", t1: "naadan-legacy", t2: "aetrix", map: "Ascent", bestOf: "BO1", side1: "defense", side2: "attack" },
+  { matchNumber: 14, label: "M14: Eliminator (Seed 3 vs 4)", stage: "Playoffs: Eliminator", t1: "bitter-blade-z", t2: "veyron", map: "Haven", bestOf: "BO1", side1: "defense", side2: "attack" },
+  { matchNumber: 15, label: "M15: Qualifier 2", stage: "Playoffs: Qualifier 2", t1: "aetrix", t2: "bitter-blade-z", map: "Lotus", bestOf: "BO1", side1: "defense", side2: "attack" },
+  { matchNumber: 16, label: "M16: Grand Final", stage: "Grand Final", t1: "naadan-legacy", t2: "aetrix", map: "Sunset", bestOf: "BO3", side1: "attack", side2: "defense" }
 ];
 
 // Official 4-Team Rosters with Player Portraits from Tournament Manager
@@ -160,8 +160,8 @@ const defaultState = {
     remaining: 60
   },
   casters: [
-    { name: "Apex", handle: "@apexcast", role: "Play-by-Play" },
-    { name: "Vortex", handle: "@vortex_val", role: "Color Caster" }
+    { name: "SRB TROLLERS", handle: "@srbtrollersyt", role: "Play-by-Play" },
+    { name: "SHEIKH KUNJAPPU", handle: "@sheikh_kunjappu", role: "Color Caster" }
   ],
   castersVisible: false,
   veto: [
@@ -193,9 +193,13 @@ try {
     if (!state.mvpPlayer) {
       state.mvpPlayer = defaultState.mvpPlayer;
     }
+    if (!state.casters || state.casters.length === 0) {
+      state.casters = defaultState.casters;
+    }
     state.leaderboardVisible = typeof state.leaderboardVisible === 'boolean' ? state.leaderboardVisible : false;
     state.mvpVisible = typeof state.mvpVisible === 'boolean' ? state.mvpVisible : false;
     state.castersVisible = typeof state.castersVisible === 'boolean' ? state.castersVisible : false;
+    saveStateToDisk();
     console.log('[Server] Loaded existing match state from disk and verified rosters.');
   } else {
     state.teamsList = TOURNAMENT_TEAMS;
@@ -310,7 +314,8 @@ function handleClientAction(data) {
         state.teamA.logo = team1.logo;
         state.teamA.score = 0;
         state.teamA.mapWins = 0;
-        state.teamA.side = 'attack';
+        state.teamA.side = fix.side1 || 'attack';
+        state.teamA.color = state.teamA.side === 'attack' ? '#ff4655' : '#00f0ff';
         state.teamA.players = getRosterForTeam(team1.id);
 
         state.teamB.id = team2.id;
@@ -319,7 +324,8 @@ function handleClientAction(data) {
         state.teamB.logo = team2.logo;
         state.teamB.score = 0;
         state.teamB.mapWins = 0;
-        state.teamB.side = 'defense';
+        state.teamB.side = fix.side2 || 'defense';
+        state.teamB.color = state.teamB.side === 'attack' ? '#ff4655' : '#00f0ff';
         state.teamB.players = getRosterForTeam(team2.id);
 
         if (state.teamA.players && state.teamA.players.length > 0) {
