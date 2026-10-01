@@ -47,6 +47,8 @@ function connectWebSocket() {
         }
         alert('⚠️ Match Import Error: ' + data.error);
       }
+      // Forward all WS messages to DOM so inline scripts can react
+      document.dispatchEvent(new CustomEvent('ws-message', { detail: data }));
     } catch (e) {
       console.error('[Admin] Error parsing message:', e);
     }

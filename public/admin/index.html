@@ -437,8 +437,121 @@
       </div>
     </details>
 
+    <!-- ═══ LIVE RESULTS IMPORTER ══════════════════════════════ -->
+    <details class="card mt-2" id="results-poller-card" open>
+      <summary class="card-header" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <h2 style="margin:0;">📡 Live Results Importer</h2>
+          <span id="poller-status-badge" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;background:#1e4620;color:#4caf50;letter-spacing:1px;">AUTO-POLLING</span>
+        </div>
+        <button id="btn-poll-now" class="btn btn-primary btn-mini" style="margin:0;" onclick="event.preventDefault();pollNow()">🔄 Check Now</button>
+      </summary>
+      <div style="padding:12px 16px;">
+        <p style="color:#8892a0;font-size:12px;margin:0 0 12px;">
+          Automatically checks <strong style="color:#ff4655">tournament.xmdofficial.in</strong> every <strong>2 minutes</strong> for completed match scores.
+          Results auto-apply to the scoreboard when detected. Last checked: <span id="poller-last-check" style="color:#c9d1d9">—</span>
+        </p>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;">
+          <thead>
+            <tr style="border-bottom:1px solid #21262d;color:#8892a0;text-transform:uppercase;letter-spacing:1px;">
+              <th style="padding:6px 8px;text-align:left;">Match</th>
+              <th style="padding:6px 8px;text-align:center;">Score</th>
+              <th style="padding:6px 8px;text-align:center;">Winner</th>
+              <th style="padding:6px 8px;text-align:center;">Map</th>
+              <th style="padding:6px 8px;text-align:center;">Imported</th>
+            </tr>
+          </thead>
+          <tbody id="results-tbody">
+            <tr><td colspan="5" style="padding:16px;text-align:center;color:#8892a0;">No results imported yet. Matches play Fri 2 Oct @ 9 PM IST.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
   </div>
 
   <script src="admin.js"></script>
+  <script>
+    // ── Live Results Poller Admin Integration ─────────────────────
+    const FIXTURE_LABELS = {
+      1:'M1 VRN vs NDL',2:'M2 ATX vs BBZ',3:'M3 BBZ vs NDL',
+      4:'M4 ATX vs NDL',5:'M5 NDL vs BBZ',6:'M6 ATX vs NDL',
+      7:'M7 BBZ vs VRN',8:'M8 VRN vs ATX',9:'M9 VRN vs NDL',
+      10:'M10 VRN vs BBZ',11:'M11 VRN vs ATX',12:'M12 BBZ vs ATX',
+      13:'M13 Qualifier 1',14:'M14 Eliminator',15:'M15 Qualifier 2',16:'M16 Grand Final'
+    };
+    const importedResults = {};
+
+    function renderResultsTable() {
+      const tbody = document.getElementById('results-tbody');
+      const entries = Object.entries(importedResults);
+      if (entries.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="padding:16px;text-align:center;color:#8892a0;">No results imported yet.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = entries.map(([mn, r]) => `
+        <tr style="border-bottom:1px solid #161b22;">
+          <td style="padding:6px 8px;color:#c9d1d9;">${FIXTURE_LABELS[mn] || 'M'+mn}</td>
+          <td style="padding:6px 8px;text-align:center;font-weight:700;color:#ff4655;font-size:14px;">${r.score1} – ${r.score2}</td>
+          <td style="padding:6px 8px;text-align:center;color:#ffd700;font-weight:600;">${r.winner || '—'}</td>
+          <td style="padding:6px 8px;text-align:center;color:#8892a0;">${r.map || '—'}</td>
+          <td style="padding:6px 8px;text-align:center;color:#8892a0;font-size:10px;">${r.importedAt ? new Date(r.importedAt).toLocaleTimeString('en-IN',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit'}) + ' IST' : '—'}</td>
+        </tr>
+      `).join('');
+    }
+
+    function pollNow() {
+      const btn = document.getElementById('btn-poll-now');
+      btn.textContent = '⏳ Checking...';
+      btn.disabled = true;
+      fetch('/api/poller/poll-now', { method: 'POST' })
+        .then(r => r.json())
+        .then(d => {
+          btn.textContent = '✅ Done';
+          setTimeout(() => { btn.textContent = '🔄 Check Now'; btn.disabled = false; }, 2000);
+        })
+        .catch(() => { btn.textContent = '❌ Error'; btn.disabled = false; });
+    }
+
+    // Listen for poller events from WebSocket
+    document.addEventListener('ws-message', (e) => {
+      const msg = e.detail;
+      if (msg.type === 'TOURNAMENT_RESULT') {
+        importedResults[msg.fixtureMatchNumber] = {
+          score1: msg.score1, score2: msg.score2,
+          team1Tag: msg.team1Tag, team2Tag: msg.team2Tag,
+          winner: msg.winner, map: msg.map, importedAt: msg.importedAt,
+        };
+        renderResultsTable();
+        // Flash notification
+        const badge = document.getElementById('poller-status-badge');
+        const orig = badge.textContent;
+        badge.textContent = '✅ NEW RESULT!';
+        badge.style.background = '#ffd700';
+        badge.style.color = '#000';
+        setTimeout(() => { badge.textContent = orig; badge.style.background='#1e4620'; badge.style.color='#4caf50'; }, 4000);
+      }
+      if (msg.type === 'POLLER_STATUS') {
+        const el = document.getElementById('poller-last-check');
+        if (el && msg.lastCheck) el.textContent = msg.lastCheck + ' IST';
+        if (msg.status === 'polling') {
+          const badge = document.getElementById('poller-status-badge');
+          if (badge) { badge.textContent = '🔄 POLLING...'; badge.style.background='#1a3a5c'; badge.style.color='#58a6ff'; }
+        } else if (msg.status === 'idle') {
+          const badge = document.getElementById('poller-status-badge');
+          if (badge) { badge.textContent = 'AUTO-POLLING'; badge.style.background='#1e4620'; badge.style.color='#4caf50'; }
+        }
+      }
+    });
+
+    // Load existing results from state on init
+    fetch('/api/state').then(r=>r.json()).then(s => {
+      if (s.completedResults) {
+        Object.assign(importedResults, s.completedResults);
+        renderResultsTable();
+      }
+    });
+  </script>
 </body>
 </html>
+

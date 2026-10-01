@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const liveTracker = require('./liveTracker');
 const riotTracker = require('./riotMatchTracker');
+const tournamentPoller = require('./tournamentPoller');
 
 const app = express();
 const server = http.createServer(app);
@@ -639,6 +640,30 @@ app.post('/api/tracker/stop', (req, res) => {
   res.json({ success: true, tracker: liveTracker.getStatus() });
 });
 
+// ── Tournament Result Auto-Poller API ───────────────────────────
+app.get('/api/poller/status', (req, res) => {
+  res.json(tournamentPoller.getStatus());
+});
+
+app.post('/api/poller/start', (req, res) => {
+  startTournamentPoller();
+  res.json({ success: true, status: tournamentPoller.getStatus() });
+});
+
+app.post('/api/poller/stop', (req, res) => {
+  tournamentPoller.stop();
+  res.json({ success: true, status: tournamentPoller.getStatus() });
+});
+
+app.post('/api/poller/poll-now', async (req, res) => {
+  try {
+    await tournamentPoller.pollNow();
+    res.json({ success: true, status: tournamentPoller.getStatus() });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // Explicit routes for admin panel (handles both /admin and /admin/ cleanly)
 app.get(['/admin', '/admin/'], (req, res) => {
   const adminHtml = path.join(__dirname, 'public', 'admin', 'index.html');
@@ -676,6 +701,44 @@ app.get('/', (req, res) => {
   res.redirect('/admin');
 });
 
+// ── Tournament Poller: handles new result from site ───────────────
+function handlePollerResult(result) {
+  const { fixtureMatchNumber, score1, score2, team1Tag, team2Tag, winner, map, importedAt } = result;
+
+  // Store in state.completedResults keyed by matchNumber
+  if (!state.completedResults) state.completedResults = {};
+  state.completedResults[fixtureMatchNumber] = {
+    score1, score2, team1Tag, team2Tag, winner, map, importedAt,
+  };
+
+  // If this is the currently-loaded fixture and scores are still 0, auto-apply
+  if (state.match && state.match.fixtureMatchNumber === fixtureMatchNumber) {
+    if (state.teamA.score === 0 && state.teamB.score === 0) {
+      state.teamA.score = score1;
+      state.teamB.score = score2;
+      state.match.statusBanner = winner ? `${winner} WINS!` : 'FINAL';
+      console.log(`[Poller] 🏆 Auto-applied live score for M${fixtureMatchNumber}: ${score1}-${score2}`);
+    }
+  }
+
+  // Broadcast result event to all connected clients (overlays + admin)
+  broadcast({
+    type: 'TOURNAMENT_RESULT',
+    fixtureMatchNumber, score1, score2,
+    team1Tag, team2Tag, winner, map, importedAt,
+  });
+
+  saveStateToDisk();
+  console.log(`[Poller] 📡 Broadcast TOURNAMENT_RESULT for M${fixtureMatchNumber}`);
+}
+
+function startTournamentPoller() {
+  tournamentPoller.start(
+    handlePollerResult,
+    (statusUpdate) => broadcast({ type: 'POLLER_STATUS', ...statusUpdate })
+  );
+}
+
 server.listen(PORT, () => {
   console.log(`=================================================`);
   console.log(` VALORANT TOURNAMENT OVERLAY SERVER RUNNING!   `);
@@ -686,4 +749,7 @@ server.listen(PORT, () => {
   console.log(` OBS Caster Lower Third: http://localhost:${PORT}/overlays/casters`);
   console.log(` OBS Versus / Pre-Match: http://localhost:${PORT}/overlays/versus`);
   console.log(`=================================================`);
+
+  // Auto-start the tournament result poller (polls every 2 min)
+  startTournamentPoller();
 });
