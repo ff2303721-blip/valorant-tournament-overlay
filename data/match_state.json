@@ -1,12 +1,12 @@
 {
   "match": {
     "title": "VALORANT TOURNAMENT",
-    "stage": "GRAND FINALS",
-    "seriesType": "BO3",
+    "stage": "Group Stage",
+    "seriesType": "BO1",
     "currentMapIndex": 1,
-    "mapName": "Ascent",
+    "mapName": "Lotus",
     "phase": "live",
-    "statusBanner": "TECHNICAL PAUSE"
+    "statusBanner": ""
   },
   "teamsList": [
     {
@@ -196,54 +196,54 @@
         "role": "Captain",
         "photo": "/players/DOMINIC.png",
         "agent": "Jett",
-        "kills": 40,
-        "deaths": 19,
-        "assists": 6,
-        "acs": 12048
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 260
       },
       {
         "id": "ndl-2",
         "name": "OUTLAWS",
         "role": "Player",
         "photo": "/players/DOMINIC.png",
-        "agent": "Jett",
-        "kills": 33,
-        "deaths": 19,
-        "assists": 5,
-        "acs": 10159
+        "agent": "Omen",
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 195
       },
       {
         "id": "ndl-3",
         "name": "Light yagami",
         "role": "Player",
         "photo": "/players/DRAIVEN.png",
-        "agent": "Raze",
-        "kills": 32,
-        "deaths": 19,
-        "assists": 7,
-        "acs": 10085
+        "agent": "Sova",
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 180
       },
       {
         "id": "ndl-4",
         "name": "TRICKY",
         "role": "Player",
         "photo": "/players/TRICKY.png",
-        "agent": "Viper",
-        "kills": 27,
-        "deaths": 23,
-        "assists": 9,
-        "acs": 8684
+        "agent": "Killjoy",
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 170
       },
       {
         "id": "ndl-5",
         "name": "zippaz007",
         "role": "Player",
         "photo": "/players/DOMINIC.png",
-        "agent": "Jett",
-        "kills": 21,
-        "deaths": 23,
-        "assists": 11,
-        "acs": 6698
+        "agent": "Raze",
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 210
       },
       {
         "id": "ndl-6",
@@ -273,55 +273,55 @@
         "name": "AEGON XD",
         "role": "Captain",
         "photo": "/players/AEGON.png",
-        "agent": "Chamber",
-        "kills": 20,
-        "deaths": 18,
-        "assists": 9,
-        "acs": 6221
+        "agent": "Reyna",
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 250
       },
       {
         "id": "atx-2",
         "name": "Luxy",
         "role": "Player",
         "photo": "/players/LUXY.png",
-        "agent": "Jett",
-        "kills": 15,
-        "deaths": 19,
-        "assists": 10,
-        "acs": 5319
+        "agent": "Viper",
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 190
       },
       {
         "id": "atx-3",
         "name": "Thakudu Scarlet",
         "role": "Player",
         "photo": "/players/SCARLET.png",
-        "agent": "Jett",
-        "kills": 16,
-        "deaths": 20,
-        "assists": 6,
-        "acs": 4955
+        "agent": "Skye",
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 185
       },
       {
         "id": "atx-4",
         "name": "SHREYA",
         "role": "Player",
         "photo": "/players/SREYA.png",
-        "agent": "Sage",
-        "kills": 13,
-        "deaths": 26,
-        "assists": 7,
-        "acs": 4172
+        "agent": "Fade",
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 175
       },
       {
         "id": "atx-5",
         "name": "PorottaBeef",
         "role": "Player",
         "photo": "/players/POROTTA.png",
-        "agent": "Jett",
-        "kills": 11,
-        "deaths": 25,
-        "assists": 5,
-        "acs": 3849
+        "agent": "Cypher",
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 165
       },
       {
         "id": "atx-6",
@@ -342,14 +342,14 @@
     "name": "DOMINIC TORETTO",
     "teamTag": "NDL",
     "teamName": "NAADAN LEGACY",
-    "role": "Match MVP",
+    "role": "Captain",
     "agent": "Jett",
     "photo": "/players/DOMINIC.png",
     "logo": "/logos/naadan-legacy.png",
-    "kills": 40,
-    "deaths": 19,
-    "assists": 6,
-    "acs": 12048
+    "kills": 0,
+    "deaths": 0,
+    "assists": 0,
+    "acs": 200
   },
   "timeout": {
     "active": false,

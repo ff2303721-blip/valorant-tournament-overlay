@@ -317,6 +317,8 @@ function renderTeamRosterList(containerId, teamKey, players, mvpPlayer, team) {
       if (agSel && document.activeElement !== agSel) agSel.value = p.agent || 'Jett';
     });
   }
+}
+
 // Dynamic Casters Manager
 let localCastersList = [];
 let castersListInitialized = false;
@@ -595,6 +597,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnToggleCasters = document.getElementById('btn-toggle-casters');
   if (btnToggleCasters) {
     btnToggleCasters.addEventListener('click', () => {
+      const currentCasters = collectCastersFromAdminUI();
+      if (currentCasters && currentCasters.length > 0) {
+        sendAction('UPDATE_CASTERS', currentCasters);
+      }
       const target = currentState ? !currentState.castersVisible : true;
       sendAction('TOGGLE_CASTERS', target);
     });
@@ -619,6 +625,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const castersListContainer = document.getElementById('casters-list-container');
   if (castersListContainer) {
+    castersListContainer.addEventListener('input', () => {
+      collectCastersFromAdminUI();
+    });
+    castersListContainer.addEventListener('change', () => {
+      collectCastersFromAdminUI();
+    });
     castersListContainer.addEventListener('click', (e) => {
       const btnRemove = e.target.closest('.btn-remove-caster');
       if (btnRemove) {

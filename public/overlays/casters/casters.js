@@ -154,4 +154,5 @@ function renderCasters(state) {
 }
 
 connectWebSocket();
+fetch('/api/state').then(r => r.json()).then(renderCasters).catch(() => {});
 initAutoScale('.auto-stage', { anchor: 'bottom' });
