@@ -20,72 +20,101 @@
 <div class="vs-root">
 
   <!-- ── BACKGROUND LAYERS ─────────────────────── -->
-  <div class="bg-base"></div>
-  <div class="bg-aura aura-a"></div>
-  <div class="bg-aura aura-b"></div>
-  <div class="bg-grid"></div>
+  <div class="bg-art"></div>
+  <div class="bg-vignette"></div>
+  <div class="bg-aura aura-left"></div>
+  <div class="bg-aura aura-right"></div>
+  <div class="bg-light-beams"></div>
 
-  <!-- ── TOP BANNER ────────────────────────────── -->
-  <header class="top-banner">
-    <div class="top-left-accent"></div>
-    <div class="tournament-info">
-      <span class="tournament-label" id="vs-stage">GRAND FINALS</span>
-      <span class="tournament-name" id="vs-title">VALORANT CHAMPIONSHIP</span>
+  <!-- ── TOP HEADER ────────────────────────────── -->
+  <header class="top-header">
+    <div class="val-emblem-wrap">
+      <!-- Valorant V Logo -->
+      <svg class="val-logo-svg" viewBox="0 0 100 100" fill="currentColor">
+        <path d="M99.2 16.5l-44.8 67h-21l44.8-67h21zm-65.8 0l-33.4 34.2h21l22.4-23 10-11.2h-20z"/>
+      </svg>
+      <span class="val-text">VALORANT</span>
     </div>
-    <div class="top-right-accent"></div>
+    <div class="tournament-title-gold-wrap">
+      <span class="gold-chevron-left"></span>
+      <h1 class="tournament-title-gold" id="vs-title">XMD VALORANT TOURNAMENT</h1>
+      <span class="gold-chevron-right"></span>
+    </div>
   </header>
 
   <!-- ── MAIN MATCHUP ───────────────────────────── -->
   <main class="matchup">
 
-    <!-- TEAM A PANEL -->
-    <div class="team-panel panel-a" id="panel-a">
-      <!-- Gradient wash behind team A -->
-      <div class="panel-wash wash-a"></div>
+    <!-- LEFT TEAM PANEL (DEFENDERS) -->
+    <div class="team-panel panel-left" id="panel-a">
+      <div class="side-pill side-defenders" id="vs-side-a">
+        <span class="side-accent-bar"></span>
+        <span class="side-text" id="vs-side-text-a">DEFENDERS</span>
+      </div>
 
-      <div class="panel-content">
-        <div class="side-label" id="vs-side-a">ATTACKERS</div>
-        <img id="vs-logo-a" class="vs-team-crest" src="/logos/naadan-legacy.png" alt="Logo">
-        <div class="team-acronym" id="vs-tag-a">NDL</div>
-        <div class="team-fullname" id="vs-name-a">NAADAN LEGACY</div>
+      <div class="logo-container">
+        <div class="logo-backglow"></div>
+        <img id="vs-logo-a" class="vs-team-crest" src="/logos/veyron.png" alt="Logo">
+      </div>
 
-        <div class="map-wins-row">
-          <span class="mw-label">MAPS WON</span>
-          <span class="mw-count" id="vs-wins-a">0</span>
-        </div>
+      <div class="team-acronym" id="vs-tag-a">VRN</div>
+      <div class="team-fullname" id="vs-name-a">VEYRON</div>
+
+      <div class="maps-won-box">
+        <span class="mw-label">MAPS WON</span>
+        <span class="mw-count" id="vs-wins-a">0</span>
       </div>
     </div>
 
-    <!-- CENTER DIVIDER -->
+    <!-- CENTER PIECE -->
     <div class="center-piece">
-      <div class="vs-ring">
-        <div class="vs-ring-inner">V/S</div>
+      <!-- Golden bracket box with V/S -->
+      <div class="vs-box">
+        <div class="bracket-tl"></div>
+        <div class="bracket-tr"></div>
+        <div class="bracket-bl"></div>
+        <div class="bracket-br"></div>
+        <div class="vs-text-brush">V/S</div>
       </div>
-      <div class="map-card">
-        <span class="map-card-label">NEXT MAP</span>
-        <span class="map-card-name" id="vs-map">ASCENT</span>
+
+      <!-- Map display box -->
+      <div class="map-section">
+        <div class="map-label-top">NEXT MAP</div>
+        <div class="map-name-pill" id="vs-map">BIND</div>
       </div>
-      <div class="series-pips-wrap">
+
+      <!-- Series pips hidden / fallback -->
+      <div class="series-pips-wrap" style="display:none;">
         <div class="pips-row" id="pips-a"></div>
-        <div class="pips-spacer">:</div>
         <div class="pips-row" id="pips-b"></div>
       </div>
+
+      <!-- Golden Valorant Logo Pedestal -->
+      <div class="pedestal-wrap">
+        <svg class="pedestal-logo" viewBox="0 0 100 100" fill="currentColor">
+          <path d="M99.2 16.5l-44.8 67h-21l44.8-67h21zm-65.8 0l-33.4 34.2h21l22.4-23 10-11.2h-20z"/>
+        </svg>
+      </div>
     </div>
 
-    <!-- TEAM B PANEL -->
-    <div class="team-panel panel-b" id="panel-b">
-      <div class="panel-wash wash-b"></div>
+    <!-- RIGHT TEAM PANEL (ATTACKERS) -->
+    <div class="team-panel panel-right" id="panel-b">
+      <div class="side-pill side-attackers" id="vs-side-b">
+        <span class="side-text" id="vs-side-text-b">ATTACKERS</span>
+        <span class="side-accent-bar"></span>
+      </div>
 
-      <div class="panel-content">
-        <div class="side-label" id="vs-side-b">DEFENDERS</div>
-        <img id="vs-logo-b" class="vs-team-crest" src="/logos/aetrix.png" alt="Logo">
-        <div class="team-acronym" id="vs-tag-b">ATX</div>
-        <div class="team-fullname" id="vs-name-b">AETRIX</div>
+      <div class="logo-container">
+        <div class="logo-backglow"></div>
+        <img id="vs-logo-b" class="vs-team-crest" src="/logos/naadan-legacy.png" alt="Logo">
+      </div>
 
-        <div class="map-wins-row">
-          <span class="mw-label">MAPS WON</span>
-          <span class="mw-count" id="vs-wins-b">0</span>
-        </div>
+      <div class="team-acronym" id="vs-tag-b">NDL</div>
+      <div class="team-fullname" id="vs-name-b">NAADAN LEGACY</div>
+
+      <div class="maps-won-box">
+        <span class="mw-label">MAPS WON</span>
+        <span class="mw-count" id="vs-wins-b">0</span>
       </div>
     </div>
 
@@ -93,9 +122,15 @@
 
   <!-- ── BOTTOM STATUS BAR ──────────────────────── -->
   <footer class="bottom-bar">
-    <div class="bottom-left-line"></div>
+    <div class="bottom-ornament-left">
+      <span class="dot"></span>
+      <span class="line"></span>
+    </div>
     <span class="status-msg" id="vs-status">MATCH WILL BEGIN SHORTLY</span>
-    <div class="bottom-right-line"></div>
+    <div class="bottom-ornament-right">
+      <span class="line"></span>
+      <span class="dot"></span>
+    </div>
   </footer>
 
 </div><!-- /vs-root -->

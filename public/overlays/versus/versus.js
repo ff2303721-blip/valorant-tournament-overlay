@@ -48,21 +48,26 @@ function render(s) {
   set('vs-tag-a',  s.teamA.tag  || 'NDL');
   set('vs-name-a', s.teamA.name || 'NAADAN LEGACY');
   set('vs-wins-a', s.teamA.mapWins ?? 0);
-  set('vs-side-a', s.teamA.side === 'attack' ? 'ATTACKERS' : 'DEFENDERS');
+  // Side labels & styling
+  const isAttackA = (s.teamA.side === 'attack');
+  const sideTextA = isAttackA ? 'ATTACKERS' : 'DEFENDERS';
+  const sideTextB = isAttackA ? 'DEFENDERS' : 'ATTACKERS';
+
+  set('vs-side-text-a', sideTextA);
+  set('vs-side-text-b', sideTextB);
+
+  const pillA = document.getElementById('vs-side-a');
+  const pillB = document.getElementById('vs-side-b');
+  if (pillA) pillA.className = 'side-pill ' + (isAttackA ? 'side-attackers' : 'side-defenders');
+  if (pillB) pillB.className = 'side-pill ' + (!isAttackA ? 'side-attackers' : 'side-defenders');
+
   setLogo('vs-logo-a', s.teamA.logo);
 
   // Team B
   set('vs-tag-b',  s.teamB.tag  || 'ATX');
   set('vs-name-b', s.teamB.name || 'AETRIX');
   set('vs-wins-b', s.teamB.mapWins ?? 0);
-  set('vs-side-b', s.teamB.side === 'attack' ? 'ATTACKERS' : 'DEFENDERS');
   setLogo('vs-logo-b', s.teamB.logo);
-
-  // Side labels colour via border
-  const sideA = document.getElementById('vs-side-a');
-  const sideB = document.getElementById('vs-side-b');
-  if (sideA) sideA.style.borderColor = s.teamA.side === 'attack' ? 'var(--red)' : 'var(--cyan)';
-  if (sideB) sideB.style.borderColor = s.teamB.side === 'attack' ? 'var(--red)' : 'var(--cyan)';
 
   // Series pips
   const winsNeeded = s.match.seriesType === 'BO5' ? 3 : s.match.seriesType === 'BO1' ? 1 : 2;
