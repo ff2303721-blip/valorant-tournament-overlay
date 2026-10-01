@@ -63,11 +63,8 @@ function renderCasters(state) {
   if (!container || !cardsWrap) return;
 
   const urlParams = new URLSearchParams(window.location.search);
-
-  // Preview or dark background mode
-  if (urlParams.has('preview') || urlParams.has('dark')) {
-    document.body.classList.add('preview-mode');
-  }
+  // Ensure transparent background
+  document.body.style.backgroundColor = 'transparent';
 
   // Positioning
   const pos = urlParams.get('pos');

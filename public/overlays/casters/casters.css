@@ -7,16 +7,16 @@ html, body {
   padding: 0;
   position: relative;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0) !important;
-  background-color: rgba(0, 0, 0, 0) !important;
+  background: transparent !important;
+  background-color: transparent !important;
   font-family: 'Rajdhani', sans-serif;
   color: #fff;
   -webkit-font-smoothing: antialiased;
 }
 
 body.preview-mode {
-  background: #070c14 !important;
-  background-color: #070c14 !important;
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 .auto-stage {
