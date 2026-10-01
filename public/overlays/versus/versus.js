@@ -34,15 +34,15 @@ function setLogo(id, src) {
 function render(s) {
   if (!s) return;
 
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('preview') || urlParams.has('dark')) {
+    document.body.classList.add('preview-mode');
+  }
+
   // Tournament header
   set('vs-title',  s.match.title || 'VALORANT CHAMPIONSHIP');
   set('vs-stage',  s.match.stage || 'GRAND FINALS');
   set('vs-map',    s.match.mapName || 'ASCENT');
-
-  const seriesLabel = s.match.seriesType === 'BO5' ? 'BEST OF 5'
-                    : s.match.seriesType === 'BO1' ? 'BEST OF 1'
-                    : 'BEST OF 3';
-  set('vs-series', seriesLabel);
 
   // Team A
   set('vs-tag-a',  s.teamA.tag  || 'NDL');
