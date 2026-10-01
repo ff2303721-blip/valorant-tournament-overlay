@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@600;700;800&family=Inter:wght@500;600;700;800&display=swap');
+
 html, body {
   width: 100%;
   height: 100%;
@@ -5,7 +7,16 @@ html, body {
   padding: 0;
   position: relative;
   overflow: hidden;
-  background: transparent !important;
+  background: rgba(0, 0, 0, 0) !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  font-family: 'Rajdhani', sans-serif;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.preview-mode {
+  background: #070c14 !important;
+  background-color: #070c14 !important;
 }
 
 .auto-stage {
@@ -15,84 +26,338 @@ html, body {
   width: 1920px;
   height: 1080px;
   pointer-events: none;
+  box-sizing: border-box;
 }
 
-.casters-wrap {
+/* ══════════════════════════════════════════════════════════
+   CASTERS CONTAINER
+══════════════════════════════════════════════════════════ */
+.casters-container {
   position: absolute;
   bottom: 60px;
   left: 80px;
   display: flex;
-  gap: 24px;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translateY(0);
+  flex-direction: column;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(0) scale(1);
   opacity: 1;
+  pointer-events: auto;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
 }
 
-.casters-wrap.hidden {
-  transform: translateY(120px);
+.casters-container.hidden {
+  transform: translateY(90px) scale(0.97);
   opacity: 0;
   pointer-events: none;
 }
 
-.caster-card {
-  display: flex;
-  align-items: stretch;
-  background: rgba(15, 25, 35, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-left: 5px solid var(--val-red);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
-  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%);
-  min-width: 320px;
+/* Position overrides via ?pos= */
+.casters-container.pos-center {
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+}
+.casters-container.pos-center.hidden {
+  transform: translateX(-50%) translateY(90px) scale(0.97);
 }
 
-.caster-badge {
-  background: var(--val-red);
-  color: #fff;
+.casters-container.pos-right {
+  left: auto;
+  right: 80px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   TOP DESK HEADER RIBBON
+══════════════════════════════════════════════════════════ */
+.desk-header-bar {
+  align-self: flex-start;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0 14px;
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 700;
+  justify-content: space-between;
+  gap: 20px;
+  background: linear-gradient(90deg, rgba(255, 70, 85, 0.28) 0%, rgba(13, 21, 32, 0.96) 35%, rgba(13, 21, 32, 0.98) 100%);
+  border: 1px solid rgba(255, 70, 85, 0.45);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  padding: 6px 18px 6px 14px;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
+  box-shadow: 0 -4px 15px rgba(255, 70, 85, 0.15);
+  min-width: 240px;
 }
 
-.caster-content {
-  padding: 14px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.caster-name {
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--val-light);
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.caster-meta {
+.desk-tag-box {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 4px;
 }
 
-.caster-role {
-  font-family: var(--font-sub);
+.val-logo-svg {
+  width: 17px;
+  height: 17px;
+  color: #ff4655;
+  fill: currentColor;
+  filter: drop-shadow(0 0 6px rgba(255, 70, 85, 0.8));
+}
+
+.desk-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 800;
   font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  color: var(--val-cyan);
+  letter-spacing: 2.2px;
+  color: #f8fafc;
   text-transform: uppercase;
 }
 
+.live-status-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 70, 85, 0.16);
+  border: 1px solid rgba(255, 70, 85, 0.4);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff4655;
+  box-shadow: 0 0 8px #ff4655;
+  animation: pulseDot 1.4s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+.live-text {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #ff858f;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CASTERS CARDS WRAPPER
+══════════════════════════════════════════════════════════ */
+.casters-cards-wrap {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* ══════════════════════════════════════════════════════════
+   INDIVIDUAL CASTER CARD
+══════════════════════════════════════════════════════════ */
+.caster-card {
+  position: relative;
+  min-width: 300px;
+  background: linear-gradient(145deg, rgba(16, 26, 38, 0.96) 0%, rgba(9, 14, 23, 0.98) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Dynamic role border accents */
+.caster-card.role-pbp {
+  border-left: 4px solid #ff4655;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), -4px 0 20px rgba(255, 70, 85, 0.25);
+}
+.caster-card.role-color {
+  border-left: 4px solid #00f0ff;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), -4px 0 20px rgba(0, 240, 255, 0.25);
+}
+.caster-card.role-host {
+  border-left: 4px solid #ffb800;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), -4px 0 20px rgba(255, 184, 0, 0.25);
+}
+.caster-card.role-analyst {
+  border-left: 4px solid #a855f7;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), -4px 0 20px rgba(168, 85, 247, 0.25);
+}
+.caster-card.role-observer {
+  border-left: 4px solid #10b981;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), -4px 0 20px rgba(16, 185, 129, 0.25);
+}
+.caster-card.role-general {
+  border-left: 4px solid #ff4655;
+}
+
+/* Card Header (Role Tag Row) */
+.caster-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 4px 16px;
+}
+
+.role-badge {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.role-pbp .role-badge {
+  background: rgba(255, 70, 85, 0.18);
+  color: #ff6b78;
+  border: 1px solid rgba(255, 70, 85, 0.4);
+}
+.role-color .role-badge {
+  background: rgba(0, 240, 255, 0.18);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.4);
+}
+.role-host .role-badge {
+  background: rgba(255, 184, 0, 0.18);
+  color: #ffb800;
+  border: 1px solid rgba(255, 184, 0, 0.4);
+}
+.role-analyst .role-badge {
+  background: rgba(168, 85, 247, 0.18);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+}
+.role-observer .role-badge {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+.role-general .role-badge {
+  background: rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.role-icon-svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+.card-index-tag {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 1px;
+}
+
+/* Card Main Details */
+.caster-body {
+  padding: 4px 16px 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.caster-avatar-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.caster-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.caster-avatar-icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  opacity: 0.85;
+}
+
+.role-pbp .caster-avatar-icon { color: #ff4655; }
+.role-color .caster-avatar-icon { color: #00f0ff; }
+.role-host .caster-avatar-icon { color: #ffb800; }
+.role-analyst .caster-avatar-icon { color: #a855f7; }
+.role-observer .caster-avatar-icon { color: #10b981; }
+.role-general .caster-avatar-icon { color: #ff4655; }
+
+.caster-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.caster-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: #ffffff;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  margin-bottom: 3px;
+}
+
+.caster-handle-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.handle-icon {
+  width: 12px;
+  height: 12px;
+  fill: #94a3b8;
+  flex-shrink: 0;
+}
+
 .caster-handle {
-  font-family: var(--font-sub);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--val-muted);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+/* Dynamic density adjustments when 4+ casters */
+.count-3 .caster-card {
+  min-width: 270px;
+}
+.count-3 .caster-name {
+  font-size: 30px;
+}
+
+.count-4 .caster-card, .count-5 .caster-card {
+  min-width: 240px;
+  padding: 0;
+}
+.count-4 .caster-name, .count-5 .caster-name {
+  font-size: 26px;
+}
+.count-4 .caster-avatar-box, .count-5 .caster-avatar-box {
+  width: 40px;
+  height: 40px;
 }

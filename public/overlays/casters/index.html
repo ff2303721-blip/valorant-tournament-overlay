@@ -2,15 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Valorant Caster Lower Thirds</title>
+  <title>Valorant Broadcast Talent &amp; Casters</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@600;700;800&family=Inter:wght@500;600;700;800&display=swap">
   <link rel="stylesheet" href="/common/styles.css">
-  <style>html,body{background:rgba(0,0,0,0)!important;background-color:rgba(0,0,0,0)!important;}</style>
   <link rel="stylesheet" href="casters.css">
 </head>
 <body>
   <div class="auto-stage">
-    <div id="casters-wrap" class="casters-wrap hidden">
-      <!-- Caster cards dynamically injected -->
+    <div id="casters-container" class="casters-container hidden">
+      
+      <!-- Top VCT Desk Ribbon -->
+      <div class="desk-header-bar">
+        <div class="desk-tag-box">
+          <svg class="val-logo-svg" viewBox="0 0 100 100" fill="currentColor">
+            <path d="M99.2 16.5l-44.8 67h-21l44.8-67h21zm-65.8 0l-33.4 34.2h21l22.4-23 10-11.2h-20z"/>
+          </svg>
+          <span class="desk-title" id="desk-title">BROADCAST TALENT</span>
+        </div>
+        <div class="live-status-pill">
+          <span class="live-dot"></span>
+          <span class="live-text">ON AIR</span>
+        </div>
+      </div>
+
+      <!-- Casters Cards Row/Grid -->
+      <div id="casters-cards-wrap" class="casters-cards-wrap">
+        <!-- Injected via casters.js -->
+      </div>
+
     </div>
   </div>
 

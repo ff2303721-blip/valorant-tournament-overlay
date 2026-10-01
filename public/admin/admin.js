@@ -174,23 +174,17 @@ function syncUI(state) {
     }
   }
 
-  // Casters
-  const casters = state.casters || [];
-  if (casters[0]) {
-    document.getElementById('input-caster1-name').value = casters[0].name || '';
-    document.getElementById('input-caster1-handle').value = casters[0].handle || '';
-  }
-  if (casters[1]) {
-    document.getElementById('input-caster2-name').value = casters[1].name || '';
-    document.getElementById('input-caster2-handle').value = casters[1].handle || '';
-  }
+  // Casters dynamic admin render
+  renderCastersAdmin(state.casters || []);
   const btnToggleCasters = document.getElementById('btn-toggle-casters');
-  if (state.castersVisible) {
-    btnToggleCasters.textContent = 'HIDE';
-    btnToggleCasters.className = 'btn btn-mini btn-danger';
-  } else {
-    btnToggleCasters.textContent = 'SHOW';
-    btnToggleCasters.className = 'btn btn-mini btn-primary';
+  if (btnToggleCasters) {
+    if (state.castersVisible) {
+      btnToggleCasters.textContent = 'HIDE';
+      btnToggleCasters.className = 'btn btn-mini btn-danger';
+    } else {
+      btnToggleCasters.textContent = 'SHOW';
+      btnToggleCasters.className = 'btn btn-mini btn-primary';
+    }
   }
 
   // Render Player Rosters
@@ -323,6 +317,79 @@ function renderTeamRosterList(containerId, teamKey, players, mvpPlayer, team) {
       if (agSel && document.activeElement !== agSel) agSel.value = p.agent || 'Jett';
     });
   }
+// Dynamic Casters Manager
+let localCastersList = [];
+let castersListInitialized = false;
+
+function escapeHtml(str) {
+  return String(str || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function renderCastersAdmin(casters) {
+  const container = document.getElementById('casters-list-container');
+  if (!container) return;
+
+  const countBadge = document.getElementById('casters-count-badge');
+  if (countBadge) countBadge.textContent = (casters || []).length;
+
+  const isEditing = container.contains(document.activeElement);
+  if (isEditing && castersListInitialized) return;
+
+  localCastersList = JSON.parse(JSON.stringify(casters || []));
+  castersListInitialized = true;
+
+  if (localCastersList.length === 0) {
+    container.innerHTML = `
+      <div style="text-align:center; padding: 12px 6px; color: var(--t3); font-size: 11px;">
+        No casters added. Click <strong>➕ Add</strong> to add talent.
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = localCastersList.map((c, i) => {
+    const role = c.role || 'Play-by-Play';
+    return `
+      <div class="caster-entry-row" data-index="${i}">
+        <div class="caster-row-header">
+          <span class="caster-num-pill">TALENT #${i + 1}</span>
+          <select class="caster-role-select">
+            <option value="Play-by-Play" ${role === 'Play-by-Play' ? 'selected' : ''}>🎙️ Play-by-Play</option>
+            <option value="Color Caster" ${role === 'Color Caster' ? 'selected' : ''}>🎙️ Color Caster</option>
+            <option value="Desk Host" ${role === 'Desk Host' ? 'selected' : ''}>👑 Desk Host</option>
+            <option value="Analyst" ${role === 'Analyst' ? 'selected' : ''}>🧠 Analyst</option>
+            <option value="Observer" ${role === 'Observer' ? 'selected' : ''}>🎥 Observer</option>
+            <option value="Talent" ${role === 'Talent' ? 'selected' : ''}>🎧 Talent</option>
+          </select>
+          <button type="button" class="btn-remove-caster" data-index="${i}" title="Remove Caster">✕</button>
+        </div>
+        <div class="dual-input mt-1">
+          <input type="text" class="form-input caster-name-input" placeholder="Name (e.g. CRONUS)" value="${escapeHtml(c.name || '')}">
+          <input type="text" class="form-input caster-handle-input" placeholder="@handle" value="${escapeHtml(c.handle || '')}">
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function collectCastersFromAdminUI() {
+  const container = document.getElementById('casters-list-container');
+  if (!container) return [];
+  const rows = container.querySelectorAll('.caster-entry-row');
+  const result = [];
+  rows.forEach(row => {
+    const roleSel = row.querySelector('.caster-role-select');
+    const nameInp = row.querySelector('.caster-name-input');
+    const handleInp = row.querySelector('.caster-handle-input');
+    const name = nameInp ? nameInp.value.trim() : '';
+    const handle = handleInp ? handleInp.value.trim() : '';
+    const role = roleSel ? roleSel.value : 'Play-by-Play';
+    if (name) {
+      result.push({ name, handle, role });
+    }
+  });
+  localCastersList = result;
+  return result;
 }
 
 // Veto Table Generation
@@ -524,26 +591,91 @@ document.addEventListener('DOMContentLoaded', () => {
     sendAction('UPDATE_MATCH', { title, stage });
   });
 
-  // Casters
-  document.getElementById('btn-toggle-casters').addEventListener('click', () => {
-    const target = currentState ? !currentState.castersVisible : true;
-    sendAction('TOGGLE_CASTERS', target);
-  });
+  // Dynamic Casters Event Listeners
+  const btnToggleCasters = document.getElementById('btn-toggle-casters');
+  if (btnToggleCasters) {
+    btnToggleCasters.addEventListener('click', () => {
+      const target = currentState ? !currentState.castersVisible : true;
+      sendAction('TOGGLE_CASTERS', target);
+    });
+  }
 
-  document.getElementById('btn-save-casters').addEventListener('click', () => {
-    const casters = [
-      {
-        name: document.getElementById('input-caster1-name').value,
-        handle: document.getElementById('input-caster1-handle').value,
-        role: 'Play-by-Play'
-      },
-      {
-        name: document.getElementById('input-caster2-name').value,
-        handle: document.getElementById('input-caster2-handle').value,
-        role: 'Color Caster'
+  const btnAddCaster = document.getElementById('btn-add-caster');
+  if (btnAddCaster) {
+    btnAddCaster.addEventListener('click', () => {
+      collectCastersFromAdminUI();
+      localCastersList.push({
+        name: '',
+        handle: '',
+        role: localCastersList.length === 0 ? 'Play-by-Play' : (localCastersList.length === 1 ? 'Color Caster' : 'Analyst')
+      });
+      castersListInitialized = false;
+      renderCastersAdmin(localCastersList);
+      const container = document.getElementById('casters-list-container');
+      const inputs = container.querySelectorAll('.caster-name-input');
+      if (inputs.length > 0) inputs[inputs.length - 1].focus();
+    });
+  }
+
+  const castersListContainer = document.getElementById('casters-list-container');
+  if (castersListContainer) {
+    castersListContainer.addEventListener('click', (e) => {
+      const btnRemove = e.target.closest('.btn-remove-caster');
+      if (btnRemove) {
+        const idx = parseInt(btnRemove.dataset.index, 10);
+        collectCastersFromAdminUI();
+        if (!isNaN(idx) && idx >= 0 && idx < localCastersList.length) {
+          localCastersList.splice(idx, 1);
+          castersListInitialized = false;
+          renderCastersAdmin(localCastersList);
+          sendAction('UPDATE_CASTERS', localCastersList);
+        }
       }
-    ];
-    sendAction('UPDATE_CASTERS', casters);
+    });
+  }
+
+  const btnSaveCasters = document.getElementById('btn-save-casters');
+  if (btnSaveCasters) {
+    btnSaveCasters.addEventListener('click', () => {
+      const casters = collectCastersFromAdminUI();
+      sendAction('UPDATE_CASTERS', casters);
+      const origText = btnSaveCasters.textContent;
+      btnSaveCasters.textContent = '✓ Saved';
+      btnSaveCasters.style.background = '#10e79e';
+      btnSaveCasters.style.color = '#000';
+      setTimeout(() => {
+        btnSaveCasters.textContent = origText;
+        btnSaveCasters.style.background = '';
+        btnSaveCasters.style.color = '';
+      }, 1200);
+    });
+  }
+
+  document.querySelectorAll('.casters-quick-presets .btn-preset-mini').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const preset = btn.dataset.preset;
+      let newCasters = [];
+      if (preset === 'duo') {
+        newCasters = [
+          { name: 'CRONUS', handle: '@cronusval', role: 'Play-by-Play' },
+          { name: 'VORTEX', handle: '@vortex_val', role: 'Color Caster' }
+        ];
+      } else if (preset === 'trio') {
+        newCasters = [
+          { name: 'APEX', handle: '@apex_desk', role: 'Desk Host' },
+          { name: 'CRONUS', handle: '@cronusval', role: 'Play-by-Play' },
+          { name: 'VORTEX', handle: '@vortex_val', role: 'Color Caster' }
+        ];
+      } else if (preset === 'solo') {
+        newCasters = [
+          { name: 'CRONUS', handle: '@cronusval', role: 'Play-by-Play' }
+        ];
+      }
+      localCastersList = newCasters;
+      castersListInitialized = false;
+      renderCastersAdmin(newCasters);
+      sendAction('UPDATE_CASTERS', newCasters);
+    });
   });
 
   // Save Veto Table Changes

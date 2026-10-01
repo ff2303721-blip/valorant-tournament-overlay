@@ -302,22 +302,28 @@
           <button id="btn-toggle-tracker" class="btn btn-primary btn-mini w-100 mt-1">▶ START AUTO-SYNC</button>
         </div>
 
-        <!-- CASTERS LOWER THIRD (SLIM) -->
-        <div class="card compact-card">
+        <!-- BROADCAST TALENT / CASTERS (DYNAMIC MANAGER) -->
+        <div class="card compact-card casters-admin-card">
           <div class="card-header-flex">
-            <h2>Casters Lower Third</h2>
+            <h2>🎙️ Talent &amp; Casters (<span id="casters-count-badge">0</span>)</h2>
             <div class="btn-group-mini">
-              <button id="btn-save-casters" class="btn btn-mini btn-secondary">Save</button>
+              <button id="btn-add-caster" class="btn btn-mini btn-outline" title="Add another caster or host">➕ Add</button>
+              <button id="btn-save-casters" class="btn btn-mini btn-secondary" title="Save talent changes">Save</button>
               <button id="btn-toggle-casters" class="btn btn-mini btn-primary">SHOW</button>
             </div>
           </div>
-          <div class="dual-input">
-            <input type="text" id="input-caster1-name"   class="form-input" placeholder="Caster 1"  value="Apex">
-            <input type="text" id="input-caster1-handle" class="form-input" placeholder="@handle"   value="@apexcast">
+
+          <!-- Dynamic List of Casters -->
+          <div id="casters-list-container" class="casters-admin-list">
+            <!-- Dynamically populated by renderCastersAdmin() in admin.js -->
           </div>
-          <div class="dual-input mt-1">
-            <input type="text" id="input-caster2-name"   class="form-input" placeholder="Caster 2"  value="Vortex">
-            <input type="text" id="input-caster2-handle" class="form-input" placeholder="@handle"   value="@vortex_val">
+
+          <!-- Quick presets row -->
+          <div class="casters-quick-presets">
+            <span class="preset-label">Presets:</span>
+            <button type="button" class="btn-preset-mini" data-preset="duo">Duo (PBP + Color)</button>
+            <button type="button" class="btn-preset-mini" data-preset="trio">Trio (Host + 2)</button>
+            <button type="button" class="btn-preset-mini" data-preset="solo">Solo</button>
           </div>
         </div>
 
@@ -397,7 +403,7 @@
               </div>
               <div class="obs-item-btns">
                 <button class="btn-copy" data-url="/overlays/casters">Copy URL</button>
-                <a href="/overlays/casters" target="_blank" class="btn-open-link">Open</a>
+                <a href="/overlays/casters?preview=1" target="_blank" class="btn-open-link">Open</a>
               </div>
             </div>
           </div>

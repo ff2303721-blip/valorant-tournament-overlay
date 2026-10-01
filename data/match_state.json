@@ -359,14 +359,19 @@
   },
   "casters": [
     {
-      "name": "Apex",
-      "handle": "@apexcast",
+      "handle": "@cronusval",
+      "name": "CRONUS",
       "role": "Play-by-Play"
     },
     {
-      "name": "Vortex",
       "handle": "@vortex_val",
+      "name": "VORTEX",
       "role": "Color Caster"
+    },
+    {
+      "handle": "@apex_desk",
+      "name": "APEX",
+      "role": "Desk Host"
     }
   ],
   "castersVisible": false,
