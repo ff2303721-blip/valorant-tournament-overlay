@@ -89,7 +89,20 @@ function syncUI(state) {
   document.getElementById('input-match-title').value = state.match.title || '';
   document.getElementById('input-match-stage').value = state.match.stage || '';
   document.getElementById('select-series-type').value = state.match.seriesType || 'BO3';
-  document.getElementById('select-current-map').value = state.match.mapName || 'Ascent';
+  const mapSel = document.getElementById('select-current-map');
+  if (mapSel) {
+    const targetMap = state.match.mapName || 'Ascent';
+    let matchOpt = [...mapSel.options].find(o => o.value.toLowerCase() === targetMap.toLowerCase());
+    if (!matchOpt) {
+      const newOpt = document.createElement('option');
+      newOpt.value = targetMap;
+      newOpt.textContent = targetMap;
+      mapSel.appendChild(newOpt);
+      mapSel.value = targetMap;
+    } else {
+      mapSel.value = matchOpt.value;
+    }
+  }
   document.getElementById('input-map-index').value = state.match.currentMapIndex || 1;
   document.getElementById('input-status-banner').value = state.match.statusBanner || '';
 

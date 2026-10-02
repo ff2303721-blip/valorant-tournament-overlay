@@ -11,7 +11,8 @@ const MAP_THEMES = {
   Abyss: 'linear-gradient(135deg, #10263f 0%, #08111e 100%)',
   Icebox: 'linear-gradient(135deg, #22435e 0%, #102538 100%)',
   Breeze: 'linear-gradient(135deg, #1b4d54 0%, #0b272b 100%)',
-  Fracture: 'linear-gradient(135deg, #4d441b 0%, #27230b 100%)'
+  Fracture: 'linear-gradient(135deg, #4d441b 0%, #27230b 100%)',
+  Corrode: 'linear-gradient(135deg, #3f2216 0%, #1c0e08 100%)'
 };
 
 function connectWebSocket() {
