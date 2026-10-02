@@ -310,6 +310,7 @@ function handleClientAction(data) {
         state.match.mapName = fix.map;
         state.match.currentMapIndex = 1;
         state.match.statusBanner = '';
+        state.match.fixtureMatchNumber = matchNum;
 
         state.teamA.id = team1.id;
         state.teamA.name = team1.name;
@@ -719,13 +720,56 @@ function handlePollerResult(result) {
     score1, score2, team1Tag, team2Tag, winner, map, importedAt,
   };
 
-  // If this is the currently-loaded fixture and scores are still 0, auto-apply
+  // If this is the currently-loaded fixture, auto-apply score, players, and MVP
   if (state.match && state.match.fixtureMatchNumber === fixtureMatchNumber) {
-    if (state.teamA.score === 0 && state.teamB.score === 0) {
-      state.teamA.score = score1;
-      state.teamB.score = score2;
-      state.match.statusBanner = winner ? `${winner} WINS!` : 'FINAL';
-      console.log(`[Poller] 🏆 Auto-applied live score for M${fixtureMatchNumber}: ${score1}-${score2}`);
+    state.teamA.score = score1;
+    state.teamB.score = score2;
+    state.match.statusBanner = winner ? `${winner} WINS!` : 'FINAL';
+    console.log(`[Poller] 🏆 Auto-applied live score for M${fixtureMatchNumber}: ${score1}-${score2}`);
+
+    // If result includes match player combat stats, apply to rosters
+    if (Array.isArray(result.players) && result.players.length > 0) {
+      function normalize(s) { return (s || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+      result.players.forEach(p => {
+        const normName = normalize(p.name);
+        [state.teamA, state.teamB].forEach(team => {
+          if (team && Array.isArray(team.players)) {
+            const found = team.players.find(pl => {
+              const n = normalize(pl.name);
+              return n === normName || n.includes(normName) || normName.includes(n);
+            });
+            if (found) {
+              found.kills = p.kills;
+              found.deaths = p.deaths;
+              found.assists = p.assists;
+              found.acs = p.acs;
+              if (p.agent) found.agent = p.agent;
+            }
+          }
+        });
+      });
+
+      // Pick top fragger / highest ACS as MVP
+      const sorted = [...result.players].sort((a, b) => (b.acs || 0) - (a.acs || 0));
+      if (sorted.length > 0) {
+        const top = sorted[0];
+        const assignedTeam = (top.riotTag === state.teamA.tag || state.teamA.name.includes(top.name)) ? state.teamA : state.teamB;
+        const rosterPlayer = assignedTeam.players ? assignedTeam.players.find(pl => normalize(pl.name).includes(normalize(top.name))) : null;
+        state.mvpPlayer = {
+          name: rosterPlayer ? rosterPlayer.name : top.name,
+          teamTag: assignedTeam.tag,
+          teamName: assignedTeam.name,
+          role: 'Match MVP',
+          agent: top.agent || (rosterPlayer ? rosterPlayer.agent : 'Jett'),
+          photo: rosterPlayer ? rosterPlayer.photo : '/players/DOMINIC.png',
+          logo: assignedTeam.logo,
+          kills: top.kills,
+          deaths: top.deaths,
+          assists: top.assists,
+          acs: top.acs,
+        };
+        console.log(`[Poller] ⭐ Auto-applied match MVP: ${state.mvpPlayer.name} (${state.mvpPlayer.teamTag})`);
+      }
     }
   }
 
@@ -737,6 +781,7 @@ function handlePollerResult(result) {
   });
 
   saveStateToDisk();
+  broadcastStateUpdate();
   console.log(`[Poller] 📡 Broadcast TOURNAMENT_RESULT for M${fixtureMatchNumber}`);
 }
 
@@ -765,13 +810,13 @@ function handlePollerStats(statsArray) {
         normalize(p.name).includes(normStat) ||
         normStat.includes(normalize(p.name)));
       if (player) {
-        player.kills = stat.kills;
-        player.deaths = stat.deaths;
-        player.assists = stat.assists;
-        player.acs = stat.acs;
-        player.adr = stat.adr;
-        player.hs = stat.hs;
-        player.kd = stat.kd;
+        if (stat.kills !== undefined) player.kills = stat.kills;
+        if (stat.deaths !== undefined) player.deaths = stat.deaths;
+        if (stat.assists !== undefined) player.assists = stat.assists;
+        if (stat.acs !== undefined) player.acs = stat.acs;
+        if (stat.adr !== undefined) player.adr = stat.adr;
+        if (stat.hs !== undefined) player.hs = stat.hs;
+        if (stat.kd !== undefined) player.kd = stat.kd;
         updated++;
       }
     }
