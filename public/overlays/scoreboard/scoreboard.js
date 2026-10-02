@@ -104,6 +104,14 @@ function applySide(blockId, textId, side) {
   block.classList.remove('attack', 'defense');
   block.classList.add(side);
   textEl.textContent = side === 'attack' ? 'ATK' : 'DEF';
+
+  // Apply side underglow to score block
+  const scoreBlockId = blockId === 'block-a' ? 'score-a-block' : 'score-b-block';
+  const scoreBlock = document.getElementById(scoreBlockId);
+  if (scoreBlock) {
+    scoreBlock.classList.remove('side-attack', 'side-defense');
+    scoreBlock.classList.add(side === 'attack' ? 'side-attack' : 'side-defense');
+  }
 }
 
 function renderPips(containerId, totalNeeded, wins) {
