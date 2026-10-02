@@ -16,17 +16,18 @@ const DATA_FILE = path.join(__dirname, 'data', 'match_state.json');
 
 app.use(express.json({ limit: '10mb' }));
 
-// Disable caching for OBS Browser Sources so updates reflect instantly
-app.use((req, res, next) => {
+// API routes - disable caching so live overlay state updates reflect instantly
+app.use('/api', (req, res, next) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
   res.set('Pragma', 'no-cache');
   res.set('Expires', '0');
   next();
 });
 
+// Static assets (logos, player photos, images, CSS, JS) - enable browser caching
 app.use(express.static(path.join(__dirname, 'public'), {
-  etag: false,
-  lastModified: false
+  maxAge: '1d',
+  etag: true
 }));
 
 // Tournament Teams Catalog
