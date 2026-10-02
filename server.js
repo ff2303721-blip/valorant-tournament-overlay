@@ -108,7 +108,7 @@ function getRosterForTeam(teamIdOrName) {
 const defaultState = {
   match: {
     title: "VALORANT TOURNAMENT",
-    stage: "GRAND FINALS",
+    stage: "Group Stage",
     seriesType: "BO3", // BO1, BO3, BO5
     currentMapIndex: 1,
     mapName: "Ascent",
@@ -141,6 +141,7 @@ const defaultState = {
   },
   leaderboardVisible: false,
   mvpVisible: false,
+  mvpType: 'map', // 'map' or 'match'
   mvpPlayer: {
     name: "DOMINIC TORETTO",
     teamTag: "NDL",
@@ -475,6 +476,12 @@ function handleClientAction(data) {
 
     case 'SET_MVP': {
       state.mvpPlayer = { ...state.mvpPlayer, ...payload };
+      broadcastStateUpdate();
+      break;
+    }
+
+    case 'SET_MVP_TYPE': {
+      state.mvpType = payload === 'match' ? 'match' : 'map';
       broadcastStateUpdate();
       break;
     }

@@ -227,6 +227,10 @@
             </div>
             <div class="deck-actions-wrap">
               <button id="btn-import-match" class="btn btn-warning btn-mini" title="Auto-fetch official kills, deaths, assists & MVP from completed match">⚡ Import Match Results</button>
+              <select id="select-mvp-type" class="form-select" style="max-width:130px; font-size:11px; padding:3px 8px; font-weight:700; height:28px; background:#1b2533; border:1px solid #ffb800; color:#ffb800;" title="Select MVP Card mode">
+                <option value="map" selected>🗺️ Map MVP</option>
+                <option value="match">🏆 Match MVP</option>
+              </select>
               <button id="btn-toggle-stream-leaderboard" class="btn btn-secondary btn-mini">📊 Show Leaderboard</button>
               <button id="btn-toggle-stream-mvp" class="btn btn-secondary btn-mini">⭐ Show MVP Card</button>
               <button id="btn-reset-player-stats" class="btn btn-danger btn-mini">Reset Stats</button>
@@ -276,7 +280,7 @@
           <h2>Tournament Info</h2>
           <div class="dual-input">
             <input type="text" id="input-match-title" class="form-input" value="VALORANT TOURNAMENT" placeholder="Tournament Name">
-            <input type="text" id="input-match-stage" class="form-input" value="GRAND FINALS" placeholder="Stage / Subtitle">
+            <input type="text" id="input-match-stage" class="form-input" value="Group Stage" placeholder="Stage / Subtitle">
           </div>
           <button id="btn-save-meta" class="btn btn-secondary btn-mini mt-1 w-100">Update Info</button>
         </div>

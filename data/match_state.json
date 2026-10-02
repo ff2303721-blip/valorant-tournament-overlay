@@ -382,6 +382,7 @@
   },
   "leaderboardVisible": false,
   "mvpVisible": false,
+  "mvpType": "map",
   "mvpPlayer": {
     "name": "DOMINIC TORETTO",
     "teamTag": "NDL",

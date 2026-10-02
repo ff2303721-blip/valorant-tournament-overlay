@@ -82,7 +82,22 @@ function renderMVP(state) {
 
   const mapName = (state.match && state.match.mapName) || 'ASCENT';
   const stage = (state.match && state.match.stage) || 'MATCH REPORT';
-  document.getElementById('mvp-match-info').textContent = `${stage.toUpperCase()} • ${mapName.toUpperCase()}`;
+  const currentMapIndex = (state.match && state.match.currentMapIndex) || 1;
+  const isMatchMvp = (state.mvpType === 'match') || (urlParams.get('type') === 'match');
+
+  const ribbonEl = document.getElementById('mvp-ribbon-title');
+  if (ribbonEl) {
+    ribbonEl.textContent = isMatchMvp ? 'VCT MATCH MVP' : 'VCT MAP MVP';
+  }
+
+  const matchInfoEl = document.getElementById('mvp-match-info');
+  if (matchInfoEl) {
+    if (isMatchMvp) {
+      matchInfoEl.textContent = `${stage.toUpperCase()} • MATCH MVP`;
+    } else {
+      matchInfoEl.textContent = `MAP ${currentMapIndex} • ${mapName.toUpperCase()}`;
+    }
+  }
 }
 
 // Initialize auto-scaling to prevent cropping on any OBS or window resolution

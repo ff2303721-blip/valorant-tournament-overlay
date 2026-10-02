@@ -248,6 +248,11 @@ function renderPlayerStatsRosters(state) {
     navBtnMvp.className = isMvpVisible ? 'btn btn-danger btn-mini' : 'btn btn-secondary btn-mini';
   }
 
+  const selectMvpType = document.getElementById('select-mvp-type');
+  if (selectMvpType && document.activeElement !== selectMvpType) {
+    selectMvpType.value = state.mvpType || 'map';
+  }
+
   // Populate rows
   renderTeamRosterList('admin-roster-a', 'teamA', state.teamA.players || [], state.mvpPlayer, state.teamA);
   renderTeamRosterList('admin-roster-b', 'teamB', state.teamB.players || [], state.mvpPlayer, state.teamB);
@@ -795,6 +800,13 @@ document.addEventListener('DOMContentLoaded', () => {
     btnNavToggleMvp.addEventListener('click', () => {
       const target = currentState ? !currentState.mvpVisible : true;
       sendAction('TOGGLE_MVP', target);
+    });
+  }
+
+  const selectMvpTypeEl = document.getElementById('select-mvp-type');
+  if (selectMvpTypeEl) {
+    selectMvpTypeEl.addEventListener('change', (e) => {
+      sendAction('SET_MVP_TYPE', e.target.value);
     });
   }
 
