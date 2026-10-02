@@ -122,18 +122,61 @@ function parseMatchPage(html, matchSlug) {
   }
 
   // 4. Extract Per-Player Combat Stats from match scoreboard table
-  // Pattern: ["$","tr","NAME#TAG-AGENT",{"className":"","children":...
-  const rowPattern = /\["\$","tr","([^"#]+)#([^"-]+)-([^"]+)",[\s\S]*?children":(\d+)\}\],\["\$","td",null,\{[^}]*children":(\d+)\}\],\["\$","td",null,\{[^}]*children":(\d+)\}\],\["\$","td",null,\{[^}]*children":(\d+)\}/g;
-  let pMatch;
-  while ((pMatch = rowPattern.exec(fullRSC)) !== null) {
+  // 1. Build dictionary of all slot references: e.g. 2d:["$","td",null,{"className":"...","children":266}]
+  const slots = {};
+  const slotPattern = /(?:^|\n)([0-9a-f]+):\["\$","td",null,\{"className":"[^"]*","children":([^}]+)\}\]/g;
+  let sm;
+  while ((sm = slotPattern.exec(fullRSC)) !== null) {
+    const key = sm[1];
+    let val = sm[2].trim();
+    try { val = JSON.parse(val); } catch(e) {}
+    slots[key] = val;
+  }
+
+  // 2. Extract each tr row by looking for ["$","tr","NAME#TAG-AGENT",{"className":...
+  const trStartRegex = /\["\$","tr","([^"#]+)#([^"-]+)-([^"]+)",\{"className":"[^"]*"/g;
+  let tm;
+  while ((tm = trStartRegex.exec(fullRSC)) !== null) {
+    const name = tm[1];
+    const riotTag = tm[2];
+    const agent = tm[3];
+    const startIdx = tm.index;
+
+    // Grab up to next tr or 1500 chars
+    const chunk = fullRSC.substring(startIdx, startIdx + 1500);
+
+    // Look for direct td values
+    const directVals = [];
+    const directPattern = /\["\$","td",null,\{"className":"stat-cell[^"]*","children":([^}]+)\}\]/g;
+    let dm;
+    while ((dm = directPattern.exec(chunk)) !== null) {
+      let val = dm[1].trim();
+      try { val = JSON.parse(val); } catch(e) {}
+      directVals.push(val);
+      if (directVals.length === 7) break;
+    }
+
+    let statsArray = directVals;
+    if (statsArray.length < 4) {
+      // Look for ref tokens: "$L2d", "$L2e", etc. in children array
+      const refMatches = [...chunk.matchAll(/"\$L([0-9a-f]+)"/g)].map(m => m[1]);
+      const resolved = refMatches.map(k => slots[k]).filter(v => v !== undefined);
+      if (resolved.length >= 4) {
+        statsArray = resolved;
+      }
+    }
+
     result.players.push({
-      name: pMatch[1],
-      riotTag: pMatch[2],
-      agent: pMatch[3],
-      acs: parseInt(pMatch[4], 10),
-      kills: parseInt(pMatch[5], 10),
-      deaths: parseInt(pMatch[6], 10),
-      assists: parseInt(pMatch[7], 10),
+      name,
+      riotTag,
+      agent,
+      acs: typeof statsArray[0] === 'number' ? statsArray[0] : parseInt(statsArray[0], 10) || 0,
+      kills: typeof statsArray[1] === 'number' ? statsArray[1] : parseInt(statsArray[1], 10) || 0,
+      deaths: typeof statsArray[2] === 'number' ? statsArray[2] : parseInt(statsArray[2], 10) || 0,
+      assists: typeof statsArray[3] === 'number' ? statsArray[3] : parseInt(statsArray[3], 10) || 0,
+      plusMinus: statsArray[4],
+      adr: statsArray[5],
+      hs: statsArray[6]
     });
   }
 
@@ -204,12 +247,14 @@ async function pollCycle() {
 
     const fixtureNumber = SITE_SLUG_TO_FIXTURE[slug];
     const prev = lastKnownResults[slug];
+    const playersCount = (result.players && result.players.length) || 0;
     const hasChanged = !prev ||
       prev.score1 !== result.score1 ||
-      prev.score2 !== result.score2;
+      prev.score2 !== result.score2 ||
+      (playersCount > 0 && (!prev.playersCount || prev.playersCount === 0));
 
     if (hasChanged && (result.score1 > 0 || result.score2 > 0)) {
-      lastKnownResults[slug] = { score1: result.score1, score2: result.score2 };
+      lastKnownResults[slug] = { score1: result.score1, score2: result.score2, playersCount };
       newResults++;
 
       console.log(`[Poller] ✅ NEW RESULT: ${slug} → Fixture M${fixtureNumber}`);

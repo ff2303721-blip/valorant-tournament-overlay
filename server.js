@@ -105,6 +105,72 @@ function getRosterForTeam(teamIdOrName) {
   return [];
 }
 
+function normalizeStr(s) {
+  return (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function applyMatchResultToState(result) {
+  if (!result) return false;
+  const { fixtureMatchNumber, score1, score2, team1Tag, team2Tag, winner, map, players } = result;
+
+  // Set scores & winner banner
+  state.teamA.score = score1;
+  state.teamB.score = score2;
+  if (winner) {
+    state.match.statusBanner = `${winner} WINS!`;
+  } else {
+    state.match.statusBanner = 'FINAL';
+  }
+
+  // Update players combat stats across teamA and teamB
+  if (Array.isArray(players) && players.length > 0) {
+    players.forEach(p => {
+      const normName = normalizeStr(p.name);
+      [state.teamA, state.teamB].forEach(team => {
+        if (team && Array.isArray(team.players)) {
+          const found = team.players.find(pl => {
+            const n = normalizeStr(pl.name);
+            return n === normName || n.includes(normName) || normName.includes(n);
+          });
+          if (found) {
+            found.kills = p.kills;
+            found.deaths = p.deaths;
+            found.assists = p.assists;
+            found.acs = p.acs;
+            if (p.adr !== undefined) found.adr = p.adr;
+            if (p.hs !== undefined) found.hs = p.hs;
+            if (p.agent) found.agent = p.agent;
+          }
+        }
+      });
+    });
+
+    // Auto-pick MVP from top ACS in this match
+    const sorted = [...players].sort((a, b) => (b.acs || 0) - (a.acs || 0));
+    if (sorted.length > 0) {
+      const top = sorted[0];
+      const assignedTeam = (top.riotTag === state.teamA.tag || state.teamA.name.includes(top.name)) ? state.teamA : state.teamB;
+      const rosterPlayer = assignedTeam.players ? assignedTeam.players.find(pl => normalizeStr(pl.name).includes(normalizeStr(top.name))) : null;
+      state.mvpPlayer = {
+        name: rosterPlayer ? rosterPlayer.name : top.name,
+        teamTag: assignedTeam.tag,
+        teamName: assignedTeam.name,
+        role: 'Match MVP',
+        agent: top.agent || (rosterPlayer ? rosterPlayer.agent : 'Jett'),
+        photo: rosterPlayer ? rosterPlayer.photo : '/players/DOMINIC.png',
+        logo: assignedTeam.logo,
+        kills: top.kills,
+        deaths: top.deaths,
+        assists: top.assists,
+        acs: top.acs,
+      };
+      console.log(`[Server] ⭐ Match MVP set to: ${state.mvpPlayer.name} (${state.mvpPlayer.teamTag})`);
+    }
+  }
+
+  return true;
+}
+
 const MONTH_MAP = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
 
 function populateFixtureTeams(fix) {
@@ -273,6 +339,15 @@ try {
     state.leaderboardVisible = typeof state.leaderboardVisible === 'boolean' ? state.leaderboardVisible : false;
     state.mvpVisible = typeof state.mvpVisible === 'boolean' ? state.mvpVisible : false;
     state.castersVisible = typeof state.castersVisible === 'boolean' ? state.castersVisible : false;
+
+    // If state has an active match or fixture with a known completed result and score is 0-0, apply it
+    const activeFixtureNum = state.match ? state.match.fixtureMatchNumber : null;
+    if (activeFixtureNum && state.completedResults && state.completedResults[activeFixtureNum]) {
+      if (state.teamA.score === 0 && state.teamB.score === 0) {
+        applyMatchResultToState(state.completedResults[activeFixtureNum]);
+      }
+    }
+
     saveStateToDisk();
     console.log('[Server] Loaded existing match state from disk and verified rosters.');
   } else {
@@ -431,6 +506,11 @@ function handleClientAction(data) {
         if (state.timeout) {
           state.timeout.active = false;
           state.timeout.team = team1.tag;
+        }
+
+        // Auto-apply saved tournament result if already completed!
+        if (state.completedResults && state.completedResults[matchNum]) {
+          applyMatchResultToState(state.completedResults[matchNum]);
         }
 
         broadcastStateUpdate();
@@ -663,10 +743,35 @@ function handleClientAction(data) {
           type: 'MATCH_SYNC_SUCCESS', 
           message: `Imported Match Results! Map: ${res.mapName} · Top Fragger: ${res.mvp ? res.mvp.kills + ' Kills (' + res.mvp.agent + ')' : ''}` 
         });
-      }).catch(err => {
-        console.error('[RiotTracker] Error syncing match:', err.message);
+      }).catch(async (err) => {
+        console.warn('[RiotTracker] Riot sync error, attempting tournament site poller sync:', err.message);
+        try {
+          await tournamentPoller.pollNow();
+          const matchNum = state.match.fixtureMatchNumber || 1;
+          if (state.completedResults && state.completedResults[matchNum]) {
+            applyMatchResultToState(state.completedResults[matchNum]);
+            broadcastStateUpdate();
+            broadcast({
+              type: 'MATCH_SYNC_SUCCESS',
+              message: `Imported Match ${matchNum} Results from Tournament Site! Winner: ${state.completedResults[matchNum].winner || ''}`
+            });
+            return;
+          }
+        } catch (pollErr) {
+          console.error('[Poller] Fallback poll error:', pollErr.message);
+        }
         broadcast({ type: 'MATCH_SYNC_ERROR', error: err.message });
       });
+      break;
+    }
+
+    case 'APPLY_FIXTURE_RESULT': {
+      const matchNum = parseInt(payload.fixtureMatchNumber || payload.matchNumber);
+      if (state.completedResults && state.completedResults[matchNum]) {
+        applyMatchResultToState(state.completedResults[matchNum]);
+        saveStateToDisk();
+        broadcastStateUpdate();
+      }
       break;
     }
 
@@ -800,60 +905,29 @@ function handlePollerResult(result) {
   // Store in state.completedResults keyed by matchNumber
   if (!state.completedResults) state.completedResults = {};
   state.completedResults[fixtureMatchNumber] = {
-    score1, score2, team1Tag, team2Tag, winner, map, importedAt,
+    score1, score2, team1Tag, team2Tag, winner, map, players: result.players, importedAt,
   };
 
-  // If this is the currently-loaded fixture, auto-apply score, players, and MVP
-  if (state.match && state.match.fixtureMatchNumber === fixtureMatchNumber) {
-    state.teamA.score = score1;
-    state.teamB.score = score2;
-    state.match.statusBanner = winner ? `${winner} WINS!` : 'FINAL';
-    console.log(`[Poller] 🏆 Auto-applied live score for M${fixtureMatchNumber}: ${score1}-${score2}`);
+  // Determine if this result corresponds to currently loaded match:
+  // 1. Matched by fixtureMatchNumber
+  // 2. OR map and team tags match current teamA and teamB
+  const curMap = normalizeStr(state.match ? state.match.mapName : '');
+  const resMap = normalizeStr(map);
+  const tagA = normalizeStr(state.teamA ? state.teamA.tag : '');
+  const tagB = normalizeStr(state.teamB ? state.teamB.tag : '');
+  const resTag1 = normalizeStr(team1Tag);
+  const resTag2 = normalizeStr(team2Tag);
 
-    // If result includes match player combat stats, apply to rosters
-    if (Array.isArray(result.players) && result.players.length > 0) {
-      function normalize(s) { return (s || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
-      result.players.forEach(p => {
-        const normName = normalize(p.name);
-        [state.teamA, state.teamB].forEach(team => {
-          if (team && Array.isArray(team.players)) {
-            const found = team.players.find(pl => {
-              const n = normalize(pl.name);
-              return n === normName || n.includes(normName) || normName.includes(n);
-            });
-            if (found) {
-              found.kills = p.kills;
-              found.deaths = p.deaths;
-              found.assists = p.assists;
-              found.acs = p.acs;
-              if (p.agent) found.agent = p.agent;
-            }
-          }
-        });
-      });
+  const isCurrentFixture = state.match && state.match.fixtureMatchNumber === fixtureMatchNumber;
+  const isCurrentMatchByContext = (curMap && curMap === resMap) &&
+    ((tagA === resTag1 && tagB === resTag2) || (tagA === resTag2 && tagB === resTag1));
 
-      // Pick top fragger / highest ACS as MVP
-      const sorted = [...result.players].sort((a, b) => (b.acs || 0) - (a.acs || 0));
-      if (sorted.length > 0) {
-        const top = sorted[0];
-        const assignedTeam = (top.riotTag === state.teamA.tag || state.teamA.name.includes(top.name)) ? state.teamA : state.teamB;
-        const rosterPlayer = assignedTeam.players ? assignedTeam.players.find(pl => normalize(pl.name).includes(normalize(top.name))) : null;
-        state.mvpPlayer = {
-          name: rosterPlayer ? rosterPlayer.name : top.name,
-          teamTag: assignedTeam.tag,
-          teamName: assignedTeam.name,
-          role: 'Match MVP',
-          agent: top.agent || (rosterPlayer ? rosterPlayer.agent : 'Jett'),
-          photo: rosterPlayer ? rosterPlayer.photo : '/players/DOMINIC.png',
-          logo: assignedTeam.logo,
-          kills: top.kills,
-          deaths: top.deaths,
-          assists: top.assists,
-          acs: top.acs,
-        };
-        console.log(`[Poller] ⭐ Auto-applied match MVP: ${state.mvpPlayer.name} (${state.mvpPlayer.teamTag})`);
-      }
+  if (isCurrentFixture || isCurrentMatchByContext) {
+    if (!state.match.fixtureMatchNumber) {
+      state.match.fixtureMatchNumber = fixtureMatchNumber;
     }
+    applyMatchResultToState(state.completedResults[fixtureMatchNumber]);
+    console.log(`[Poller] 🏆 Auto-applied live score & player stats for M${fixtureMatchNumber}: ${score1}-${score2}`);
   }
 
   // Broadcast result event to all connected clients (overlays + admin)

@@ -6,7 +6,8 @@
     "currentMapIndex": 1,
     "mapName": "Bind",
     "phase": "live",
-    "statusBanner": ""
+    "statusBanner": "VEYRON WINS!",
+    "fixtureMatchNumber": 1
   },
   "teamsList": [
     {
@@ -225,10 +226,98 @@
     }
   ],
   "teamA": {
+    "id": "veyron",
+    "name": "VEYRON",
+    "tag": "VRN",
+    "score": 13,
+    "mapWins": 0,
+    "side": "defense",
+    "color": "#00f0ff",
+    "logo": "/logos/veyron.png",
+    "players": [
+      {
+        "id": "vrn-1",
+        "name": "DEVILDOM",
+        "role": "Captain",
+        "photo": "/players/DEVILDOM.png",
+        "agent": "Miks",
+        "kills": 19,
+        "deaths": 12,
+        "assists": 12,
+        "acs": 266,
+        "adr": 173,
+        "hs": "20%"
+      },
+      {
+        "id": "vrn-2",
+        "name": "Denver",
+        "role": "Player",
+        "photo": "/players/DENVER.png",
+        "agent": "Jett",
+        "kills": 26,
+        "deaths": 12,
+        "assists": 2,
+        "acs": 345,
+        "adr": 226,
+        "hs": "33%"
+      },
+      {
+        "id": "vrn-3",
+        "name": "yrr",
+        "role": "Player",
+        "photo": "/players/PRABHU.png",
+        "agent": "Reyna",
+        "kills": 28,
+        "deaths": 15,
+        "assists": 5,
+        "acs": 377,
+        "adr": 256,
+        "hs": "40%"
+      },
+      {
+        "id": "vrn-4",
+        "name": "KM PRABHU",
+        "role": "Player",
+        "photo": "/players/PRABHU.png",
+        "agent": "Clove",
+        "kills": 0,
+        "deaths": 0,
+        "assists": 0,
+        "acs": 190
+      },
+      {
+        "id": "vrn-5",
+        "name": "BEEMA",
+        "role": "Player",
+        "photo": "/players/BEEMA.png",
+        "agent": "Sage",
+        "kills": 4,
+        "deaths": 13,
+        "assists": 6,
+        "acs": 66,
+        "adr": 38,
+        "hs": "23%"
+      },
+      {
+        "id": "vrn-6",
+        "name": "STEPHAN",
+        "role": "Sub",
+        "photo": "/players/STEPHAN.png",
+        "agent": "Tejo",
+        "kills": 11,
+        "deaths": 13,
+        "assists": 3,
+        "acs": 140,
+        "adr": 92,
+        "hs": "17%"
+      }
+    ]
+  },
+  "teamB": {
     "id": "naadan-legacy",
     "name": "NAADAN LEGACY",
     "tag": "NDL",
-    "score": 0,
+    "score": 8,
     "mapWins": 0,
     "side": "attack",
     "color": "#ff4655",
@@ -239,26 +328,26 @@
         "name": "DOMINIC TORETTO",
         "role": "Captain",
         "photo": "/players/DOMINIC.png",
-        "agent": "Jett",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
+        "agent": "Gekko",
+        "kills": 7,
+        "deaths": 20,
+        "assists": 4,
         "acs": 130,
-        "hs": 16,
-        "kd": 0.35
+        "adr": 96,
+        "hs": "16%"
       },
       {
         "id": "ndl-2",
         "name": "OUTLAWS",
         "role": "Player",
         "photo": "/players/DOMINIC.png",
-        "agent": "Omen",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 145,
-        "hs": 15,
-        "kd": 0.63
+        "agent": "Chamber",
+        "kills": 19,
+        "deaths": 12,
+        "assists": 12,
+        "acs": 266,
+        "adr": 173,
+        "hs": "20%"
       },
       {
         "id": "ndl-3",
@@ -276,13 +365,13 @@
         "name": "TRICKY",
         "role": "Player",
         "photo": "/players/TRICKY.png",
-        "agent": "Killjoy",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
+        "agent": "Sage",
+        "kills": 7,
+        "deaths": 16,
+        "assists": 7,
         "acs": 96,
-        "hs": 12,
-        "kd": 0.44
+        "adr": 69,
+        "hs": "12%"
       },
       {
         "id": "ndl-5",
@@ -290,111 +379,25 @@
         "role": "Player",
         "photo": "/players/DOMINIC.png",
         "agent": "Raze",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 210
+        "kills": 28,
+        "deaths": 20,
+        "assists": 5,
+        "acs": 424,
+        "adr": 254,
+        "hs": "14%"
       },
       {
         "id": "ndl-6",
         "name": "DRAIVEN",
         "role": "Sub",
         "photo": "/players/DRAIVEN.png",
-        "agent": "Breach",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
+        "agent": "Omen",
+        "kills": 13,
+        "deaths": 16,
+        "assists": 8,
         "acs": 190,
-        "hs": 19,
-        "kd": 0.81
-      }
-    ]
-  },
-  "teamB": {
-    "id": "aetrix",
-    "name": "AETRIX",
-    "tag": "ATX",
-    "score": 0,
-    "mapWins": 0,
-    "side": "defense",
-    "color": "#00f0ff",
-    "logo": "/logos/aetrix.png",
-    "players": [
-      {
-        "id": "atx-1",
-        "name": "AEGON XD",
-        "role": "Captain",
-        "photo": "/players/AEGON.png",
-        "agent": "Reyna",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 134,
-        "hs": 12,
-        "kd": 2.25
-      },
-      {
-        "id": "atx-2",
-        "name": "Luxy",
-        "role": "Player",
-        "photo": "/players/LUXY.png",
-        "agent": "Viper",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 190
-      },
-      {
-        "id": "atx-3",
-        "name": "Thakudu Scarlet",
-        "role": "Player",
-        "photo": "/players/SCARLET.png",
-        "agent": "Skye",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 103,
-        "hs": 7,
-        "kd": 0.31
-      },
-      {
-        "id": "atx-4",
-        "name": "SHREYA",
-        "role": "Player",
-        "photo": "/players/SREYA.png",
-        "agent": "Fade",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 102,
-        "hs": 14,
-        "kd": 0.31
-      },
-      {
-        "id": "atx-5",
-        "name": "PorottaBeef",
-        "role": "Player",
-        "photo": "/players/POROTTA.png",
-        "agent": "Cypher",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 154,
-        "hs": 13,
-        "kd": 0.47
-      },
-      {
-        "id": "atx-6",
-        "name": "NANDU",
-        "role": "Sub",
-        "photo": "/players/NANDU.png",
-        "agent": "Brimstone",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 338,
-        "hs": 24,
-        "kd": 1.13
+        "adr": 131,
+        "hs": "19%"
       }
     ]
   },
@@ -402,21 +405,21 @@
   "mvpVisible": false,
   "mvpType": "map",
   "mvpPlayer": {
-    "name": "NANDU",
-    "teamTag": "ATX",
-    "teamName": "AETRIX",
-    "role": "Sub",
-    "agent": "Brimstone",
-    "photo": "/players/NANDU.png",
-    "logo": "/logos/aetrix.png",
-    "kills": 0,
-    "deaths": 0,
-    "assists": 0,
-    "acs": 338
+    "name": "zippaz007",
+    "teamTag": "NDL",
+    "teamName": "NAADAN LEGACY",
+    "role": "Match MVP",
+    "agent": "Raze",
+    "photo": "/players/DOMINIC.png",
+    "logo": "/logos/naadan-legacy.png",
+    "kills": 28,
+    "deaths": 20,
+    "assists": 5,
+    "acs": 424
   },
   "timeout": {
     "active": false,
-    "team": "NDL",
+    "team": "VRN",
     "duration": 60,
     "remaining": 0
   },
@@ -485,7 +488,129 @@
       "team2Tag": "NDL",
       "winner": "VEYRON",
       "map": "Bind",
-      "importedAt": "2026-10-02T18:56:36.247Z"
+      "players": [
+        {
+          "name": "yrr",
+          "riotTag": "gngaa",
+          "agent": "Reyna",
+          "acs": 377,
+          "kills": 28,
+          "deaths": 15,
+          "assists": 5,
+          "plusMinus": "+13",
+          "adr": 256,
+          "hs": "40%"
+        },
+        {
+          "name": "Denver",
+          "riotTag": "GGEZ",
+          "agent": "Jett",
+          "acs": 345,
+          "kills": 26,
+          "deaths": 12,
+          "assists": 2,
+          "plusMinus": "+14",
+          "adr": 226,
+          "hs": "33%"
+        },
+        {
+          "name": "DEVILDOM",
+          "riotTag": "3112",
+          "agent": "Miks",
+          "acs": 266,
+          "kills": 19,
+          "deaths": 12,
+          "assists": 12,
+          "plusMinus": "+7",
+          "adr": 173,
+          "hs": "20%"
+        },
+        {
+          "name": "zippaz007",
+          "riotTag": "2500",
+          "agent": "Raze",
+          "acs": 424,
+          "kills": 28,
+          "deaths": 20,
+          "assists": 5,
+          "plusMinus": "+8",
+          "adr": 254,
+          "hs": "14%"
+        },
+        {
+          "name": "DRAIVEN",
+          "riotTag": "8466",
+          "agent": "Omen",
+          "acs": 190,
+          "kills": 13,
+          "deaths": 16,
+          "assists": 8,
+          "plusMinus": -3,
+          "adr": 131,
+          "hs": "19%"
+        },
+        {
+          "name": "OUTLAWS",
+          "riotTag": "GKR",
+          "agent": "Chamber",
+          "acs": 266,
+          "kills": 19,
+          "deaths": 12,
+          "assists": 12,
+          "plusMinus": "+7",
+          "adr": 173,
+          "hs": "20%"
+        },
+        {
+          "name": "STEPHAN",
+          "riotTag": "RAJ",
+          "agent": "Tejo",
+          "acs": 140,
+          "kills": 11,
+          "deaths": 13,
+          "assists": 3,
+          "plusMinus": -2,
+          "adr": 92,
+          "hs": "17%"
+        },
+        {
+          "name": "BEEMA",
+          "riotTag": "GARU",
+          "agent": "Sage",
+          "acs": 66,
+          "kills": 4,
+          "deaths": 13,
+          "assists": 6,
+          "plusMinus": -9,
+          "adr": 38,
+          "hs": "23%"
+        },
+        {
+          "name": "DOMINIC TORETTO",
+          "riotTag": "BMW",
+          "agent": "Gekko",
+          "acs": 130,
+          "kills": 7,
+          "deaths": 20,
+          "assists": 4,
+          "plusMinus": -13,
+          "adr": 96,
+          "hs": "16%"
+        },
+        {
+          "name": "TRICKY",
+          "riotTag": "2318",
+          "agent": "Sage",
+          "acs": 96,
+          "kills": 7,
+          "deaths": 16,
+          "assists": 7,
+          "plusMinus": -9,
+          "adr": 69,
+          "hs": "12%"
+        }
+      ],
+      "importedAt": "2026-10-02T19:53:46.070Z"
     },
     "2": {
       "score1": 3,
@@ -494,7 +619,129 @@
       "team2Tag": "BBZ",
       "winner": "BITTER BLADE Z",
       "map": "Abyss",
-      "importedAt": "2026-10-02T18:56:38.032Z"
+      "players": [
+        {
+          "name": "NANDU",
+          "riotTag": "4941",
+          "agent": "Clove",
+          "acs": 338,
+          "kills": 18,
+          "deaths": 16,
+          "assists": 3,
+          "plusMinus": "+2",
+          "adr": 207,
+          "hs": "24%"
+        },
+        {
+          "name": "AEGON XD",
+          "riotTag": "007",
+          "agent": "Iso",
+          "acs": 192,
+          "kills": 9,
+          "deaths": 15,
+          "assists": 3,
+          "plusMinus": -6,
+          "adr": 112,
+          "hs": "26%"
+        },
+        {
+          "name": "PorottaBeef",
+          "riotTag": "Beef",
+          "agent": "Cypher",
+          "acs": 154,
+          "kills": 7,
+          "deaths": 15,
+          "assists": 4,
+          "plusMinus": -8,
+          "adr": 113,
+          "hs": "13%"
+        },
+        {
+          "name": "Axel Blaze",
+          "riotTag": "9418",
+          "agent": "Sage",
+          "acs": 348,
+          "kills": 21,
+          "deaths": 10,
+          "assists": 13,
+          "plusMinus": "+11",
+          "adr": 184,
+          "hs": "16%"
+        },
+        {
+          "name": "Kakashi",
+          "riotTag": "Dani",
+          "agent": "Gekko",
+          "acs": 304,
+          "kills": 16,
+          "deaths": 10,
+          "assists": 8,
+          "plusMinus": "+6",
+          "adr": 195,
+          "hs": "11%"
+        },
+        {
+          "name": "ASG UnniyAppam",
+          "riotTag": "scena",
+          "agent": "Cypher",
+          "acs": 154,
+          "kills": 7,
+          "deaths": 15,
+          "assists": 4,
+          "plusMinus": -8,
+          "adr": 113,
+          "hs": "13%"
+        },
+        {
+          "name": "Thakudu Scarlet",
+          "riotTag": "2406",
+          "agent": "Sage",
+          "acs": 103,
+          "kills": 5,
+          "deaths": 16,
+          "assists": 2,
+          "plusMinus": -11,
+          "adr": 61,
+          "hs": "7%"
+        },
+        {
+          "name": "SHREYA",
+          "riotTag": "01814",
+          "agent": "Breach",
+          "acs": 102,
+          "kills": 5,
+          "deaths": 16,
+          "assists": 2,
+          "plusMinus": -11,
+          "adr": 70,
+          "hs": "14%"
+        },
+        {
+          "name": "CUTEKIDxT",
+          "riotTag": "8898",
+          "agent": "Jett",
+          "acs": 225,
+          "kills": 12,
+          "deaths": 10,
+          "assists": 5,
+          "plusMinus": "+2",
+          "adr": 142,
+          "hs": "18%"
+        },
+        {
+          "name": "デヴィカ",
+          "riotTag": "MAT22",
+          "agent": "Brimstone",
+          "acs": 134,
+          "kills": 9,
+          "deaths": 4,
+          "assists": 13,
+          "plusMinus": "+5",
+          "adr": 76,
+          "hs": "12%"
+        }
+      ],
+      "importedAt": "2026-10-02T19:53:48.040Z"
     }
   }
 }

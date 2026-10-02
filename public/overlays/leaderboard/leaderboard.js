@@ -87,8 +87,8 @@ function renderLeaderboard(state) {
   }
 
   // Render Rows
-  renderTeamRows('team-a-rows', state.teamA.players || [], state.mvpPlayer);
-  renderTeamRows('team-b-rows', state.teamB.players || [], state.mvpPlayer);
+  renderTeamRows('team-a-rows', state.teamA.players || [], state.mvpPlayer, state.teamA);
+  renderTeamRows('team-b-rows', state.teamB.players || [], state.mvpPlayer, state.teamB);
 
   // Footer MVP
   if (state.mvpPlayer && state.mvpPlayer.name) {
@@ -96,12 +96,13 @@ function renderLeaderboard(state) {
   }
 }
 
-function renderTeamRows(targetId, players, mvp) {
+function renderTeamRows(targetId, players, mvp, team) {
   const container = document.getElementById(targetId);
   if (!container) return;
 
   // Take top 5 players (or all active) and sort by kills descending
   const sorted = [...players].sort((a, b) => (b.kills || 0) - (a.kills || 0));
+  const fallbackLogo = (team && team.logo) || '/logos/veyron.png';
 
   container.innerHTML = sorted.map((p) => {
     const kills = p.kills || 0;
@@ -112,12 +113,12 @@ function renderTeamRows(targetId, players, mvp) {
     const diffClass = diff > 0 ? 'diff-positive' : (diff < 0 ? 'diff-negative' : 'diff-neutral');
     const isMvp = mvp && mvp.name === p.name;
     const acs = p.acs || Math.max(120, kills * 18 + assists * 6);
-    const photo = p.photo || '/logos/naadan-legacy.png';
+    const photo = p.photo || fallbackLogo;
 
     return `
       <div class="player-row ${isMvp ? 'is-mvp-row' : ''}">
         <div class="cell-player">
-          <img class="player-avatar" src="${photo}" alt="${p.name}" onerror="this.src='/logos/naadan-legacy.png'">
+          <img class="player-avatar" src="${photo}" alt="${p.name}" onerror="this.src='${fallbackLogo}'">
           <div class="player-meta">
             <span class="player-ign">${p.name || 'Player'}</span>
             <span class="player-role-badge">${isMvp ? '★ MATCH MVP' : (p.role === 'Captain' ? 'CAPTAIN' : 'STARTER')}</span>
