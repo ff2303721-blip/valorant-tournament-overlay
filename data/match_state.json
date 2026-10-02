@@ -74,11 +74,11 @@
     },
     {
       "matchNumber": 4,
-      "label": "M4: ATX vs NDL (Icebox · Sat 3 Oct, 10:00 PM IST)",
+      "label": "M4: ATX vs BBZ (Bind · Sat 3 Oct, 10:00 PM IST)",
       "stage": "Group Stage · Week 1",
       "t1": "aetrix",
-      "t2": "naadan-legacy",
-      "map": "Icebox",
+      "t2": "bitter-blade-z",
+      "map": "Bind",
       "bestOf": "BO1",
       "side1": "defense",
       "side2": "attack",
@@ -98,31 +98,19 @@
     },
     {
       "matchNumber": 6,
-      "label": "M6: ATX vs NDL (Corrode · Sun 4 Oct, 10:00 PM IST)",
-      "stage": "Group Stage · Week 1",
-      "t1": "aetrix",
+      "label": "M6: VRN vs NDL (Bind · Sat 10 Oct, 10:00 PM IST)",
+      "stage": "Group Stage · Week 2",
+      "t1": "veyron",
       "t2": "naadan-legacy",
-      "map": "Corrode",
+      "map": "Bind",
       "bestOf": "BO1",
       "side1": "defense",
       "side2": "attack",
-      "time": "Sun 4 Oct, 10:00 PM IST (22:00)"
+      "time": "Sat 10 Oct, 10:00 PM IST (22:00)"
     },
     {
       "matchNumber": 7,
-      "label": "M7: BBZ vs VRN (Split · Sat 10 Oct, 9:00 PM IST)",
-      "stage": "Group Stage · Week 3",
-      "t1": "bitter-blade-z",
-      "t2": "veyron",
-      "map": "Split",
-      "bestOf": "BO1",
-      "side1": "defense",
-      "side2": "attack",
-      "time": "Sat 10 Oct, 9:00 PM IST (21:00)"
-    },
-    {
-      "matchNumber": 8,
-      "label": "M8: VRN vs ATX (Ascent · Sat 10 Oct, 10:00 PM IST)",
+      "label": "M7: VRN vs ATX (Ascent · Sun 11 Oct, 9:00 PM IST)",
       "stage": "Group Stage · Week 2",
       "t1": "veyron",
       "t2": "aetrix",
@@ -130,35 +118,11 @@
       "bestOf": "BO1",
       "side1": "defense",
       "side2": "attack",
-      "time": "Sat 10 Oct, 10:00 PM IST (22:00)"
-    },
-    {
-      "matchNumber": 9,
-      "label": "M9: VRN vs NDL (Bind · Sun 11 Oct, 9:00 PM IST)",
-      "stage": "Group Stage · Week 2",
-      "t1": "veyron",
-      "t2": "naadan-legacy",
-      "map": "Bind",
-      "bestOf": "BO1",
-      "side1": "defense",
-      "side2": "attack",
       "time": "Sun 11 Oct, 9:00 PM IST (21:00)"
     },
     {
-      "matchNumber": 10,
-      "label": "M10: VRN vs BBZ (Bind · Sun 11 Oct, 10:00 PM IST)",
-      "stage": "Group Stage · Week 2",
-      "t1": "veyron",
-      "t2": "bitter-blade-z",
-      "map": "Bind",
-      "bestOf": "BO1",
-      "side1": "defense",
-      "side2": "attack",
-      "time": "Sun 11 Oct, 10:00 PM IST (22:00)"
-    },
-    {
-      "matchNumber": 11,
-      "label": "M11: VRN vs ATX (Breeze · Sun 11 Oct, 11:00 PM IST)",
+      "matchNumber": 8,
+      "label": "M8: VRN vs ATX (Breeze · Sun 11 Oct, 11:00 PM IST)",
       "stage": "Group Stage · Week 2",
       "t1": "veyron",
       "t2": "aetrix",
@@ -169,60 +133,100 @@
       "time": "Sun 11 Oct, 11:00 PM IST (23:00)"
     },
     {
-      "matchNumber": 12,
-      "label": "M12: BBZ vs ATX (Bind · Sat 17 Oct, 9:00 PM IST)",
+      "matchNumber": 9,
+      "label": "M9: BBZ vs VRN (Split · Mon 12 Oct, 9:00 PM IST)",
       "stage": "Group Stage · Week 3",
       "t1": "bitter-blade-z",
-      "t2": "aetrix",
+      "t2": "veyron",
+      "map": "Split",
+      "bestOf": "BO1",
+      "side1": "defense",
+      "side2": "attack",
+      "time": "Mon 12 Oct, 9:00 PM IST (21:00)"
+    },
+    {
+      "matchNumber": 10,
+      "label": "M10: VRN vs BBZ (Bind · Mon 12 Oct, 10:00 PM IST)",
+      "stage": "Group Stage · Week 2",
+      "t1": "veyron",
+      "t2": "bitter-blade-z",
       "map": "Bind",
       "bestOf": "BO1",
-      "side1": "attack",
-      "side2": "defense",
+      "side1": "defense",
+      "side2": "attack",
+      "time": "Mon 12 Oct, 10:00 PM IST (22:00)"
+    },
+    {
+      "matchNumber": 11,
+      "label": "M11: ATX vs NDL (Corrode · Sat 17 Oct, 9:00 PM IST)",
+      "stage": "Group Stage · Week 3",
+      "t1": "aetrix",
+      "t2": "naadan-legacy",
+      "map": "Corrode",
+      "bestOf": "BO1",
+      "side1": "defense",
+      "side2": "attack",
       "time": "Sat 17 Oct, 9:00 PM IST (21:00)"
     },
     {
-      "matchNumber": 13,
-      "label": "M13: Qualifier 1 (Seed 1 vs 2)",
-      "stage": "Playoffs: Qualifier 1",
-      "t1": "naadan-legacy",
-      "t2": "aetrix",
-      "map": "Ascent",
+      "matchNumber": 12,
+      "label": "M12: ATX vs NDL (Corrode · Sun 18 Oct, 9:00 PM IST)",
+      "stage": "Group Stage · Week 1",
+      "t1": "aetrix",
+      "t2": "naadan-legacy",
+      "map": "Corrode",
       "bestOf": "BO1",
       "side1": "defense",
-      "side2": "attack"
+      "side2": "attack",
+      "time": "Sun 18 Oct, 9:00 PM IST (21:00)"
+    },
+    {
+      "matchNumber": 13,
+      "label": "M13: Qualifier 1 (Seed 1 vs 2 · Sat 24 Oct, 9:00 PM IST)",
+      "stage": "Playoffs: Qualifier 1",
+      "t1": "tbd",
+      "t2": "tbd",
+      "map": "TBD",
+      "bestOf": "BO3",
+      "side1": "defense",
+      "side2": "attack",
+      "time": "Sat 24 Oct, 9:00 PM IST (21:00)"
     },
     {
       "matchNumber": 14,
-      "label": "M14: Eliminator (Seed 3 vs 4)",
+      "label": "M14: Eliminator (Seed 3 vs 4 · Sat 24 Oct, 9:30 PM IST)",
       "stage": "Playoffs: Eliminator",
-      "t1": "bitter-blade-z",
-      "t2": "veyron",
-      "map": "Haven",
-      "bestOf": "BO1",
+      "t1": "tbd",
+      "t2": "tbd",
+      "map": "TBD",
+      "bestOf": "BO3",
       "side1": "defense",
-      "side2": "attack"
+      "side2": "attack",
+      "time": "Sat 24 Oct, 9:30 PM IST (21:30)"
     },
     {
       "matchNumber": 15,
-      "label": "M15: Qualifier 2",
+      "label": "M15: Qualifier 2 (Sun 25 Oct, 9:00 PM IST)",
       "stage": "Playoffs: Qualifier 2",
-      "t1": "aetrix",
-      "t2": "bitter-blade-z",
-      "map": "Lotus",
-      "bestOf": "BO1",
+      "t1": "tbd",
+      "t2": "tbd",
+      "map": "TBD",
+      "bestOf": "BO3",
       "side1": "defense",
-      "side2": "attack"
+      "side2": "attack",
+      "time": "Sun 25 Oct, 9:00 PM IST (21:00)"
     },
     {
       "matchNumber": 16,
-      "label": "M16: Grand Final",
+      "label": "M16: Grand Final (Sat 31 Oct, 10:00 PM IST)",
       "stage": "Grand Final",
-      "t1": "naadan-legacy",
-      "t2": "aetrix",
-      "map": "Sunset",
+      "t1": "tbd",
+      "t2": "tbd",
+      "map": "TBD",
       "bestOf": "BO3",
       "side1": "attack",
-      "side2": "defense"
+      "side2": "defense",
+      "time": "Sat 31 Oct, 10:00 PM IST (22:00)"
     }
   ],
   "teamA": {
@@ -244,9 +248,10 @@
         "kills": 19,
         "deaths": 12,
         "assists": 12,
-        "acs": 266,
+        "acs": 134,
         "adr": 173,
-        "hs": "20%"
+        "hs": 12,
+        "kd": 2.25
       },
       {
         "id": "vrn-2",
@@ -259,7 +264,8 @@
         "assists": 2,
         "acs": 345,
         "adr": 226,
-        "hs": "33%"
+        "hs": 33,
+        "kd": 2.17
       },
       {
         "id": "vrn-3",
@@ -272,7 +278,8 @@
         "assists": 5,
         "acs": 377,
         "adr": 256,
-        "hs": "40%"
+        "hs": 40,
+        "kd": 1.87
       },
       {
         "id": "vrn-4",
@@ -309,7 +316,8 @@
         "assists": 3,
         "acs": 140,
         "adr": 92,
-        "hs": "17%"
+        "hs": 17,
+        "kd": 0.85
       }
     ]
   },
@@ -334,7 +342,8 @@
         "assists": 4,
         "acs": 130,
         "adr": 96,
-        "hs": "16%"
+        "hs": 16,
+        "kd": 0.35
       },
       {
         "id": "ndl-2",
@@ -345,9 +354,10 @@
         "kills": 19,
         "deaths": 12,
         "assists": 12,
-        "acs": 266,
+        "acs": 145,
         "adr": 173,
-        "hs": "20%"
+        "hs": 15,
+        "kd": 0.63
       },
       {
         "id": "ndl-3",
@@ -371,7 +381,8 @@
         "assists": 7,
         "acs": 96,
         "adr": 69,
-        "hs": "12%"
+        "hs": 12,
+        "kd": 0.44
       },
       {
         "id": "ndl-5",
@@ -397,7 +408,8 @@
         "assists": 8,
         "acs": 190,
         "adr": 131,
-        "hs": "19%"
+        "hs": 19,
+        "kd": 0.81
       }
     ]
   },
@@ -408,7 +420,7 @@
     "name": "zippaz007",
     "teamTag": "NDL",
     "teamName": "NAADAN LEGACY",
-    "role": "Match MVP",
+    "role": "Player",
     "agent": "Raze",
     "photo": "/players/DOMINIC.png",
     "logo": "/logos/naadan-legacy.png",
@@ -610,7 +622,7 @@
           "hs": "12%"
         }
       ],
-      "importedAt": "2026-10-02T19:53:46.070Z"
+      "importedAt": "2026-10-02T21:13:46.933Z"
     },
     "2": {
       "score1": 3,
@@ -741,7 +753,7 @@
           "hs": "12%"
         }
       ],
-      "importedAt": "2026-10-02T19:53:48.040Z"
+      "importedAt": "2026-10-02T21:13:48.718Z"
     }
   }
 }
