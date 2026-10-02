@@ -105,6 +105,77 @@ function getRosterForTeam(teamIdOrName) {
   return [];
 }
 
+const MONTH_MAP = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
+
+function populateFixtureTeams(fix) {
+  if (!fix) return null;
+  const team1 = TOURNAMENT_TEAMS.find(t => t.id === fix.t1) || { id: fix.t1, name: (fix.t1 || '').toUpperCase(), tag: (fix.t1 || '').toUpperCase().slice(0, 3), logo: '' };
+  const team2 = TOURNAMENT_TEAMS.find(t => t.id === fix.t2) || { id: fix.t2, name: (fix.t2 || '').toUpperCase(), tag: (fix.t2 || '').toUpperCase().slice(0, 3), logo: '' };
+
+  let startTimeMs = null;
+  let isoString = null;
+  if (fix.time) {
+    const dm = fix.time.match(/(\d{1,2})\s+([A-Za-z]{3})/);
+    const tm = fix.time.match(/\((\d{1,2}):(\d{2})\)/);
+    if (dm && tm) {
+      const now = new Date();
+      const currentYear = now.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata', year: 'numeric' });
+      const day = String(parseInt(dm[1], 10)).padStart(2, '0');
+      const mIdx = MONTH_MAP[dm[2]] !== undefined ? MONTH_MAP[dm[2]] + 1 : 10;
+      const monthStr = String(mIdx).padStart(2, '0');
+      const hour = String(parseInt(tm[1], 10)).padStart(2, '0');
+      const min = String(parseInt(tm[2], 10)).padStart(2, '0');
+      isoString = `${currentYear}-${monthStr}-${day}T${hour}:${min}:00+05:30`;
+      startTimeMs = new Date(isoString).getTime();
+    }
+  }
+
+  return {
+    ...fix,
+    team1,
+    team2,
+    startTimeMs,
+    startTimeIso: isoString
+  };
+}
+
+function getTodayFixtures() {
+  const now = new Date();
+  const day = now.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata', day: 'numeric' });
+  const month = now.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata', month: 'short' });
+  const targetDateStr = `${day} ${month}`; // e.g. "3 Oct"
+
+  // 1. Matches strictly scheduled today in IST
+  let matches = TOURNAMENT_FIXTURES
+    .filter(f => f.time && f.time.includes(targetDateStr))
+    .map(populateFixtureTeams);
+
+  // 2. If no matches scheduled today (e.g. rest day or past schedule), find next upcoming matches
+  let isToday = true;
+  if (matches.length === 0) {
+    isToday = false;
+    const nowMs = now.getTime();
+    const upcoming = TOURNAMENT_FIXTURES
+      .map(populateFixtureTeams)
+      .filter(f => f.startTimeMs && f.startTimeMs >= nowMs - (2 * 60 * 60 * 1000))
+      .sort((a, b) => a.startTimeMs - b.startTimeMs);
+
+    matches = upcoming.length > 0 ? upcoming.slice(0, 2) : TOURNAMENT_FIXTURES.slice(0, 2).map(populateFixtureTeams);
+  }
+
+  // Active / featured match for starting soon:
+  // If match 1 has already completed (or past its hour + result available), pick match 2
+  const activeMatch = matches[0] || null;
+
+  return {
+    isToday,
+    dateString: targetDateStr,
+    currentIst: now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }),
+    activeMatch,
+    matches
+  };
+}
+
 // Default Valorant Competitive State
 const defaultState = {
   match: {
@@ -271,12 +342,20 @@ function stopTimeout() {
 
 // WebSocket Connection Handling
 wss.on('connection', ws => {
-  // Send current state immediately on connect
-  ws.send(JSON.stringify({ type: 'INIT_STATE', state }));
+  // Send current state and today's auto-resolved fixtures immediately on connect
+  ws.send(JSON.stringify({ 
+    type: 'INIT_STATE', 
+    state,
+    todayFixtures: getTodayFixtures()
+  }));
 
   ws.on('message', message => {
     try {
       const data = JSON.parse(message);
+      if (data.type === 'GET_TODAY_FIXTURES') {
+        ws.send(JSON.stringify({ type: 'TODAY_FIXTURES_UPDATE', todayFixtures: getTodayFixtures() }));
+        return;
+      }
       handleClientAction(data);
     } catch (err) {
       console.error('[Server] Error handling WS message:', err.message);
@@ -623,6 +702,10 @@ app.get('/api/state', (req, res) => {
   res.json(state);
 });
 
+app.get('/api/fixtures/today', (req, res) => {
+  res.json(getTodayFixtures());
+});
+
 app.post('/api/action', (req, res) => {
   handleClientAction(req.body);
   res.json({ success: true, state });
@@ -883,6 +966,7 @@ server.listen(PORT, () => {
   console.log(` OBS Pick/Ban Veto View: http://localhost:${PORT}/overlays/veto`);
   console.log(` OBS Caster Lower Third: http://localhost:${PORT}/overlays/casters`);
   console.log(` OBS Versus / Pre-Match: http://localhost:${PORT}/overlays/versus`);
+  console.log(` OBS Starting Soon:      http://localhost:${PORT}/overlays/starting-soon`);
   console.log(`=================================================`);
 
   // Auto-start the tournament result poller (polls every 2 min)

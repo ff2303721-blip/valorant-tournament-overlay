@@ -243,7 +243,9 @@
         "kills": 0,
         "deaths": 0,
         "assists": 0,
-        "acs": 260
+        "acs": 130,
+        "hs": 16,
+        "kd": 0.35
       },
       {
         "id": "ndl-2",
@@ -254,7 +256,9 @@
         "kills": 0,
         "deaths": 0,
         "assists": 0,
-        "acs": 195
+        "acs": 145,
+        "hs": 15,
+        "kd": 0.63
       },
       {
         "id": "ndl-3",
@@ -276,7 +280,9 @@
         "kills": 0,
         "deaths": 0,
         "assists": 0,
-        "acs": 170
+        "acs": 96,
+        "hs": 12,
+        "kd": 0.44
       },
       {
         "id": "ndl-5",
@@ -298,7 +304,9 @@
         "kills": 0,
         "deaths": 0,
         "assists": 0,
-        "acs": 150
+        "acs": 190,
+        "hs": 19,
+        "kd": 0.81
       }
     ]
   },
@@ -321,7 +329,9 @@
         "kills": 0,
         "deaths": 0,
         "assists": 0,
-        "acs": 250
+        "acs": 134,
+        "hs": 12,
+        "kd": 2.25
       },
       {
         "id": "atx-2",
@@ -343,7 +353,9 @@
         "kills": 0,
         "deaths": 0,
         "assists": 0,
-        "acs": 185
+        "acs": 103,
+        "hs": 7,
+        "kd": 0.31
       },
       {
         "id": "atx-4",
@@ -354,7 +366,9 @@
         "kills": 0,
         "deaths": 0,
         "assists": 0,
-        "acs": 175
+        "acs": 102,
+        "hs": 14,
+        "kd": 0.31
       },
       {
         "id": "atx-5",
@@ -365,7 +379,9 @@
         "kills": 0,
         "deaths": 0,
         "assists": 0,
-        "acs": 165
+        "acs": 154,
+        "hs": 13,
+        "kd": 0.47
       },
       {
         "id": "atx-6",
@@ -376,7 +392,9 @@
         "kills": 0,
         "deaths": 0,
         "assists": 0,
-        "acs": 140
+        "acs": 338,
+        "hs": 24,
+        "kd": 1.13
       }
     ]
   },
@@ -384,17 +402,17 @@
   "mvpVisible": false,
   "mvpType": "map",
   "mvpPlayer": {
-    "name": "DOMINIC TORETTO",
-    "teamTag": "NDL",
-    "teamName": "NAADAN LEGACY",
-    "role": "Captain",
-    "agent": "Jett",
-    "photo": "/players/DOMINIC.png",
-    "logo": "/logos/naadan-legacy.png",
+    "name": "NANDU",
+    "teamTag": "ATX",
+    "teamName": "AETRIX",
+    "role": "Sub",
+    "agent": "Brimstone",
+    "photo": "/players/NANDU.png",
+    "logo": "/logos/aetrix.png",
     "kills": 0,
     "deaths": 0,
     "assists": 0,
-    "acs": 200
+    "acs": 338
   },
   "timeout": {
     "active": false,
@@ -458,5 +476,25 @@
       "team": "FNC",
       "score": ""
     }
-  ]
+  ],
+  "completedResults": {
+    "1": {
+      "score1": 13,
+      "score2": 8,
+      "team1Tag": "VRN",
+      "team2Tag": "NDL",
+      "winner": "VEYRON",
+      "map": "Bind",
+      "importedAt": "2026-10-02T18:56:36.247Z"
+    },
+    "2": {
+      "score1": 3,
+      "score2": 13,
+      "team1Tag": "ATX",
+      "team2Tag": "BBZ",
+      "winner": "BITTER BLADE Z",
+      "map": "Abyss",
+      "importedAt": "2026-10-02T18:56:38.032Z"
+    }
+  }
 }

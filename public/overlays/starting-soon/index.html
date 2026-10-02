@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stream Starting Soon — Valorant Tournament</title>
+  <style>
+    /* ── OBS CRITICAL ─────────────────────────────── */
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: rgba(0,0,0,0) !important;
+      background-color: rgba(0,0,0,0) !important;
+    }
+  </style>
+  <link rel="stylesheet" href="starting-soon.css">
+</head>
+<body>
+
+<div class="ss-root">
+
+  <!-- ── BACKGROUND LAYERS ─────────────────────── -->
+  <div class="bg-art"></div>
+  <div class="bg-vignette"></div>
+  <div class="bg-aura aura-left"></div>
+  <div class="bg-aura aura-right"></div>
+  <div class="bg-light-beams"></div>
+  <div class="ambient-particles"></div>
+
+  <!-- ── TOP HEADER ────────────────────────────── -->
+  <header class="top-header">
+    <div class="val-emblem-wrap">
+      <svg class="val-logo-svg" viewBox="0 0 100 100" fill="currentColor">
+        <path d="M99.2 16.5l-44.8 67h-21l44.8-67h21zm-65.8 0l-33.4 34.2h21l22.4-23 10-11.2h-20z"/>
+      </svg>
+      <span class="val-text">VALORANT ESPORTS</span>
+    </div>
+
+    <div class="tournament-title-gold-wrap">
+      <span class="gold-chevron-left"></span>
+      <h1 class="tournament-title-gold" id="ss-tournament-title">XMD VALORANT TOURNAMENT</h1>
+      <span class="gold-chevron-right"></span>
+    </div>
+
+    <!-- MAIN STARTING SOON BANNER -->
+    <div class="starting-soon-badge-wrap">
+      <div class="badge-accent-line line-left"></div>
+      <div class="starting-soon-title">STREAM STARTING SOON</div>
+      <div class="badge-accent-line line-right"></div>
+    </div>
+  </header>
+
+  <!-- ── MAIN SHOWCASE: TODAY'S FEATURED MATCH ─── -->
+  <main class="matchup-container">
+
+    <!-- SUB-BADGE: TODAY'S MATCH INFO -->
+    <div class="match-meta-pill" id="ss-match-meta">
+      <span class="meta-live-dot"></span>
+      <span class="meta-match-num" id="ss-match-num">MATCH 3</span>
+      <span class="meta-divider">·</span>
+      <span class="meta-stage" id="ss-stage">GROUP STAGE</span>
+      <span class="meta-divider">·</span>
+      <span class="meta-date" id="ss-date-label">TODAY'S FIXTURE</span>
+    </div>
+
+    <!-- TEAMS VS ARENA -->
+    <div class="teams-arena">
+
+      <!-- LEFT TEAM -->
+      <div class="team-card team-left" id="card-team-1">
+        <div class="team-side-tag side-def" id="team-1-side">
+          <span class="side-bar"></span>
+          <span class="side-label" id="team-1-side-text">TEAM 1</span>
+        </div>
+        <div class="logo-box">
+          <div class="logo-glow" id="team-1-glow"></div>
+          <img id="team-1-logo" class="team-crest" src="/logos/bitter-blade-z.png" alt="Team 1">
+        </div>
+        <div class="team-tag" id="team-1-tag">BBZ</div>
+        <div class="team-name" id="team-1-name">BITTER BLADE Z</div>
+      </div>
+
+      <!-- CENTER PIECE: VS & COUNTDOWN -->
+      <div class="center-deck">
+        <div class="vs-emblem">
+          <div class="bracket-tl"></div>
+          <div class="bracket-tr"></div>
+          <div class="bracket-bl"></div>
+          <div class="bracket-br"></div>
+          <span class="vs-text">VS</span>
+        </div>
+
+        <!-- NEXT MAP -->
+        <div class="map-badge-wrap">
+          <span class="map-sub">MAP</span>
+          <span class="map-value" id="ss-map-name">CORRODE</span>
+        </div>
+
+        <!-- COUNTDOWN CLOCK -->
+        <div class="countdown-card">
+          <div class="countdown-label">
+            <span class="timer-pulse-icon">⏱</span>
+            <span id="countdown-status-text">MATCH STARTS IN</span>
+          </div>
+          <div class="countdown-digits" id="countdown-digits">
+            <div class="digit-box">
+              <span class="digit-num" id="cd-hours">00</span>
+              <span class="digit-sub">HOURS</span>
+            </div>
+            <span class="digit-colon">:</span>
+            <div class="digit-box">
+              <span class="digit-num" id="cd-mins">00</span>
+              <span class="digit-sub">MINS</span>
+            </div>
+            <span class="digit-colon">:</span>
+            <div class="digit-box">
+              <span class="digit-num" id="cd-secs">00</span>
+              <span class="digit-sub">SECS</span>
+            </div>
+          </div>
+          <div class="scheduled-time-pill" id="ss-scheduled-time">
+            TODAY · 9:00 PM IST
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT TEAM -->
+      <div class="team-card team-right" id="card-team-2">
+        <div class="team-side-tag side-atk" id="team-2-side">
+          <span class="side-label" id="team-2-side-text">TEAM 2</span>
+          <span class="side-bar"></span>
+        </div>
+        <div class="logo-box">
+          <div class="logo-glow" id="team-2-glow"></div>
+          <img id="team-2-logo" class="team-crest" src="/logos/naadan-legacy.png" alt="Team 2">
+        </div>
+        <div class="team-tag" id="team-2-tag">NDL</div>
+        <div class="team-name" id="team-2-name">NAADAN LEGACY</div>
+      </div>
+
+    </div><!-- /teams-arena -->
+
+    <!-- TODAY'S FULL SCHEDULE STRIP (ALL MATCHES SCHEDULED FOR TODAY) -->
+    <div class="today-schedule-tray" id="today-schedule-tray">
+      <div class="tray-label">
+        <span class="tray-icon">📅</span>
+        <span class="tray-title" id="tray-title">TODAY'S SCHEDULE</span>
+      </div>
+      <div class="tray-matches" id="tray-matches-list">
+        <!-- Dynamically populated from today's fixtures -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── FOOTER STATUS BAR ─────────────────────── -->
+  <footer class="bottom-bar">
+    <div class="bar-ticker">
+      <span class="ticker-accent">● LIVE BROADCAST</span>
+      <span class="ticker-text" id="footer-ticker-text">GET READY FOR AN ELECTRIFYING TOURNAMENT SHOWDOWN · STAY TUNED</span>
+    </div>
+    <div class="bar-right">
+      <span class="time-ist-badge" id="live-ist-clock">IST --:--:--</span>
+    </div>
+  </footer>
+
+</div><!-- /ss-root -->
+
+<script src="/common/autoscale.js"></script>
+<script src="starting-soon.js"></script>
+</body>
+</html>
