@@ -454,10 +454,11 @@
               <th style="padding:6px 8px;text-align:center;">Winner</th>
               <th style="padding:6px 8px;text-align:center;">Map</th>
               <th style="padding:6px 8px;text-align:center;">Imported</th>
+              <th style="padding:6px 8px;text-align:center;">Action</th>
             </tr>
           </thead>
           <tbody id="results-tbody">
-            <tr><td colspan="5" style="padding:16px;text-align:center;color:#8892a0;">No results imported yet. Matches play Fri 2 Oct @ 9 PM IST.</td></tr>
+            <tr><td colspan="6" style="padding:16px;text-align:center;color:#8892a0;">No results imported yet. Matches play Fri 2 Oct @ 9 PM IST.</td></tr>
           </tbody>
         </table>
       </div>
@@ -470,27 +471,45 @@
     // ── Live Results Poller Admin Integration ─────────────────────
     const FIXTURE_LABELS = {
       1:'M1 VRN vs NDL',2:'M2 ATX vs BBZ',3:'M3 BBZ vs NDL',
-      4:'M4 ATX vs NDL',5:'M5 NDL vs BBZ',6:'M6 ATX vs NDL',
-      7:'M7 BBZ vs VRN',8:'M8 VRN vs ATX',9:'M9 VRN vs NDL',
-      10:'M10 VRN vs BBZ',11:'M11 VRN vs ATX',12:'M12 BBZ vs ATX',
+      4:'M4 ATX vs BBZ',5:'M5 NDL vs BBZ',6:'M6 VRN vs NDL',
+      7:'M7 VRN vs ATX',8:'M8 VRN vs ATX',9:'M9 BBZ vs VRN',
+      10:'M10 VRN vs BBZ',11:'M11 ATX vs NDL',12:'M12 ATX vs NDL',
       13:'M13 Qualifier 1',14:'M14 Eliminator',15:'M15 Qualifier 2',16:'M16 Grand Final'
     };
     const importedResults = {};
+
+    function applyResultToActive(matchNum) {
+      if (confirm(`Apply results of Match ${matchNum} (${FIXTURE_LABELS[matchNum] || 'M' + matchNum}) to live overlay scoreboard?`)) {
+        if (typeof sendAction === 'function') {
+          sendAction('LOAD_FIXTURE', { matchNumber: parseInt(matchNum, 10) });
+          sendAction('APPLY_FIXTURE_RESULT', { matchNumber: parseInt(matchNum, 10) });
+        } else {
+          fetch('/api/action', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'APPLY_FIXTURE_RESULT', payload: { matchNumber: parseInt(matchNum, 10) } })
+          });
+        }
+      }
+    }
 
     function renderResultsTable() {
       const tbody = document.getElementById('results-tbody');
       const entries = Object.entries(importedResults);
       if (entries.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="padding:16px;text-align:center;color:#8892a0;">No results imported yet.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" style="padding:16px;text-align:center;color:#8892a0;">No results imported yet.</td></tr>';
         return;
       }
       tbody.innerHTML = entries.map(([mn, r]) => `
         <tr style="border-bottom:1px solid #161b22;">
-          <td style="padding:6px 8px;color:#c9d1d9;">${FIXTURE_LABELS[mn] || 'M'+mn}</td>
+          <td style="padding:6px 8px;color:#c9d1d9;font-weight:600;">${FIXTURE_LABELS[mn] || 'M'+mn}</td>
           <td style="padding:6px 8px;text-align:center;font-weight:700;color:#ff4655;font-size:14px;">${r.score1} – ${r.score2}</td>
           <td style="padding:6px 8px;text-align:center;color:#ffd700;font-weight:600;">${r.winner || '—'}</td>
           <td style="padding:6px 8px;text-align:center;color:#8892a0;">${r.map || '—'}</td>
           <td style="padding:6px 8px;text-align:center;color:#8892a0;font-size:10px;">${r.importedAt ? new Date(r.importedAt).toLocaleTimeString('en-IN',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit'}) + ' IST' : '—'}</td>
+          <td style="padding:6px 8px;text-align:center;">
+            <button class="btn btn-warning btn-mini" style="padding:2px 8px;font-size:11px;" onclick="applyResultToActive(${mn})" title="Apply this result to the live scoreboard">⚡ Apply</button>
+          </td>
         </tr>
       `).join('');
     }

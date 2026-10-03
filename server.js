@@ -109,13 +109,42 @@ function normalizeStr(s) {
   return (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 
+function findRosterPlayerAcrossAll(name) {
+  const norm = normalizeStr(name);
+  for (const teamKey of Object.keys(TOURNAMENT_ROSTERS)) {
+    const list = TOURNAMENT_ROSTERS[teamKey];
+    const found = list.find(p => {
+      const n = normalizeStr(p.name);
+      return n === norm || n.includes(norm) || norm.includes(n);
+    });
+    if (found) return { player: found, teamId: teamKey };
+  }
+  return null;
+}
+
 function applyMatchResultToState(result) {
   if (!result) return false;
   const { fixtureMatchNumber, score1, score2, team1Tag, team2Tag, winner, map, players } = result;
 
-  // Set scores & winner banner
-  state.teamA.score = score1;
-  state.teamB.score = score2;
+  // Align scores with current state.teamA and state.teamB if tags are known
+  const curTagA = normalizeStr(state.teamA ? state.teamA.tag : '');
+  const curTagB = normalizeStr(state.teamB ? state.teamB.tag : '');
+  const rTag1 = normalizeStr(team1Tag);
+  const rTag2 = normalizeStr(team2Tag);
+
+  if (curTagA && curTagB && rTag1 && rTag2) {
+    if (curTagA === rTag2 && curTagB === rTag1) {
+      state.teamA.score = score2;
+      state.teamB.score = score1;
+    } else {
+      state.teamA.score = score1;
+      state.teamB.score = score2;
+    }
+  } else {
+    state.teamA.score = score1;
+    state.teamB.score = score2;
+  }
+
   if (winner) {
     state.match.statusBanner = `${winner} WINS!`;
   } else {
@@ -149,16 +178,61 @@ function applyMatchResultToState(result) {
     const sorted = [...players].sort((a, b) => (b.acs || 0) - (a.acs || 0));
     if (sorted.length > 0) {
       const top = sorted[0];
-      const assignedTeam = (top.riotTag === state.teamA.tag || state.teamA.name.includes(top.name)) ? state.teamA : state.teamB;
-      const rosterPlayer = assignedTeam.players ? assignedTeam.players.find(pl => normalizeStr(pl.name).includes(normalizeStr(top.name))) : null;
+      const normTop = normalizeStr(top.name);
+      const catalogInfo = findRosterPlayerAcrossAll(top.name);
+
+      let assignedTeam = null;
+      let rosterPlayer = null;
+
+      // 1. Try finding in current teamA or teamB
+      [state.teamA, state.teamB].forEach(team => {
+        if (team && Array.isArray(team.players)) {
+          const pl = team.players.find(p => {
+            const n = normalizeStr(p.name);
+            return n === normTop || n.includes(normTop) || normTop.includes(n);
+          });
+          if (pl) {
+            assignedTeam = team;
+            rosterPlayer = pl;
+          }
+        }
+      });
+
+      // 2. If not found in current loaded teams, try matching team tag or catalog
+      if (!assignedTeam) {
+        if (top.riotTag && normalizeStr(state.teamA.tag) === normalizeStr(top.riotTag)) {
+          assignedTeam = state.teamA;
+        } else if (top.riotTag && normalizeStr(state.teamB.tag) === normalizeStr(top.riotTag)) {
+          assignedTeam = state.teamB;
+        } else if (catalogInfo) {
+          const matchedTeamObj = TOURNAMENT_TEAMS.find(t => t.id === catalogInfo.teamId);
+          if (matchedTeamObj) {
+            assignedTeam = {
+              tag: matchedTeamObj.tag,
+              name: matchedTeamObj.name,
+              logo: matchedTeamObj.logo,
+              players: TOURNAMENT_ROSTERS[catalogInfo.teamId] || []
+            };
+          }
+        }
+      }
+
+      if (!assignedTeam) assignedTeam = state.teamA;
+      if (!rosterPlayer && catalogInfo) rosterPlayer = catalogInfo.player;
+
+      const mvpPhoto = (rosterPlayer && rosterPlayer.photo) || (catalogInfo && catalogInfo.player.photo) || '/players/DOMINIC.png';
+      const mvpLogo = (assignedTeam && assignedTeam.logo) || state.teamA.logo;
+      const mvpTeamTag = (assignedTeam && assignedTeam.tag) || (catalogInfo ? catalogInfo.player.id.split('-')[0].toUpperCase() : state.teamA.tag);
+      const mvpTeamName = (assignedTeam && assignedTeam.name) || state.teamA.name;
+
       state.mvpPlayer = {
         name: rosterPlayer ? rosterPlayer.name : top.name,
-        teamTag: assignedTeam.tag,
-        teamName: assignedTeam.name,
+        teamTag: mvpTeamTag,
+        teamName: mvpTeamName,
         role: 'Match MVP',
         agent: top.agent || (rosterPlayer ? rosterPlayer.agent : 'Jett'),
-        photo: rosterPlayer ? rosterPlayer.photo : '/players/DOMINIC.png',
-        logo: assignedTeam.logo,
+        photo: mvpPhoto,
+        logo: mvpLogo,
         kills: top.kills,
         deaths: top.deaths,
         assists: top.assists,
@@ -230,8 +304,13 @@ function getTodayFixtures() {
   }
 
   // Active / featured match for starting soon:
-  // If match 1 has already completed (or past its hour + result available), pick match 2
-  const activeMatch = matches[0] || null;
+  // If match 1 has already completed (result recorded), pick match 2
+  let activeMatch = matches[0] || null;
+  if (matches.length > 1 && state && state.completedResults) {
+    if (state.completedResults[matches[0].matchNumber]) {
+      activeMatch = matches[1];
+    }
+  }
 
   return {
     isToday,
@@ -513,6 +592,7 @@ function handleClientAction(data) {
           applyMatchResultToState(state.completedResults[matchNum]);
         }
 
+        saveStateToDisk();
         broadcastStateUpdate();
       }
       break;
@@ -747,9 +827,17 @@ function handleClientAction(data) {
         console.warn('[RiotTracker] Riot sync error, attempting tournament site poller sync:', err.message);
         try {
           await tournamentPoller.pollNow();
-          const matchNum = state.match.fixtureMatchNumber || 1;
+          let matchNum = parseInt(payload && (payload.fixtureMatchNumber || payload.matchNumber)) || state.match.fixtureMatchNumber;
+          if (!matchNum && state.completedResults) {
+            const availableNums = Object.keys(state.completedResults).map(n => parseInt(n, 10)).sort((a,b) => b - a);
+            if (availableNums.length > 0) matchNum = availableNums[0];
+          }
+          if (!matchNum) matchNum = 1;
+
           if (state.completedResults && state.completedResults[matchNum]) {
+            state.match.fixtureMatchNumber = matchNum;
             applyMatchResultToState(state.completedResults[matchNum]);
+            saveStateToDisk();
             broadcastStateUpdate();
             broadcast({
               type: 'MATCH_SYNC_SUCCESS',
@@ -760,7 +848,7 @@ function handleClientAction(data) {
         } catch (pollErr) {
           console.error('[Poller] Fallback poll error:', pollErr.message);
         }
-        broadcast({ type: 'MATCH_SYNC_ERROR', error: err.message });
+        broadcast({ type: 'MATCH_SYNC_ERROR', error: 'No completed match result found on tournament site or Riot client.' });
       });
       break;
     }
@@ -919,13 +1007,14 @@ function handlePollerResult(result) {
   const resTag2 = normalizeStr(team2Tag);
 
   const isCurrentFixture = state.match && state.match.fixtureMatchNumber === fixtureMatchNumber;
-  const isCurrentMatchByContext = (curMap && curMap === resMap) &&
-    ((tagA === resTag1 && tagB === resTag2) || (tagA === resTag2 && tagB === resTag1));
+  const teamsMatch = (tagA === resTag1 && tagB === resTag2) || (tagA === resTag2 && tagB === resTag1);
+  const isCurrentMatchByContext = teamsMatch && (!curMap || curMap === resMap);
 
   if (isCurrentFixture || isCurrentMatchByContext) {
     if (!state.match.fixtureMatchNumber) {
       state.match.fixtureMatchNumber = fixtureMatchNumber;
     }
+    if (map) state.match.mapName = map;
     applyMatchResultToState(state.completedResults[fixtureMatchNumber]);
     console.log(`[Poller] 🏆 Auto-applied live score & player stats for M${fixtureMatchNumber}: ${score1}-${score2}`);
   }

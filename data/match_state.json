@@ -248,10 +248,10 @@
         "kills": 19,
         "deaths": 12,
         "assists": 12,
-        "acs": 134,
+        "acs": 183,
         "adr": 173,
-        "hs": 12,
-        "kd": 2.25
+        "hs": 22,
+        "kd": 1.26
       },
       {
         "id": "vrn-2",
@@ -340,10 +340,10 @@
         "kills": 7,
         "deaths": 20,
         "assists": 4,
-        "acs": 130,
+        "acs": 121,
         "adr": 96,
-        "hs": 16,
-        "kd": 0.35
+        "hs": 15,
+        "kd": 0.39
       },
       {
         "id": "ndl-2",
@@ -354,10 +354,10 @@
         "kills": 19,
         "deaths": 12,
         "assists": 12,
-        "acs": 145,
+        "acs": 161,
         "adr": 173,
-        "hs": 15,
-        "kd": 0.63
+        "hs": 16,
+        "kd": 0.75
       },
       {
         "id": "ndl-3",
@@ -379,10 +379,10 @@
         "kills": 7,
         "deaths": 16,
         "assists": 7,
-        "acs": 96,
+        "acs": 146,
         "adr": 69,
-        "hs": 12,
-        "kd": 0.44
+        "hs": 6,
+        "kd": 0.63
       },
       {
         "id": "ndl-5",
@@ -393,9 +393,10 @@
         "kills": 28,
         "deaths": 20,
         "assists": 5,
-        "acs": 424,
+        "acs": 323,
         "adr": 254,
-        "hs": "14%"
+        "hs": 17,
+        "kd": 1.12
       },
       {
         "id": "ndl-6",
@@ -406,10 +407,10 @@
         "kills": 13,
         "deaths": 16,
         "assists": 8,
-        "acs": 190,
+        "acs": 208,
         "adr": 131,
-        "hs": 19,
-        "kd": 0.81
+        "hs": 24,
+        "kd": 0.9
       }
     ]
   },
@@ -417,17 +418,17 @@
   "mvpVisible": false,
   "mvpType": "map",
   "mvpPlayer": {
-    "name": "zippaz007",
-    "teamTag": "NDL",
-    "teamName": "NAADAN LEGACY",
+    "name": "yrr",
+    "teamTag": "VRN",
+    "teamName": "VEYRON",
     "role": "Player",
-    "agent": "Raze",
-    "photo": "/players/DOMINIC.png",
-    "logo": "/logos/naadan-legacy.png",
+    "agent": "Reyna",
+    "photo": "/players/PRABHU.png",
+    "logo": "/logos/veyron.png",
     "kills": 28,
-    "deaths": 20,
+    "deaths": 15,
     "assists": 5,
-    "acs": 424
+    "acs": 377
   },
   "timeout": {
     "active": false,
@@ -754,6 +755,268 @@
         }
       ],
       "importedAt": "2026-10-03T12:44:07.525Z"
+    },
+    "3": {
+      "score1": 6,
+      "score2": 13,
+      "team1Tag": "ATX",
+      "team2Tag": "BBZ",
+      "winner": "BITTER BLADE Z",
+      "map": "Bind",
+      "players": [
+        {
+          "name": "PorottaBeef",
+          "riotTag": "Beef",
+          "agent": "Brimstone",
+          "acs": 298,
+          "kills": 20,
+          "deaths": 14,
+          "assists": 6,
+          "plusMinus": "+6",
+          "adr": 184,
+          "hs": "30%"
+        },
+        {
+          "name": "NANDU",
+          "riotTag": "4941",
+          "agent": "Reyna",
+          "acs": 287,
+          "kills": 19,
+          "deaths": 15,
+          "assists": 0,
+          "plusMinus": "+4",
+          "adr": 180,
+          "hs": "22%"
+        },
+        {
+          "name": "SHREYA",
+          "riotTag": "01814",
+          "agent": "Deadlock",
+          "acs": 189,
+          "kills": 12,
+          "deaths": 15,
+          "assists": 3,
+          "plusMinus": -3,
+          "adr": 116,
+          "hs": "10%"
+        },
+        {
+          "name": "Kakashi",
+          "riotTag": "Dani",
+          "agent": "Reyna",
+          "acs": 323,
+          "kills": 25,
+          "deaths": 12,
+          "assists": 2,
+          "plusMinus": "+13",
+          "adr": 175,
+          "hs": "19%"
+        },
+        {
+          "name": "CUTEKIDxT",
+          "riotTag": "8898",
+          "agent": "Jett",
+          "acs": 243,
+          "kills": 15,
+          "deaths": 13,
+          "assists": 5,
+          "plusMinus": "+2",
+          "adr": 159,
+          "hs": "15%"
+        },
+        {
+          "name": "Axel Blaze",
+          "riotTag": "9418",
+          "agent": "Cypher",
+          "acs": 189,
+          "kills": 12,
+          "deaths": 15,
+          "assists": 3,
+          "plusMinus": -3,
+          "adr": 116,
+          "hs": "10%"
+        },
+        {
+          "name": "AEGON XD",
+          "riotTag": "007",
+          "agent": "Fade",
+          "acs": 151,
+          "kills": 9,
+          "deaths": 15,
+          "assists": 5,
+          "plusMinus": -6,
+          "adr": 114,
+          "hs": "28%"
+        },
+        {
+          "name": "Thakudu Scarlet",
+          "riotTag": "2406",
+          "agent": "Sage",
+          "acs": 94,
+          "kills": 4,
+          "deaths": 17,
+          "assists": 7,
+          "plusMinus": -13,
+          "adr": 64,
+          "hs": "13%"
+        },
+        {
+          "name": "デヴィカ",
+          "riotTag": "MAT22",
+          "agent": "Brimstone",
+          "acs": 196,
+          "kills": 12,
+          "deaths": 11,
+          "assists": 12,
+          "plusMinus": "+1",
+          "adr": 136,
+          "hs": "24%"
+        },
+        {
+          "name": "ASG UnniyAppam",
+          "riotTag": "scena",
+          "agent": "Skye",
+          "acs": 178,
+          "kills": 11,
+          "deaths": 15,
+          "assists": 10,
+          "plusMinus": -4,
+          "adr": 120,
+          "hs": "36%"
+        }
+      ],
+      "importedAt": "2026-10-03T17:19:18.994Z"
+    },
+    "4": {
+      "score1": 13,
+      "score2": 3,
+      "team1Tag": "BBZ",
+      "team2Tag": "NDL",
+      "winner": "BITTER BLADE Z",
+      "map": "Corrode",
+      "players": [
+        {
+          "name": "Kakashi",
+          "riotTag": "Dani",
+          "agent": "Sage",
+          "acs": 315,
+          "kills": 20,
+          "deaths": 7,
+          "assists": 5,
+          "plusMinus": "+13",
+          "adr": 201,
+          "hs": "20%"
+        },
+        {
+          "name": "ASG UnniyAppam",
+          "riotTag": "scena",
+          "agent": "Jett",
+          "acs": 281,
+          "kills": 14,
+          "deaths": 11,
+          "assists": 6,
+          "plusMinus": "+3",
+          "adr": 200,
+          "hs": "26%"
+        },
+        {
+          "name": "Axel Blaze",
+          "riotTag": "9418",
+          "agent": "Fade",
+          "acs": 263,
+          "kills": 15,
+          "deaths": 12,
+          "assists": 4,
+          "plusMinus": "+3",
+          "adr": 177,
+          "hs": "16%"
+        },
+        {
+          "name": "DRAIVEN",
+          "riotTag": "8466",
+          "agent": "Sova",
+          "acs": 231,
+          "kills": 13,
+          "deaths": 13,
+          "assists": 4,
+          "plusMinus": 0,
+          "adr": 147,
+          "hs": "32%"
+        },
+        {
+          "name": "TRICKY",
+          "riotTag": "2318",
+          "agent": "Miks",
+          "acs": 212,
+          "kills": 12,
+          "deaths": 14,
+          "assists": 8,
+          "plusMinus": -2,
+          "adr": 113,
+          "hs": "3%"
+        },
+        {
+          "name": "zippaz007",
+          "riotTag": "2500",
+          "agent": "Yoru",
+          "acs": 263,
+          "kills": 15,
+          "deaths": 12,
+          "assists": 4,
+          "plusMinus": "+3",
+          "adr": 177,
+          "hs": "16%"
+        },
+        {
+          "name": "デヴィカ",
+          "riotTag": "MAT22",
+          "agent": "Brimstone",
+          "acs": 216,
+          "kills": 13,
+          "deaths": 12,
+          "assists": 9,
+          "plusMinus": "+1",
+          "adr": 139,
+          "hs": "27%"
+        },
+        {
+          "name": "Nishku",
+          "riotTag": "nishk",
+          "agent": "Vyse",
+          "acs": 81,
+          "kills": 4,
+          "deaths": 10,
+          "assists": 6,
+          "plusMinus": -6,
+          "adr": 59,
+          "hs": "5%"
+        },
+        {
+          "name": "OUTLAWS",
+          "riotTag": "GKR",
+          "agent": "Reyna",
+          "acs": 182,
+          "kills": 11,
+          "deaths": 12,
+          "assists": 3,
+          "plusMinus": -1,
+          "adr": 107,
+          "hs": "16%"
+        },
+        {
+          "name": "DOMINIC TORETTO",
+          "riotTag": "BMW",
+          "agent": "Vyse",
+          "acs": 108,
+          "kills": 6,
+          "deaths": 13,
+          "assists": 4,
+          "plusMinus": -7,
+          "adr": 73,
+          "hs": "14%"
+        }
+      ],
+      "importedAt": "2026-10-03T17:53:21.664Z"
     }
   }
 }

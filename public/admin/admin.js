@@ -826,11 +826,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnImportMatch = document.getElementById('btn-import-match');
   if (btnImportMatch) {
     btnImportMatch.addEventListener('click', () => {
-      btnImportMatch.textContent = '⏳ Fetching from Riot...';
+      btnImportMatch.textContent = '⏳ Fetching Results...';
       btnImportMatch.disabled = true;
-      sendAction('SYNC_POST_MATCH');
+
+      const fixSel = document.getElementById('select-tournament-fixture');
+      const selectedFix = fixSel && fixSel.value ? parseInt(fixSel.value, 10) : (currentState && currentState.match ? currentState.match.fixtureMatchNumber : null);
+
+      sendAction('SYNC_POST_MATCH', { matchNumber: selectedFix, fixtureMatchNumber: selectedFix });
       setTimeout(() => {
-        if (btnImportMatch.textContent === '⏳ Fetching from Riot...') {
+        if (btnImportMatch.textContent === '⏳ Fetching Results...') {
           btnImportMatch.textContent = '⚡ Import Match Results';
           btnImportMatch.disabled = false;
         }
