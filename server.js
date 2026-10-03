@@ -174,10 +174,12 @@ function applyMatchResultToState(result) {
       });
     });
 
-    // Auto-pick MVP from top ACS in this match
+    // Auto-pick MVP from isMatchMvp badge or highest ACS in this match
+    const matchMvpPlayer = players.find(p => p.isMatchMvp);
     const sorted = [...players].sort((a, b) => (b.acs || 0) - (a.acs || 0));
-    if (sorted.length > 0) {
-      const top = sorted[0];
+    const top = matchMvpPlayer || sorted[0];
+
+    if (top) {
       const normTop = normalizeStr(top.name);
       const catalogInfo = findRosterPlayerAcrossAll(top.name);
 
@@ -237,8 +239,10 @@ function applyMatchResultToState(result) {
         deaths: top.deaths,
         assists: top.assists,
         acs: top.acs,
+        adr: top.adr,
+        hs: top.hs,
       };
-      console.log(`[Server] ⭐ Match MVP set to: ${state.mvpPlayer.name} (${state.mvpPlayer.teamTag})`);
+      console.log(`[Server] ⭐ Match MVP set to: ${state.mvpPlayer.name} (${state.mvpPlayer.teamTag}) — ACS ${top.acs}, K/D/A: ${top.kills}/${top.deaths}/${top.assists}`);
     }
   }
 
@@ -1073,28 +1077,30 @@ function handlePollerStats(statsArray) {
     return;
   }
 
-  // Auto-pick MVP: player with highest ACS across both rosters
-  const allPlayers = [
-    ...(state.teamA.players || []).map(p => ({ ...p, teamTag: state.teamA.tag, teamName: state.teamA.name, logo: state.teamA.logo })),
-    ...(state.teamB.players || []).map(p => ({ ...p, teamTag: state.teamB.tag, teamName: state.teamB.name, logo: state.teamB.logo })),
-  ].filter(p => p.acs > 0);
+  // Auto-pick MVP only if no match MVP is currently established
+  if (!state.mvpPlayer || !state.mvpPlayer.acs || state.mvpPlayer.acs === 0) {
+    const allPlayers = [
+      ...(state.teamA.players || []).map(p => ({ ...p, teamTag: state.teamA.tag, teamName: state.teamA.name, logo: state.teamA.logo })),
+      ...(state.teamB.players || []).map(p => ({ ...p, teamTag: state.teamB.tag, teamName: state.teamB.name, logo: state.teamB.logo })),
+    ].filter(p => p.acs > 0);
 
-  if (allPlayers.length > 0) {
-    const mvp = allPlayers.reduce((best, p) => p.acs > best.acs ? p : best, allPlayers[0]);
-    state.mvpPlayer = {
-      name: mvp.name,
-      teamTag: mvp.teamTag,
-      teamName: mvp.teamName,
-      role: mvp.role || 'Player',
-      agent: mvp.agent || '',
-      photo: mvp.photo || '',
-      logo: mvp.logo || '',
-      kills: mvp.kills || 0,
-      deaths: mvp.deaths || 0,
-      assists: mvp.assists || 0,
-      acs: mvp.acs || 0,
-    };
-    console.log(`[Poller] ⭐ Auto-MVP: ${mvp.name} (${mvp.teamTag}) — ACS ${mvp.acs}`);
+    if (allPlayers.length > 0) {
+      const mvp = allPlayers.reduce((best, p) => p.acs > best.acs ? p : best, allPlayers[0]);
+      state.mvpPlayer = {
+        name: mvp.name,
+        teamTag: mvp.teamTag,
+        teamName: mvp.teamName,
+        role: mvp.role || 'Player',
+        agent: mvp.agent || '',
+        photo: mvp.photo || '',
+        logo: mvp.logo || '',
+        kills: mvp.kills || 0,
+        deaths: mvp.deaths || 0,
+        assists: mvp.assists || 0,
+        acs: mvp.acs || 0,
+      };
+      console.log(`[Poller] ⭐ Auto-MVP (Stats Fallback): ${mvp.name} (${mvp.teamTag}) — ACS ${mvp.acs}`);
+    }
   }
 
   saveStateToDisk();

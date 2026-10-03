@@ -885,7 +885,9 @@ document.addEventListener('DOMContentLoaded', () => {
           kills: player.kills || 0,
           deaths: player.deaths || 0,
           assists: player.assists || 0,
-          acs: player.acs || Math.max(150, (player.kills || 0) * 18 + (player.assists || 0) * 6)
+          acs: (player.acs !== undefined && player.acs !== null) ? player.acs : Math.max(150, (player.kills || 0) * 18 + (player.assists || 0) * 6),
+          adr: player.adr,
+          hs: player.hs
         });
       }
     }

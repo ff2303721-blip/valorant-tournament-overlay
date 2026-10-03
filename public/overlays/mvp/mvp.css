@@ -226,9 +226,9 @@ body.preview-mode {
 }
 
 .stat-box.acs-stat {
-  grid-column: span 2;
-  background: linear-gradient(135deg, rgba(255, 70, 85, 0.1), rgba(15, 23, 42, 0.7));
-  border-color: rgba(255, 70, 85, 0.3);
+  grid-column: span 3;
+  background: linear-gradient(135deg, rgba(255, 70, 85, 0.15), rgba(15, 23, 42, 0.85));
+  border-color: rgba(255, 70, 85, 0.4);
 }
 
 .stat-box.acs-stat .stat-value {

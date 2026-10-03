@@ -166,10 +166,15 @@ function parseMatchPage(html, matchSlug) {
       }
     }
 
+    const isMatchMvp = chunk.includes('MATCH MVP');
+    const isTeamMvp = chunk.includes('TEAM MVP');
+
     result.players.push({
       name,
       riotTag,
       agent,
+      isMatchMvp,
+      isTeamMvp,
       acs: typeof statsArray[0] === 'number' ? statsArray[0] : parseInt(statsArray[0], 10) || 0,
       kills: typeof statsArray[1] === 'number' ? statsArray[1] : parseInt(statsArray[1], 10) || 0,
       deaths: typeof statsArray[2] === 'number' ? statsArray[2] : parseInt(statsArray[2], 10) || 0,

@@ -72,13 +72,20 @@ function renderMVP(state) {
   const deaths = p.deaths || 0;
   const assists = p.assists || 0;
   const kd = deaths > 0 ? (kills / deaths).toFixed(2) : kills.toFixed(2);
-  const acs = p.acs || Math.max(150, kills * 18 + assists * 6);
+  const acs = (p.acs !== undefined && p.acs !== null) ? p.acs : Math.max(150, kills * 18 + assists * 6);
+  const adr = (p.adr !== undefined && p.adr !== null) ? p.adr : '--';
+  let hs = (p.hs !== undefined && p.hs !== null) ? p.hs : '--';
+  if (typeof hs === 'number') hs = `${hs}%`;
 
   document.getElementById('mvp-kills').textContent = kills;
   document.getElementById('mvp-deaths').textContent = deaths;
   document.getElementById('mvp-assists').textContent = assists;
   document.getElementById('mvp-kd').textContent = kd;
   document.getElementById('mvp-acs').textContent = acs;
+  const adrEl = document.getElementById('mvp-adr');
+  if (adrEl) adrEl.textContent = adr;
+  const hsEl = document.getElementById('mvp-hs');
+  if (hsEl) hsEl.textContent = hs;
 
   const mapName = (state.match && state.match.mapName) || 'ASCENT';
   const stage = (state.match && state.match.stage) || 'MATCH REPORT';
