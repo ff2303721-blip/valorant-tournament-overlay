@@ -248,9 +248,9 @@
         "kills": 19,
         "deaths": 12,
         "assists": 12,
-        "acs": 183,
+        "acs": 266,
         "adr": 173,
-        "hs": 22,
+        "hs": "20%",
         "kd": 1.26
       },
       {
@@ -264,7 +264,7 @@
         "assists": 2,
         "acs": 345,
         "adr": 226,
-        "hs": 33,
+        "hs": "33%",
         "kd": 2.17
       },
       {
@@ -316,7 +316,7 @@
         "assists": 3,
         "acs": 140,
         "adr": 92,
-        "hs": 17,
+        "hs": "17%",
         "kd": 0.85
       }
     ]
@@ -340,9 +340,9 @@
         "kills": 7,
         "deaths": 20,
         "assists": 4,
-        "acs": 121,
+        "acs": 130,
         "adr": 96,
-        "hs": 15,
+        "hs": "16%",
         "kd": 0.39
       },
       {
@@ -351,12 +351,12 @@
         "role": "Player",
         "photo": "/players/DOMINIC.png",
         "agent": "Chamber",
-        "kills": 19,
-        "deaths": 12,
-        "assists": 12,
-        "acs": 161,
-        "adr": 173,
-        "hs": 16,
+        "kills": 10,
+        "deaths": 16,
+        "assists": 3,
+        "acs": 145,
+        "adr": 97,
+        "hs": "15%",
         "kd": 0.75
       },
       {
@@ -379,9 +379,9 @@
         "kills": 7,
         "deaths": 16,
         "assists": 7,
-        "acs": 146,
+        "acs": 96,
         "adr": 69,
-        "hs": 6,
+        "hs": "12%",
         "kd": 0.63
       },
       {
@@ -393,9 +393,9 @@
         "kills": 28,
         "deaths": 20,
         "assists": 5,
-        "acs": 323,
+        "acs": 424,
         "adr": 254,
-        "hs": 17,
+        "hs": "14%",
         "kd": 1.12
       },
       {
@@ -407,9 +407,9 @@
         "kills": 13,
         "deaths": 16,
         "assists": 8,
-        "acs": 208,
+        "acs": 190,
         "adr": 131,
-        "hs": 24,
+        "hs": "19%",
         "kd": 0.9
       }
     ]
@@ -505,6 +505,7 @@
       "map": "Bind",
       "players": [
         {
+          "teamTag": "VRN",
           "name": "yrr",
           "riotTag": "gngaa",
           "agent": "Reyna",
@@ -519,6 +520,7 @@
           "hs": "40%"
         },
         {
+          "teamTag": "VRN",
           "name": "Denver",
           "riotTag": "GGEZ",
           "agent": "Jett",
@@ -533,6 +535,7 @@
           "hs": "33%"
         },
         {
+          "teamTag": "VRN",
           "name": "DEVILDOM",
           "riotTag": "3112",
           "agent": "Miks",
@@ -547,48 +550,7 @@
           "hs": "20%"
         },
         {
-          "name": "zippaz007",
-          "riotTag": "2500",
-          "agent": "Raze",
-          "isMatchMvp": true,
-          "isTeamMvp": false,
-          "acs": 424,
-          "kills": 28,
-          "deaths": 20,
-          "assists": 5,
-          "plusMinus": "+8",
-          "adr": 254,
-          "hs": "14%"
-        },
-        {
-          "name": "DRAIVEN",
-          "riotTag": "8466",
-          "agent": "Omen",
-          "isMatchMvp": false,
-          "isTeamMvp": false,
-          "acs": 190,
-          "kills": 13,
-          "deaths": 16,
-          "assists": 8,
-          "plusMinus": -3,
-          "adr": 131,
-          "hs": "19%"
-        },
-        {
-          "name": "OUTLAWS",
-          "riotTag": "GKR",
-          "agent": "Chamber",
-          "isMatchMvp": false,
-          "isTeamMvp": false,
-          "acs": 266,
-          "kills": 19,
-          "deaths": 12,
-          "assists": 12,
-          "plusMinus": "+7",
-          "adr": 173,
-          "hs": "20%"
-        },
-        {
+          "teamTag": "VRN",
           "name": "STEPHAN",
           "riotTag": "RAJ",
           "agent": "Tejo",
@@ -603,6 +565,7 @@
           "hs": "17%"
         },
         {
+          "teamTag": "VRN",
           "name": "BEEMA",
           "riotTag": "GARU",
           "agent": "Sage",
@@ -617,6 +580,52 @@
           "hs": "23%"
         },
         {
+          "teamTag": "NDL",
+          "name": "zippaz007",
+          "riotTag": "2500",
+          "agent": "Raze",
+          "isMatchMvp": true,
+          "isTeamMvp": false,
+          "acs": 424,
+          "kills": 28,
+          "deaths": 20,
+          "assists": 5,
+          "plusMinus": "+8",
+          "adr": 254,
+          "hs": "14%"
+        },
+        {
+          "teamTag": "NDL",
+          "name": "DRAIVEN",
+          "riotTag": "8466",
+          "agent": "Omen",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 190,
+          "kills": 13,
+          "deaths": 16,
+          "assists": 8,
+          "plusMinus": -3,
+          "adr": 131,
+          "hs": "19%"
+        },
+        {
+          "teamTag": "NDL",
+          "name": "OUTLAWS",
+          "riotTag": "GKR",
+          "agent": "Chamber",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 145,
+          "kills": 10,
+          "deaths": 16,
+          "assists": 3,
+          "plusMinus": -6,
+          "adr": 97,
+          "hs": "15%"
+        },
+        {
+          "teamTag": "NDL",
           "name": "DOMINIC TORETTO",
           "riotTag": "BMW",
           "agent": "Gekko",
@@ -631,6 +640,7 @@
           "hs": "16%"
         },
         {
+          "teamTag": "NDL",
           "name": "TRICKY",
           "riotTag": "2318",
           "agent": "Sage",
@@ -645,7 +655,7 @@
           "hs": "12%"
         }
       ],
-      "importedAt": "2026-10-03T18:39:48.061Z"
+      "importedAt": "2026-10-04T06:34:55.286Z"
     },
     "2": {
       "score1": 3,
@@ -656,6 +666,7 @@
       "map": "Abyss",
       "players": [
         {
+          "teamTag": "ATX",
           "name": "NANDU",
           "riotTag": "4941",
           "agent": "Clove",
@@ -670,6 +681,7 @@
           "hs": "24%"
         },
         {
+          "teamTag": "ATX",
           "name": "AEGON XD",
           "riotTag": "007",
           "agent": "Iso",
@@ -684,6 +696,7 @@
           "hs": "26%"
         },
         {
+          "teamTag": "ATX",
           "name": "PorottaBeef",
           "riotTag": "Beef",
           "agent": "Cypher",
@@ -698,45 +711,7 @@
           "hs": "13%"
         },
         {
-          "name": "Axel Blaze",
-          "riotTag": "9418",
-          "agent": "Sage",
-          "isMatchMvp": true,
-          "isTeamMvp": false,
-          "acs": 348,
-          "kills": 21,
-          "deaths": 10,
-          "assists": 13,
-          "plusMinus": "+11",
-          "adr": 184,
-          "hs": "16%"
-        },
-        {
-          "name": "Kakashi",
-          "riotTag": "Dani",
-          "agent": "Gekko",
-          "isMatchMvp": false,
-          "isTeamMvp": false,
-          "acs": 304,
-          "kills": 16,
-          "deaths": 10,
-          "assists": 8,
-          "plusMinus": "+6",
-          "adr": 195,
-          "hs": "11%"
-        },
-        {
-          "name": "ASG UnniyAppam",
-          "riotTag": "scena",
-          "agent": "Cypher",
-          "isMatchMvp": false,
-          "isTeamMvp": false,
-          "acs": 154,
-          "kills": 7,
-          "deaths": 15,
-          "assists": 4
-        },
-        {
+          "teamTag": "ATX",
           "name": "Thakudu Scarlet",
           "riotTag": "2406",
           "agent": "Sage",
@@ -751,6 +726,7 @@
           "hs": "7%"
         },
         {
+          "teamTag": "ATX",
           "name": "SHREYA",
           "riotTag": "01814",
           "agent": "Breach",
@@ -765,6 +741,52 @@
           "hs": "14%"
         },
         {
+          "teamTag": "BBZ",
+          "name": "Axel Blaze",
+          "riotTag": "9418",
+          "agent": "Sage",
+          "isMatchMvp": true,
+          "isTeamMvp": false,
+          "acs": 348,
+          "kills": 21,
+          "deaths": 10,
+          "assists": 13,
+          "plusMinus": "+11",
+          "adr": 184,
+          "hs": "16%"
+        },
+        {
+          "teamTag": "BBZ",
+          "name": "Kakashi",
+          "riotTag": "Dani",
+          "agent": "Gekko",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 304,
+          "kills": 16,
+          "deaths": 10,
+          "assists": 8,
+          "plusMinus": "+6",
+          "adr": 195,
+          "hs": "11%"
+        },
+        {
+          "teamTag": "BBZ",
+          "name": "ASG UnniyAppam",
+          "riotTag": "scena",
+          "agent": "Cypher",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 296,
+          "kills": 19,
+          "deaths": 10,
+          "assists": 0,
+          "plusMinus": "+9",
+          "adr": 182,
+          "hs": "15%"
+        },
+        {
+          "teamTag": "BBZ",
           "name": "CUTEKIDxT",
           "riotTag": "8898",
           "agent": "Jett",
@@ -779,6 +801,7 @@
           "hs": "18%"
         },
         {
+          "teamTag": "BBZ",
           "name": "デヴィカ",
           "riotTag": "MAT22",
           "agent": "Brimstone",
@@ -793,7 +816,7 @@
           "hs": "12%"
         }
       ],
-      "importedAt": "2026-10-03T18:39:49.799Z"
+      "importedAt": "2026-10-04T06:34:57.320Z"
     },
     "3": {
       "score1": 6,
@@ -804,6 +827,7 @@
       "map": "Bind",
       "players": [
         {
+          "teamTag": "ATX",
           "name": "PorottaBeef",
           "riotTag": "Beef",
           "agent": "Brimstone",
@@ -818,6 +842,7 @@
           "hs": "30%"
         },
         {
+          "teamTag": "ATX",
           "name": "NANDU",
           "riotTag": "4941",
           "agent": "Reyna",
@@ -832,6 +857,7 @@
           "hs": "22%"
         },
         {
+          "teamTag": "ATX",
           "name": "SHREYA",
           "riotTag": "01814",
           "agent": "Deadlock",
@@ -846,48 +872,7 @@
           "hs": "10%"
         },
         {
-          "name": "Kakashi",
-          "riotTag": "Dani",
-          "agent": "Reyna",
-          "isMatchMvp": true,
-          "isTeamMvp": false,
-          "acs": 323,
-          "kills": 25,
-          "deaths": 12,
-          "assists": 2,
-          "plusMinus": "+13",
-          "adr": 175,
-          "hs": "19%"
-        },
-        {
-          "name": "CUTEKIDxT",
-          "riotTag": "8898",
-          "agent": "Jett",
-          "isMatchMvp": false,
-          "isTeamMvp": false,
-          "acs": 243,
-          "kills": 15,
-          "deaths": 13,
-          "assists": 5,
-          "plusMinus": "+2",
-          "adr": 159,
-          "hs": "15%"
-        },
-        {
-          "name": "Axel Blaze",
-          "riotTag": "9418",
-          "agent": "Cypher",
-          "isMatchMvp": false,
-          "isTeamMvp": false,
-          "acs": 189,
-          "kills": 12,
-          "deaths": 15,
-          "assists": 3,
-          "plusMinus": -3,
-          "adr": 116,
-          "hs": "10%"
-        },
-        {
+          "teamTag": "ATX",
           "name": "AEGON XD",
           "riotTag": "007",
           "agent": "Fade",
@@ -902,6 +887,7 @@
           "hs": "28%"
         },
         {
+          "teamTag": "ATX",
           "name": "Thakudu Scarlet",
           "riotTag": "2406",
           "agent": "Sage",
@@ -916,6 +902,52 @@
           "hs": "13%"
         },
         {
+          "teamTag": "BBZ",
+          "name": "Kakashi",
+          "riotTag": "Dani",
+          "agent": "Reyna",
+          "isMatchMvp": true,
+          "isTeamMvp": false,
+          "acs": 323,
+          "kills": 25,
+          "deaths": 12,
+          "assists": 2,
+          "plusMinus": "+13",
+          "adr": 175,
+          "hs": "19%"
+        },
+        {
+          "teamTag": "BBZ",
+          "name": "CUTEKIDxT",
+          "riotTag": "8898",
+          "agent": "Jett",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 243,
+          "kills": 15,
+          "deaths": 13,
+          "assists": 5,
+          "plusMinus": "+2",
+          "adr": 159,
+          "hs": "15%"
+        },
+        {
+          "teamTag": "BBZ",
+          "name": "Axel Blaze",
+          "riotTag": "9418",
+          "agent": "Cypher",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 197,
+          "kills": 13,
+          "deaths": 13,
+          "assists": 6,
+          "plusMinus": 0,
+          "adr": 138,
+          "hs": "15%"
+        },
+        {
+          "teamTag": "BBZ",
           "name": "デヴィカ",
           "riotTag": "MAT22",
           "agent": "Brimstone",
@@ -930,6 +962,7 @@
           "hs": "24%"
         },
         {
+          "teamTag": "BBZ",
           "name": "ASG UnniyAppam",
           "riotTag": "scena",
           "agent": "Skye",
@@ -944,7 +977,7 @@
           "hs": "36%"
         }
       ],
-      "importedAt": "2026-10-03T18:39:51.536Z"
+      "importedAt": "2026-10-04T06:34:59.323Z"
     },
     "4": {
       "score1": 13,
@@ -955,6 +988,7 @@
       "map": "Corrode",
       "players": [
         {
+          "teamTag": "BBZ",
           "name": "Kakashi",
           "riotTag": "Dani",
           "agent": "Sage",
@@ -969,6 +1003,7 @@
           "hs": "20%"
         },
         {
+          "teamTag": "BBZ",
           "name": "ASG UnniyAppam",
           "riotTag": "scena",
           "agent": "Jett",
@@ -983,6 +1018,7 @@
           "hs": "26%"
         },
         {
+          "teamTag": "BBZ",
           "name": "Axel Blaze",
           "riotTag": "9418",
           "agent": "Fade",
@@ -997,48 +1033,7 @@
           "hs": "16%"
         },
         {
-          "name": "DRAIVEN",
-          "riotTag": "8466",
-          "agent": "Sova",
-          "isMatchMvp": false,
-          "isTeamMvp": true,
-          "acs": 231,
-          "kills": 13,
-          "deaths": 13,
-          "assists": 4,
-          "plusMinus": 0,
-          "adr": 147,
-          "hs": "32%"
-        },
-        {
-          "name": "TRICKY",
-          "riotTag": "2318",
-          "agent": "Miks",
-          "isMatchMvp": false,
-          "isTeamMvp": false,
-          "acs": 212,
-          "kills": 12,
-          "deaths": 14,
-          "assists": 8,
-          "plusMinus": -2,
-          "adr": 113,
-          "hs": "3%"
-        },
-        {
-          "name": "zippaz007",
-          "riotTag": "2500",
-          "agent": "Yoru",
-          "isMatchMvp": false,
-          "isTeamMvp": false,
-          "acs": 263,
-          "kills": 15,
-          "deaths": 12,
-          "assists": 4,
-          "plusMinus": "+3",
-          "adr": 177,
-          "hs": "16%"
-        },
-        {
+          "teamTag": "BBZ",
           "name": "デヴィカ",
           "riotTag": "MAT22",
           "agent": "Brimstone",
@@ -1053,6 +1048,7 @@
           "hs": "27%"
         },
         {
+          "teamTag": "BBZ",
           "name": "Nishku",
           "riotTag": "nishk",
           "agent": "Vyse",
@@ -1067,6 +1063,52 @@
           "hs": "5%"
         },
         {
+          "teamTag": "NDL",
+          "name": "DRAIVEN",
+          "riotTag": "8466",
+          "agent": "Sova",
+          "isMatchMvp": false,
+          "isTeamMvp": true,
+          "acs": 231,
+          "kills": 13,
+          "deaths": 13,
+          "assists": 4,
+          "plusMinus": 0,
+          "adr": 147,
+          "hs": "32%"
+        },
+        {
+          "teamTag": "NDL",
+          "name": "TRICKY",
+          "riotTag": "2318",
+          "agent": "Miks",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 212,
+          "kills": 12,
+          "deaths": 14,
+          "assists": 8,
+          "plusMinus": -2,
+          "adr": 113,
+          "hs": "3%"
+        },
+        {
+          "teamTag": "NDL",
+          "name": "zippaz007",
+          "riotTag": "2500",
+          "agent": "Yoru",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 190,
+          "kills": 10,
+          "deaths": 14,
+          "assists": 6,
+          "plusMinus": -4,
+          "adr": 128,
+          "hs": "26%"
+        },
+        {
+          "teamTag": "NDL",
           "name": "OUTLAWS",
           "riotTag": "GKR",
           "agent": "Reyna",
@@ -1081,6 +1123,7 @@
           "hs": "16%"
         },
         {
+          "teamTag": "NDL",
           "name": "DOMINIC TORETTO",
           "riotTag": "BMW",
           "agent": "Vyse",
@@ -1095,7 +1138,7 @@
           "hs": "14%"
         }
       ],
-      "importedAt": "2026-10-03T18:39:53.739Z"
+      "importedAt": "2026-10-04T06:35:01.379Z"
     }
   }
 }

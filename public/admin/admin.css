@@ -72,39 +72,39 @@
 
 html { 
   scroll-behavior: smooth;
-  overflow-y: auto !important;
-  overflow-x: hidden;
-  height: 100%;
+  overflow-y: scroll !important;
+  overflow-x: auto;
+  min-height: 100%;
 }
 body {
   font-family: var(--fn);
   background: var(--bg);
   color: var(--t1);
   min-height: 100vh;
-  overflow-y: auto !important;
-  overflow-x: hidden;
+  overflow-y: visible !important;
+  overflow-x: auto;
   -webkit-font-smoothing: antialiased;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold) rgba(15, 20, 28, 0.9);
+  scrollbar-width: auto;
+  scrollbar-color: #ffd043 #080a0f;
 }
 
 /* Custom Visible Scrollbar for Webkit Browsers */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 14px;
+  height: 14px;
 }
 ::-webkit-scrollbar-track {
-  background: #080a0f;
-  border-left: 1px solid rgba(255, 215, 80, 0.12);
+  background: #080a0f !important;
+  border-left: 1px solid rgba(255, 215, 80, 0.25);
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #d89700, #ffd043);
-  border-radius: 5px;
+  background: linear-gradient(180deg, #ffd043, #d89700) !important;
+  border-radius: 7px;
   border: 2px solid #080a0f;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ffe066;
-  box-shadow: 0 0 10px rgba(255, 208, 67, 0.6);
+  background: #fff066 !important;
+  box-shadow: 0 0 12px rgba(255, 208, 67, 0.8);
 }
 
 body::before {
@@ -1355,3 +1355,25 @@ body::before {
   border-color: var(--gold);
   color: var(--gold);
 }
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE & SCROLL ADJUSTMENTS
+   Ensures dashboard content is completely accessible on all
+   displays with smooth vertical scrolling and no forced zoom out
+══════════════════════════════════════════════════════════ */
+@media (max-width: 1366px) {
+  .admin-grid {
+    grid-template-columns: 1fr 300px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+  .player-teams-container {
+    grid-template-columns: 1fr;
+  }
+}
+

@@ -151,11 +151,26 @@ function applyMatchResultToState(result) {
     state.match.statusBanner = 'FINAL';
   }
 
-  // Update players combat stats across teamA and teamB
+  // Update players combat stats strictly to their corresponding team
   if (Array.isArray(players) && players.length > 0) {
+    const normCurTagA = normalizeStr(state.teamA ? state.teamA.tag : '');
+    const normCurTagB = normalizeStr(state.teamB ? state.teamB.tag : '');
+
     players.forEach(p => {
       const normName = normalizeStr(p.name);
-      [state.teamA, state.teamB].forEach(team => {
+      const pTeamTag = normalizeStr(p.teamTag);
+
+      // Target the team that matches p.teamTag (or both if teamTag is not specified)
+      const targetTeams = [];
+      if (pTeamTag) {
+        if (normCurTagA === pTeamTag) targetTeams.push(state.teamA);
+        else if (normCurTagB === pTeamTag) targetTeams.push(state.teamB);
+      }
+      if (targetTeams.length === 0) {
+        targetTeams.push(state.teamA, state.teamB);
+      }
+
+      targetTeams.forEach(team => {
         if (team && Array.isArray(team.players)) {
           const found = team.players.find(pl => {
             const n = normalizeStr(pl.name);
@@ -181,14 +196,20 @@ function applyMatchResultToState(result) {
 
     if (top) {
       const normTop = normalizeStr(top.name);
+      const topTeamTag = normalizeStr(top.teamTag);
       const catalogInfo = findRosterPlayerAcrossAll(top.name);
 
       let assignedTeam = null;
       let rosterPlayer = null;
 
-      // 1. Try finding in current teamA or teamB
-      [state.teamA, state.teamB].forEach(team => {
-        if (team && Array.isArray(team.players)) {
+      // 1. Try finding in current teamA or teamB matching team tag if available
+      const teamsToCheck = [];
+      if (topTeamTag === normCurTagA) teamsToCheck.push(state.teamA, state.teamB);
+      else if (topTeamTag === normCurTagB) teamsToCheck.push(state.teamB, state.teamA);
+      else teamsToCheck.push(state.teamA, state.teamB);
+
+      teamsToCheck.forEach(team => {
+        if (team && Array.isArray(team.players) && !rosterPlayer) {
           const pl = team.players.find(p => {
             const n = normalizeStr(p.name);
             return n === normTop || n.includes(normTop) || normTop.includes(n);
@@ -202,9 +223,9 @@ function applyMatchResultToState(result) {
 
       // 2. If not found in current loaded teams, try matching team tag or catalog
       if (!assignedTeam) {
-        if (top.riotTag && normalizeStr(state.teamA.tag) === normalizeStr(top.riotTag)) {
+        if (topTeamTag && normCurTagA === topTeamTag) {
           assignedTeam = state.teamA;
-        } else if (top.riotTag && normalizeStr(state.teamB.tag) === normalizeStr(top.riotTag)) {
+        } else if (topTeamTag && normCurTagB === topTeamTag) {
           assignedTeam = state.teamB;
         } else if (catalogInfo) {
           const matchedTeamObj = TOURNAMENT_TEAMS.find(t => t.id === catalogInfo.teamId);
@@ -1054,8 +1075,10 @@ function handlePollerStats(statsArray) {
 
   for (const stat of statsArray) {
     const normStat = normalize(stat.name);
-    for (const { players } of rosters) {
+    const statTeamTag = normalize(stat.teamTag);
+    for (const { team, players } of rosters) {
       if (!Array.isArray(players)) continue;
+      if (statTeamTag && normalize(team.tag) && statTeamTag !== normalize(team.tag)) continue;
       const player = players.find(p => normalize(p.name) === normStat ||
         normalize(p.name).includes(normStat) ||
         normStat.includes(normalize(p.name)));

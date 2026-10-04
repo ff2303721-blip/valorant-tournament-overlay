@@ -121,68 +121,131 @@ function parseMatchPage(html, matchSlug) {
     result.winner = result.score1 > result.score2 ? result.team1Tag : result.team2Tag;
   }
 
-  // 4. Extract Per-Player Combat Stats from match scoreboard table
-  // 1. Build dictionary of all slot references: e.g. 2d:["$","td",null,{"className":"...","children":266}]
-  const slots = {};
-  const slotPattern = /(?:^|\n)([0-9a-f]+):\["\$","td",null,\{"className":"[^"]*","children":([^}]+)\}\]/g;
-  let sm;
-  while ((sm = slotPattern.exec(fullRSC)) !== null) {
-    const key = sm[1];
-    let val = sm[2].trim();
-    try { val = JSON.parse(val); } catch(e) {}
-    slots[key] = val;
-  }
+  // 4. Extract Per-Player Combat Stats from match scoreboard tables (Team 1 and Team 2)
+  function extractChildrenArray(str, startIndex) {
+    let depth = 0;
+    let inString = false;
+    let escape = false;
+    let startPos = -1;
 
-  // 2. Extract each tr row by looking for ["$","tr","NAME#TAG-AGENT",{"className":...
-  const trStartRegex = /\["\$","tr","([^"#]+)#([^"-]+)-([^"]+)",\{"className":"[^"]*"/g;
-  let tm;
-  while ((tm = trStartRegex.exec(fullRSC)) !== null) {
-    const name = tm[1];
-    const riotTag = tm[2];
-    const agent = tm[3];
-    const startIdx = tm.index;
-
-    // Grab up to next tr or 1500 chars
-    const chunk = fullRSC.substring(startIdx, startIdx + 1500);
-
-    // Look for direct td values
-    const directVals = [];
-    const directPattern = /\["\$","td",null,\{"className":"stat-cell[^"]*","children":([^}]+)\}\]/g;
-    let dm;
-    while ((dm = directPattern.exec(chunk)) !== null) {
-      let val = dm[1].trim();
-      try { val = JSON.parse(val); } catch(e) {}
-      directVals.push(val);
-      if (directVals.length === 7) break;
-    }
-
-    let statsArray = directVals;
-    if (statsArray.length < 4) {
-      // Look for ref tokens: "$L2d", "$L2e", etc. in children array
-      const refMatches = [...chunk.matchAll(/"\$L([0-9a-f]+)"/g)].map(m => m[1]);
-      const resolved = refMatches.map(k => slots[k]).filter(v => v !== undefined);
-      if (resolved.length >= 4) {
-        statsArray = resolved;
+    for (let i = startIndex; i < str.length; i++) {
+      const ch = str[i];
+      if (escape) {
+        escape = false;
+        continue;
+      }
+      if (ch === '\\') {
+        escape = true;
+        continue;
+      }
+      if (ch === '"') {
+        inString = !inString;
+        continue;
+      }
+      if (!inString) {
+        if (ch === '[') {
+          if (depth === 0) startPos = i;
+          depth++;
+        } else if (ch === ']') {
+          depth--;
+          if (depth === 0) {
+            return str.substring(startPos, i + 1);
+          }
+        }
       }
     }
+    return null;
+  }
 
-    const isMatchMvp = chunk.includes('MATCH MVP');
-    const isTeamMvp = chunk.includes('TEAM MVP');
+  // 1. Build dictionary of all slot references
+  const slots = {};
+  const lines = fullRSC.split('\n');
+  for (const line of lines) {
+    const sm = line.match(/^([0-9a-f]+):(.*)$/);
+    if (sm) {
+      slots[sm[1]] = sm[2].trim();
+    }
+  }
 
-    result.players.push({
-      name,
-      riotTag,
-      agent,
-      isMatchMvp,
-      isTeamMvp,
-      acs: typeof statsArray[0] === 'number' ? statsArray[0] : parseInt(statsArray[0], 10) || 0,
-      kills: typeof statsArray[1] === 'number' ? statsArray[1] : parseInt(statsArray[1], 10) || 0,
-      deaths: typeof statsArray[2] === 'number' ? statsArray[2] : parseInt(statsArray[2], 10) || 0,
-      assists: typeof statsArray[3] === 'number' ? statsArray[3] : parseInt(statsArray[3], 10) || 0,
-      plusMinus: statsArray[4],
-      adr: statsArray[5],
-      hs: statsArray[6]
+  function resolveSlots(text, depth = 0) {
+    if (depth > 6) return text;
+    return text.replace(/"\$L([0-9a-f]+)"/g, (match, slotId) => {
+      if (slots[slotId]) {
+        return resolveSlots(slots[slotId], depth + 1);
+      }
+      return match;
     });
+  }
+
+  // Find the two table bodies
+  const marker = '"className":"divide-y divide-line","children":';
+  let pos = 0;
+  const tableBodies = [];
+  while ((pos = fullRSC.indexOf(marker, pos)) !== -1) {
+    const childrenStart = pos + marker.length;
+    const childrenArrayStr = extractChildrenArray(fullRSC, childrenStart);
+    if (childrenArrayStr) {
+      tableBodies.push(childrenArrayStr);
+    }
+    pos = childrenStart + 1;
+  }
+
+  function parsePlayersFromTbody(tbodyStr, teamTag) {
+    if (!tbodyStr) return [];
+    const resolved = resolveSlots(tbodyStr);
+    const players = [];
+    const trRegex = /\["\$","tr","([^"#]+)#([^"-]+)-([^"]+)",\{"className":"[^"]*"/g;
+    let tm;
+    while ((tm = trRegex.exec(resolved)) !== null) {
+      const name = tm[1];
+      const riotTag = tm[2];
+      const agent = tm[3];
+      const startIdx = tm.index;
+
+      const nextTrMatch = resolved.substring(startIdx + 10).search(/\["\$","tr",/);
+      const endIdx = nextTrMatch !== -1 ? startIdx + 10 + nextTrMatch : resolved.length;
+      const playerChunk = resolved.substring(startIdx, endIdx);
+
+      const directPattern = /\["\$","td",null,\{"className":"stat-cell[^"]*","children":([^}]+)\}\]/g;
+      const directVals = [];
+      let dm;
+      while ((dm = directPattern.exec(playerChunk)) !== null) {
+        let val = dm[1].trim();
+        try { val = JSON.parse(val); } catch (e) {}
+        directVals.push(val);
+        if (directVals.length === 7) break;
+      }
+
+      const isMatchMvp = playerChunk.includes('MATCH MVP') || playerChunk.includes('Match MVP');
+      const isTeamMvp = playerChunk.includes('TEAM MVP') || playerChunk.includes('Team MVP');
+
+      players.push({
+        teamTag,
+        name,
+        riotTag,
+        agent,
+        isMatchMvp,
+        isTeamMvp,
+        acs: typeof directVals[0] === 'number' ? directVals[0] : parseInt(directVals[0], 10) || 0,
+        kills: typeof directVals[1] === 'number' ? directVals[1] : parseInt(directVals[1], 10) || 0,
+        deaths: typeof directVals[2] === 'number' ? directVals[2] : parseInt(directVals[2], 10) || 0,
+        assists: typeof directVals[3] === 'number' ? directVals[3] : parseInt(directVals[3], 10) || 0,
+        plusMinus: directVals[4],
+        adr: typeof directVals[5] === 'number' ? directVals[5] : parseInt(directVals[5], 10) || 0,
+        hs: directVals[6]
+      });
+    }
+    return players;
+  }
+
+  if (tableBodies.length >= 2) {
+    const t1Players = parsePlayersFromTbody(tableBodies[0], result.team1Tag);
+    const t2Players = parsePlayersFromTbody(tableBodies[1], result.team2Tag);
+    result.players = [...t1Players, ...t2Players];
+  } else {
+    // Fallback if table bodies pattern differs
+    const allPlayers = parsePlayersFromTbody(fullRSC, result.team1Tag);
+    result.players = allPlayers;
   }
 
   return result;
@@ -359,4 +422,4 @@ function pollNow() {
   return pollCycle();
 }
 
-module.exports = { start, stop, getStatus, pollNow, pollStats, SITE_ID_TO_FIXTURE: SITE_SLUG_TO_FIXTURE };
+module.exports = { start, stop, getStatus, pollNow, pollStats, pollMatch, parseMatchPage, SITE_ID_TO_FIXTURE: SITE_SLUG_TO_FIXTURE };
