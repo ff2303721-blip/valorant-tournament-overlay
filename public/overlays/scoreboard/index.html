@@ -80,6 +80,34 @@
 
     </div><!-- /main-bar -->
     </div><!-- /hud -->
+
+    <!-- ═══ IN-GAME WINNER SPLASH (APPEARS IN MAIN GAMEPLAY SCENE ON 13 ROUNDS) ═══ -->
+    <canvas id="victory-confetti" class="victory-confetti hidden"></canvas>
+
+    <div id="in-game-victory" class="in-game-victory hidden">
+      <div class="vic-aura"></div>
+      <div class="vic-card">
+        <div class="vic-top-badge">
+          <span class="vic-star">★</span>
+          <span class="vic-badge-text">MATCH CONQUERED</span>
+          <span class="vic-star">★</span>
+        </div>
+        <div class="vic-crest-glow">
+          <img id="vic-logo" class="vic-logo" src="/logos/naadan-legacy.png" alt="Winner Logo">
+        </div>
+        <div class="vic-titles">
+          <span class="vic-tag" id="vic-tag">NDL</span>
+          <h1 class="vic-word">VICTORY</h1>
+          <span class="vic-name" id="vic-name">NAADAN LEGACY</span>
+        </div>
+        <div class="vic-score-pill">
+          <span class="vic-score-lead">FINAL SCORE</span>
+          <span class="vic-score-nums" id="vic-scores">13 — 8</span>
+          <span class="vic-map-label" id="vic-map">ON ASCENT</span>
+        </div>
+      </div>
+    </div>
+
   </div><!-- /auto-stage -->
 
   <script src="/common/autoscale.js"></script>
