@@ -1155,7 +1155,6 @@ server.listen(PORT, () => {
   console.log(`-------------------------------------------------`);
   console.log(` Operator Control Panel: http://localhost:${PORT}/admin`);
   console.log(` OBS Scoreboard Overlay: http://localhost:${PORT}/overlays/scoreboard`);
-  console.log(` OBS Pick/Ban Veto View: http://localhost:${PORT}/overlays/veto`);
   console.log(` OBS Caster Lower Third: http://localhost:${PORT}/overlays/casters`);
   console.log(` OBS Versus / Pre-Match: http://localhost:${PORT}/overlays/versus`);
   console.log(` OBS Starting Soon:      http://localhost:${PORT}/overlays/starting-soon`);

@@ -205,7 +205,7 @@ function syncUI(state) {
   // Render Player Rosters
   renderPlayerStatsRosters(state);
 
-  // Render Veto Table
+  // Render Veto Table (if present)
   renderVetoTable(state.veto || []);
 }
 
@@ -417,6 +417,7 @@ function collectCastersFromAdminUI() {
 // Veto Table Generation
 function renderVetoTable(vetoList) {
   const tbody = document.getElementById('veto-tbody');
+  if (!tbody) return;
   tbody.innerHTML = '';
 
   vetoList.forEach((item, index) => {
@@ -715,20 +716,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Save Veto Table Changes
-  document.getElementById('btn-save-veto').addEventListener('click', () => {
-    if (!currentState) return;
-    const newVeto = [...currentState.veto];
-    document.querySelectorAll('.veto-status-sel').forEach(sel => {
-      const idx = parseInt(sel.getAttribute('data-index'));
-      newVeto[idx].status = sel.value;
+  // Save Veto Table Changes (if present)
+  const btnSaveVeto = document.getElementById('btn-save-veto');
+  if (btnSaveVeto) {
+    btnSaveVeto.addEventListener('click', () => {
+      if (!currentState) return;
+      const newVeto = [...currentState.veto];
+      document.querySelectorAll('.veto-status-sel').forEach(sel => {
+        const idx = parseInt(sel.getAttribute('data-index'));
+        newVeto[idx].status = sel.value;
+      });
+      document.querySelectorAll('.veto-team-inp').forEach(inp => {
+        const idx = parseInt(inp.getAttribute('data-index'));
+        newVeto[idx].team = inp.value.toUpperCase();
+      });
+      sendAction('UPDATE_VETO', newVeto);
     });
-    document.querySelectorAll('.veto-team-inp').forEach(inp => {
-      const idx = parseInt(inp.getAttribute('data-index'));
-      newVeto[idx].team = inp.value.toUpperCase();
-    });
-    sendAction('UPDATE_VETO', newVeto);
-  });
+  }
 
   // Live Game Auto-Sync (OCR) Controls
   const btnToggleTracker = document.getElementById('btn-toggle-tracker');

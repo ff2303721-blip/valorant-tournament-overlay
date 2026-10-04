@@ -317,7 +317,7 @@
         <details class="card compact-card obs-details-card" open>
           <summary class="card-header-flex summary-header">
             <h2>🎥 OBS Browser Sources</h2>
-            <span class="obs-count-badge">6 Overlays</span>
+            <span class="obs-count-badge">5 Overlays</span>
           </summary>
 
           <div class="obs-links-compact-list">
@@ -365,16 +365,6 @@
 
             <div class="obs-link-item">
               <div class="obs-item-info">
-                <span class="obs-item-name">Map Veto / Pick &amp; Ban</span>
-              </div>
-              <div class="obs-item-btns">
-                <button class="btn-copy" data-url="/overlays/veto">Copy URL</button>
-                <a href="/overlays/veto" target="_blank" class="btn-open-link">Open</a>
-              </div>
-            </div>
-
-            <div class="obs-link-item">
-              <div class="obs-item-info">
                 <span class="obs-item-name">Versus Screen</span>
               </div>
               <div class="obs-item-btns">
@@ -407,30 +397,6 @@
 
       </aside>
     </div><!-- /admin-grid -->
-
-    <!-- ═══ MAP VETO TABLE (COLLAPSIBLE DRAWER) ═══════════════ -->
-    <details class="card mt-2 collapsible-veto" id="veto-details-card">
-      <summary class="card-header veto-summary">
-        <div class="summary-left">
-          <h2>🗺️ Map Veto / Pick &amp; Ban</h2>
-          <span class="badge-sub">Click to expand / edit</span>
-        </div>
-        <button id="btn-save-veto" class="btn btn-primary btn-mini">Save Veto</button>
-      </summary>
-      <div class="veto-table-wrap">
-        <table class="veto-table">
-          <thead>
-            <tr>
-              <th>Map</th>
-              <th>Status</th>
-              <th>Team</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="veto-tbody"></tbody>
-        </table>
-      </div>
-    </details>
 
     <!-- ═══ LIVE RESULTS IMPORTER ══════════════════════════════ -->
     <details class="card mt-2" id="results-poller-card" open>
