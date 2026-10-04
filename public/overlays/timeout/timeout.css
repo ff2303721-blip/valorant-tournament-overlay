@@ -97,7 +97,7 @@ html, body {
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  padding: 48px 80px 36px;
+  padding: 36px 80px 30px;
 }
 
 /* ── TOP ROW ────────────────────────────────────────── */
@@ -151,7 +151,7 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 48px;
+  gap: 32px;
   flex: 1;
   justify-content: center;
 }
@@ -393,7 +393,7 @@ html, body {
 .to-bar-clock { font-family: var(--fn); font-size: 15px; letter-spacing: 1px; }
 
 /* ── ENTER / EXIT ANIMATIONS ────────────────────────── */
-.to-root {
+.to-content {
   animation: to-enter 0.4s cubic-bezier(.22,.68,0,1.2) both;
 }
 @keyframes to-enter {
@@ -402,7 +402,7 @@ html, body {
 }
 
 /* ── HIDE STATE (when timeout.active = false) ──────── */
-.to-root.hidden {
+.to-content.hidden {
   animation: to-exit 0.35s ease-in both;
   pointer-events: none;
 }
