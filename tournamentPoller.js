@@ -13,8 +13,8 @@ const https = require('https');
 const SITE_SLUG_TO_FIXTURE = {
   'match-1':  1,   // M1: VRN vs NDL (Bind)
   'match-2':  2,   // M2: ATX vs BBZ (Abyss)
-  'match-3':  3,   // M3: BBZ vs NDL (Corrode)
-  'match-4':  4,   // M4: ATX vs NDL (Icebox)
+  'match-3':  3,   // M3: ATX vs BBZ (Bind)
+  'match-4':  4,   // M4: BBZ vs NDL (Corrode)
   'match-5':  5,   // M5: NDL vs BBZ (Pearl)
   'match-6':  6,   // M6: ATX vs NDL (Corrode)
   'match-7':  7,   // M7: BBZ vs VRN (Split)
