@@ -1,0 +1,412 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700;800&family=Inter:wght@400;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: transparent !important;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── DESIGN TOKENS ──────────────────────────────────── */
+:root {
+  --red:        #ff3b4b;
+  --red-dim:    #8f1822;
+  --cyan:       #00e5ff;
+  --gold:       #e5b044;
+  --gold-light: #ffd56b;
+  --dark:       #06090e;
+  --panel:      rgba(6, 9, 18, 0.88);
+  --fh: 'Bebas Neue', sans-serif;
+  --fl: 'Rajdhani', sans-serif;
+  --fn: 'Inter', sans-serif;
+}
+
+/* ── ROOT CANVAS (1920 × 1080) ─────────────────────── */
+.to-root {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── BACKGROUND ART ─────────────────────────────────── */
+.to-bg-art {
+  position: absolute;
+  inset: 0;
+  background: url('/overlays/versus/versus_bg_art.jpg') center / cover no-repeat;
+  filter: brightness(0.35) saturate(0.7);
+  z-index: 1;
+}
+
+.to-bg-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 70% at 50% 50%, transparent 0%, rgba(2,4,10,0.92) 100%),
+    linear-gradient(to bottom, rgba(2,4,10,0.8) 0%, transparent 20%, transparent 80%, rgba(2,4,10,0.9) 100%);
+  z-index: 2;
+}
+
+/* scanline texture */
+.to-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.018) 0px,
+    rgba(255,255,255,0.018) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* diagonal slash accents */
+.to-slash-left {
+  position: absolute;
+  top: 0; left: -180px;
+  width: 480px; height: 100%;
+  background: linear-gradient(105deg, rgba(255,59,75,0.18) 0%, transparent 60%);
+  transform: skewX(-8deg);
+  z-index: 4;
+  pointer-events: none;
+}
+.to-slash-right {
+  position: absolute;
+  top: 0; right: -180px;
+  width: 480px; height: 100%;
+  background: linear-gradient(255deg, rgba(0,229,255,0.13) 0%, transparent 60%);
+  transform: skewX(-8deg);
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* ── CONTENT LAYER ──────────────────────────────────── */
+.to-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 48px 80px 36px;
+}
+
+/* ── TOP ROW ────────────────────────────────────────── */
+.to-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.to-val-emblem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.to-val-svg {
+  width: 36px; height: 36px;
+  color: var(--red);
+  filter: drop-shadow(0 0 8px rgba(255,59,75,0.6));
+}
+.to-val-label {
+  font-family: var(--fl);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+}
+
+.to-tournament-name {
+  font-family: var(--fh);
+  font-size: 28px;
+  letter-spacing: 5px;
+  color: var(--gold-light);
+  text-shadow: 0 0 20px rgba(229,176,68,0.5);
+  text-align: center;
+}
+
+.to-match-badge {
+  font-family: var(--fl);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  text-align: right;
+}
+
+/* ── MAIN BLOCK ─────────────────────────────────────── */
+.to-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  flex: 1;
+  justify-content: center;
+}
+
+/* TIMEOUT HEADER */
+.to-header-block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.to-header-lines {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 800px;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.to-hline {
+  height: 2px;
+  width: 260px;
+  background: linear-gradient(to right, transparent, var(--red), transparent);
+  animation: hline-pulse 2s ease-in-out infinite;
+}
+.to-hline-r {
+  background: linear-gradient(to left, transparent, var(--cyan), transparent);
+}
+
+@keyframes hline-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.to-header-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.to-tactical-word {
+  font-family: var(--fl);
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 10px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+}
+
+.to-timeout-word {
+  font-family: var(--fh);
+  font-size: 120px;
+  letter-spacing: 18px;
+  line-height: 0.9;
+  color: var(--red);
+  text-shadow:
+    0 0 40px rgba(255,59,75,0.7),
+    0 0 80px rgba(255,59,75,0.3);
+  animation: timeout-glow 1.8s ease-in-out infinite;
+}
+
+@keyframes timeout-glow {
+  0%, 100% { text-shadow: 0 0 40px rgba(255,59,75,0.7), 0 0 80px rgba(255,59,75,0.3); }
+  50%       { text-shadow: 0 0 60px rgba(255,59,75,1),   0 0 120px rgba(255,59,75,0.5); }
+}
+
+/* ── TEAM BLOCK ─────────────────────────────────────── */
+.to-team-block {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  background: rgba(6,9,18,0.75);
+  border: 1px solid rgba(255,59,75,0.25);
+  border-radius: 12px;
+  padding: 24px 52px;
+  box-shadow:
+    0 0 40px rgba(255,59,75,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px);
+}
+
+.to-team-logo-wrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+.to-team-logo-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,59,75,0.35) 0%, transparent 70%);
+  animation: logo-pulse 2s ease-in-out infinite;
+}
+@keyframes logo-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+.to-team-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 12px rgba(255,59,75,0.5));
+}
+
+.to-team-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.to-team-tag {
+  font-family: var(--fh);
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: 4px;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(255,255,255,0.3);
+}
+.to-team-name {
+  font-family: var(--fl);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+}
+.to-calling-label {
+  font-family: var(--fl);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ── TIMER RING ─────────────────────────────────────── */
+.to-timer-wrap {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+.to-ring-svg {
+  width: 200px;
+  height: 200px;
+  transform: rotate(-90deg);
+}
+
+/* circumference = 2π × 88 ≈ 552.9 */
+.to-ring-bg {
+  fill: none;
+  stroke: rgba(255,59,75,0.12);
+  stroke-width: 10;
+}
+.to-ring-progress {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 553;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 6px rgba(255,59,75,0.8));
+  transition: stroke-dashoffset 0.9s linear, stroke 0.3s;
+}
+/* turns cyan in last 10 seconds */
+.to-ring-progress.urgent {
+  stroke: var(--cyan);
+  filter: drop-shadow(0 0 8px rgba(0,229,255,0.9));
+}
+
+.to-timer-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.to-timer-num {
+  font-family: var(--fh);
+  font-size: 80px;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(255,255,255,0.3);
+  transition: color 0.3s;
+}
+.to-timer-num.urgent {
+  color: var(--cyan);
+  text-shadow: 0 0 24px rgba(0,229,255,0.6);
+}
+.to-timer-sub {
+  font-family: var(--fl);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+}
+
+/* ── BOTTOM BAR ─────────────────────────────────────── */
+.to-bottom-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+  font-family: var(--fl);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+}
+.to-bar-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 8px var(--red);
+  animation: bar-dot-blink 1s ease-in-out infinite;
+}
+@keyframes bar-dot-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.to-bar-text { color: rgba(255,255,255,0.55); }
+.to-bar-sep  { color: rgba(255,255,255,0.2); }
+.to-bar-clock { font-family: var(--fn); font-size: 15px; letter-spacing: 1px; }
+
+/* ── ENTER / EXIT ANIMATIONS ────────────────────────── */
+.to-root {
+  animation: to-enter 0.4s cubic-bezier(.22,.68,0,1.2) both;
+}
+@keyframes to-enter {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── HIDE STATE (when timeout.active = false) ──────── */
+.to-root.hidden {
+  animation: to-exit 0.35s ease-in both;
+  pointer-events: none;
+}
+@keyframes to-exit {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.03); }
+}

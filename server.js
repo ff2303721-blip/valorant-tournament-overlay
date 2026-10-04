@@ -1167,6 +1167,7 @@ server.listen(PORT, () => {
   console.log(` OBS Caster Lower Third: http://localhost:${PORT}/overlays/casters`);
   console.log(` OBS Versus / Pre-Match: http://localhost:${PORT}/overlays/versus`);
   console.log(` OBS Starting Soon:      http://localhost:${PORT}/overlays/starting-soon`);
+  console.log(` OBS Tactical Timeout:   http://localhost:${PORT}/overlays/timeout`);
   console.log(`=================================================`);
 
   // Auto-start the tournament result poller (polls every 2 min)

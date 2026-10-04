@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tactical Timeout — Valorant Tournament</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: rgba(0,0,0,0) !important;
+      background-color: rgba(0,0,0,0) !important;
+    }
+  </style>
+  <link rel="stylesheet" href="timeout.css">
+</head>
+<body>
+
+<div class="to-root" id="to-root">
+
+  <!-- ── BACKGROUND ──────────────────────────────── -->
+  <div class="to-bg-art"></div>
+  <div class="to-bg-vignette"></div>
+  <div class="to-scanlines"></div>
+
+  <!-- ── DIAGONAL SLASH ACCENT ──────────────────── -->
+  <div class="to-slash-left"></div>
+  <div class="to-slash-right"></div>
+
+  <!-- ── CONTENT ────────────────────────────────── -->
+  <div class="to-content">
+
+    <!-- TOP EMBLEM ROW -->
+    <div class="to-top-row">
+      <div class="to-val-emblem">
+        <svg viewBox="0 0 100 100" fill="currentColor" class="to-val-svg">
+          <path d="M99.2 16.5l-44.8 67h-21l44.8-67h21zm-65.8 0l-33.4 34.2h21l22.4-23 10-11.2h-20z"/>
+        </svg>
+        <span class="to-val-label">VALORANT ESPORTS</span>
+      </div>
+      <div class="to-tournament-name" id="to-tournament-name">XMD VALORANT TOURNAMENT</div>
+      <div class="to-match-badge">
+        <span id="to-match-label">MATCH 5 · GROUP STAGE</span>
+      </div>
+    </div>
+
+    <!-- MAIN BLOCK -->
+    <div class="to-main">
+
+      <!-- TIMEOUT HEADER -->
+      <div class="to-header-block">
+        <div class="to-header-lines">
+          <div class="to-hline to-hline-l"></div>
+          <div class="to-hline to-hline-r"></div>
+        </div>
+        <div class="to-header-text">
+          <span class="to-tactical-word">TACTICAL</span>
+          <span class="to-timeout-word">TIMEOUT</span>
+        </div>
+      </div>
+
+      <!-- TEAM CALLING TIMEOUT -->
+      <div class="to-team-block">
+        <div class="to-team-logo-wrap">
+          <div class="to-team-logo-glow" id="to-team-glow"></div>
+          <img id="to-team-logo" class="to-team-logo" src="" alt="Team Logo">
+        </div>
+        <div class="to-team-info">
+          <div class="to-team-tag" id="to-team-tag">NDL</div>
+          <div class="to-team-name" id="to-team-name">NAADAN LEGACY</div>
+          <div class="to-calling-label">CALLED TIMEOUT</div>
+        </div>
+      </div>
+
+      <!-- COUNTDOWN RING -->
+      <div class="to-timer-wrap">
+        <svg class="to-ring-svg" viewBox="0 0 200 200">
+          <!-- background track -->
+          <circle class="to-ring-bg" cx="100" cy="100" r="88"/>
+          <!-- animated arc -->
+          <circle class="to-ring-progress" id="to-ring-progress" cx="100" cy="100" r="88"/>
+        </svg>
+        <div class="to-timer-center">
+          <div class="to-timer-num" id="to-timer-num">60</div>
+          <div class="to-timer-sub">SECONDS</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM STATUS BAR -->
+    <div class="to-bottom-bar">
+      <span class="to-bar-dot"></span>
+      <span class="to-bar-text" id="to-status-text">TACTICAL PAUSE IN PROGRESS</span>
+      <span class="to-bar-sep">·</span>
+      <span class="to-bar-clock" id="to-bar-clock">IST --:--:--</span>
+    </div>
+
+  </div><!-- /to-content -->
+
+</div><!-- /to-root -->
+
+<script src="/common/autoscale.js"></script>
+<script src="timeout.js"></script>
+</body>
+</html>
