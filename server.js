@@ -318,8 +318,10 @@ function getTodayFixtures() {
   const targetDateStr = `${day} ${month}`; // e.g. "3 Oct"
 
   // 1. Matches strictly scheduled today in IST
+  // Use space-padded match to avoid "4 Oct" falsely matching "14 Oct" or "24 Oct"
+  const todayPattern = new RegExp('\\s' + targetDateStr.replace(/\s/g, '\\s') + '[,\\s]');
   let matches = TOURNAMENT_FIXTURES
-    .filter(f => f.time && f.time.includes(targetDateStr))
+    .filter(f => f.time && todayPattern.test(f.time))
     .map(populateFixtureTeams);
 
   // 2. If no matches scheduled today (e.g. rest day or past schedule), find next upcoming matches
