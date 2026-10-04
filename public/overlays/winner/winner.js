@@ -4,7 +4,6 @@
 ────────────────────────────────────────────────────── */
 
 let ws = null;
-let fanfarePlayed = false;
 
 // ── Confetti Particle System ─────────────────────────
 function launchConfetti() {
@@ -96,34 +95,6 @@ function applyState(state) {
   document.getElementById('score-num-a').textContent = scoreWin;
   document.getElementById('score-tag-b').textContent = loser.tag || 'T2';
   document.getElementById('score-num-b').textContent = scoreLose;
-
-  // Play chosen victory sound once
-  if (!fanfarePlayed && window.sfx) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const soundType = urlParams.get('sound') || 'cinematic'; // default to cinematic Valorant boom
-    playVictorySound(soundType);
-    fanfarePlayed = true;
-  }
-}
-
-function playVictorySound(type) {
-  if (!window.sfx) return;
-  window.sfx.init();
-
-  if (type === 'cinematic') {
-    window.sfx.playVictoryCinematic();
-  } else if (type === 'synth') {
-    window.sfx.playVictorySynth();
-  } else if (type === 'chime') {
-    window.sfx.playVictoryChimes();
-  } else if (type === 'fanfare') {
-    window.sfx.playVictoryFanfare();
-  }
-}
-
-// Preview sound on button click from the audition bar
-function previewSfx(type) {
-  playVictorySound(type);
 }
 
 function connectWS() {
