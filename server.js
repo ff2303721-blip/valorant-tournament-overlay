@@ -14,6 +14,13 @@ const wss = new WebSocket.Server({ server });
 const PORT = process.env.PORT || 3000;
 const DATA_FILE = path.join(__dirname, 'data', 'match_state.json');
 
+process.on('uncaughtException', (err) => {
+  console.error('[Process Error] uncaughtException:', err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('[Process Error] unhandledRejection at:', promise, 'reason:', reason);
+});
+
 app.use(express.json({ limit: '10mb' }));
 
 // API routes - disable caching so live overlay state updates reflect instantly
