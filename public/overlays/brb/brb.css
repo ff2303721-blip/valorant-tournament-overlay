@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700;800&family=Inter:wght@400;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: transparent !important;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --red:        #ff3b4b;
+  --cyan:       #00e5ff;
+  --gold:       #ffd56b;
+  --dark:       #07090e;
+  --panel:      rgba(10, 14, 24, 0.85);
+  --fh: 'Bebas Neue', sans-serif;
+  --fl: 'Rajdhani', sans-serif;
+  --fn: 'Inter', sans-serif;
+}
+
+.brb-root {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Background layers */
+.bg-art {
+  position: absolute;
+  inset: 0;
+  background: url('/overlays/versus/versus_bg_art.jpg') center / cover no-repeat;
+  filter: brightness(0.3) saturate(0.8);
+  z-index: 1;
+}
+
+.bg-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 30%, rgba(3, 5, 10, 0.95) 100%);
+  z-index: 2;
+}
+
+.ambient-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  z-index: 3;
+  pointer-events: none;
+}
+.glow-left  { top: 20%; left: -100px; width: 500px; height: 500px; background: rgba(255, 59, 75, 0.15); }
+.glow-right { bottom: 20%; right: -100px; width: 500px; height: 500px; background: rgba(0, 229, 255, 0.15); }
+
+/* Header */
+.brb-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 80px;
+}
+.emblem-box { display: flex; align-items: center; gap: 12px; }
+.val-icon { width: 36px; height: 36px; color: var(--red); }
+.emblem-text { font-family: var(--fl); font-weight: 700; letter-spacing: 3px; color: rgba(255,255,255,0.6); }
+
+.tournament-title {
+  font-family: var(--fh);
+  font-size: 32px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(255, 213, 107, 0.4);
+}
+
+.stage-badge {
+  font-family: var(--fl);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* Main */
+.brb-main {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.brb-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.accent-line {
+  width: 140px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--red));
+}
+.line-r { transform: rotate(180deg); }
+
+.brb-title-block { text-align: center; }
+.brb-main-title {
+  font-family: var(--fh);
+  font-size: 110px;
+  letter-spacing: 14px;
+  line-height: 0.9;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(255,255,255,0.3);
+  animation: brb-pulse 2.5s ease-in-out infinite;
+}
+@keyframes brb-pulse {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); text-shadow: 0 0 60px rgba(255,59,75,0.6); }
+}
+
+.brb-sub-title {
+  font-family: var(--fl);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: var(--gold);
+  margin-top: 10px;
+}
+
+/* Series Score Card */
+.series-card {
+  display: flex;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  padding: 24px 40px;
+  width: 1050px;
+  backdrop-filter: blur(10px);
+}
+
+.team-panel {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+}
+.team-1 { justify-content: flex-start; }
+.team-2 { justify-content: flex-end; }
+
+.team-logo-wrap { width: 80px; height: 80px; }
+.team-logo { width: 100%; height: 100%; object-fit: contain; }
+
+.team-meta { display: flex; flex-direction: column; }
+.team-meta.right-align { text-align: right; }
+.team-tag { font-family: var(--fh); font-size: 44px; color: #fff; line-height: 1; }
+.team-name { font-family: var(--fl); font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 2px; }
+
+.team-score {
+  font-family: var(--fh);
+  font-size: 72px;
+  color: #fff;
+  padding: 0 20px;
+}
+
+.series-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0 30px;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.vs-label { font-family: var(--fh); font-size: 32px; color: var(--red); letter-spacing: 2px; }
+.map-pill { display: flex; flex-direction: column; align-items: center; }
+.map-lead { font-family: var(--fl); font-size: 11px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.4); }
+.map-name { font-family: var(--fl); font-size: 16px; font-weight: 800; letter-spacing: 2px; color: var(--cyan); }
+.series-type { font-family: var(--fl); font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.4); }
+
+/* Audio Equalizer Visualizer Bars */
+.sound-bars-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 48px;
+  padding: 4px;
+}
+.bar {
+  width: 6px;
+  background: linear-gradient(to top, var(--red), var(--cyan));
+  border-radius: 3px;
+  animation: soundwave 1.4s ease-in-out infinite alternate;
+}
+@keyframes soundwave {
+  0%   { height: 6px; opacity: 0.4; }
+  100% { height: 44px; opacity: 1; filter: drop-shadow(0 0 6px var(--cyan)); }
+}
+
+/* Stagger bar animations */
+.bar-1  { animation-delay: 0.1s; }
+.bar-2  { animation-delay: 0.3s; }
+.bar-3  { animation-delay: 0.2s; }
+.bar-4  { animation-delay: 0.5s; }
+.bar-5  { animation-delay: 0.15s; }
+.bar-6  { animation-delay: 0.45s; }
+.bar-7  { animation-delay: 0.6s; }
+.bar-8  { animation-delay: 0.25s; }
+.bar-9  { animation-delay: 0.7s; }
+.bar-10 { animation-delay: 0.35s; }
+.bar-11 { animation-delay: 0.55s; }
+.bar-12 { animation-delay: 0.18s; }
+.bar-13 { animation-delay: 0.65s; }
+.bar-14 { animation-delay: 0.4s; }
+.bar-15 { animation-delay: 0.22s; }
+.bar-16 { animation-delay: 0.5s; }
+
+/* Footer */
+.brb-footer {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 80px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-left { display: flex; align-items: center; gap: 10px; }
+.live-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 8px var(--red);
+}
+.footer-text { font-family: var(--fl); font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.4); font-size: 15px; }
+.ist-clock { font-family: var(--fn); font-size: 15px; color: rgba(255,255,255,0.6); }

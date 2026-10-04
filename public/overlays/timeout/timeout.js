@@ -11,6 +11,7 @@ let ws = null;
 let clockInterval = null;
 let totalDuration  = 60;
 let currentRemaining = 60;
+let currentStateTimeoutActive = false;
 
 // ── DOM refs ──────────────────────────────────────────
 const root        = document.getElementById('to-root');
@@ -99,13 +100,29 @@ function connectWS() {
       const msg = JSON.parse(data);
 
       if (msg.type === 'INIT_STATE' || msg.type === 'STATE_UPDATE') {
+        const wasActive = currentStateTimeoutActive;
+        currentStateTimeoutActive = !!(msg.state && msg.state.timeout && msg.state.timeout.active);
         applyState(msg.state);
+
+        // Play tactical buzzer on timeout start
+        if (!wasActive && currentStateTimeoutActive && window.sfx) {
+          window.sfx.playTimeoutBuzzer();
+        }
       }
 
       if (msg.type === 'TIMEOUT_TICK') {
         currentRemaining = msg.remaining;
         timerNum.textContent = currentRemaining;
         setRing(currentRemaining, totalDuration);
+
+        // Sound effect: tick under 10 seconds or buzzer at finish
+        if (window.sfx) {
+          if (currentRemaining > 0 && currentRemaining <= 10) {
+            window.sfx.playTick(true);
+          } else if (currentRemaining === 0) {
+            window.sfx.playTimeoutBuzzer();
+          }
+        }
 
         if (currentRemaining <= 0) {
           statusText.textContent = 'TIMEOUT ENDED';

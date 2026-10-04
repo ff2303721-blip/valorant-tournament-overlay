@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be Right Back — Valorant Tournament</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: rgba(0,0,0,0) !important;
+      background-color: rgba(0,0,0,0) !important;
+    }
+  </style>
+  <link rel="stylesheet" href="brb.css">
+</head>
+<body>
+
+<div class="brb-root" id="brb-root">
+
+  <!-- BACKGROUND LAYERS -->
+  <div class="bg-art"></div>
+  <div class="bg-vignette"></div>
+  <div class="bg-beams"></div>
+  <div class="ambient-glow glow-left"></div>
+  <div class="ambient-glow glow-right"></div>
+
+  <!-- TOP HEADER -->
+  <header class="brb-header">
+    <div class="emblem-box">
+      <svg class="val-icon" viewBox="0 0 100 100" fill="currentColor">
+        <path d="M99.2 16.5l-44.8 67h-21l44.8-67h21zm-65.8 0l-33.4 34.2h21l22.4-23 10-11.2h-20z"/>
+      </svg>
+      <span class="emblem-text">VALORANT ESPORTS</span>
+    </div>
+    <div class="tournament-title" id="brb-tournament-title">XMD VALORANT TOURNAMENT</div>
+    <div class="stage-badge" id="brb-stage-badge">INTERMISSION</div>
+  </header>
+
+  <!-- MAIN SHOWCASE -->
+  <main class="brb-main">
+
+    <!-- BIG INTERMISSION BADGE -->
+    <div class="brb-badge-wrap">
+      <div class="accent-line line-l"></div>
+      <div class="brb-title-block">
+        <h1 class="brb-main-title">BE RIGHT BACK</h1>
+        <p class="brb-sub-title">ACTION WILL RESUME SHORTLY</p>
+      </div>
+      <div class="accent-line line-r"></div>
+    </div>
+
+    <!-- SERIES SCOREBOARD CARD -->
+    <div class="series-card" id="series-card">
+      
+      <!-- TEAM 1 -->
+      <div class="team-panel team-1">
+        <div class="team-logo-wrap">
+          <img id="brb-team1-logo" class="team-logo" src="/logos/naadan-legacy.png" alt="Team 1">
+        </div>
+        <div class="team-meta">
+          <span class="team-tag" id="brb-team1-tag">NDL</span>
+          <span class="team-name" id="brb-team1-name">NAADAN LEGACY</span>
+        </div>
+        <div class="team-score" id="brb-team1-score">0</div>
+      </div>
+
+      <!-- VS / MAP INFO CENTER -->
+      <div class="series-center">
+        <div class="vs-label">VS</div>
+        <div class="map-pill">
+          <span class="map-lead">CURRENT MAP</span>
+          <span class="map-name" id="brb-map-name">ASCENT</span>
+        </div>
+        <div class="series-type" id="brb-series-type">BEST OF 3</div>
+      </div>
+
+      <!-- TEAM 2 -->
+      <div class="team-panel team-2">
+        <div class="team-score" id="brb-team2-score">0</div>
+        <div class="team-meta right-align">
+          <span class="team-tag" id="brb-team2-tag">ATX</span>
+          <span class="team-name" id="brb-team2-name">AETRIX</span>
+        </div>
+        <div class="team-logo-wrap">
+          <img id="brb-team2-logo" class="team-logo" src="/logos/aetrix.png" alt="Team 2">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SOUNDWAVE / AUDIO VISUALIZER BARS (CSS ANIMATED) -->
+    <div class="sound-bars-wrap">
+      <div class="bar bar-1"></div>
+      <div class="bar bar-2"></div>
+      <div class="bar bar-3"></div>
+      <div class="bar bar-4"></div>
+      <div class="bar bar-5"></div>
+      <div class="bar bar-6"></div>
+      <div class="bar bar-7"></div>
+      <div class="bar bar-8"></div>
+      <div class="bar bar-9"></div>
+      <div class="bar bar-10"></div>
+      <div class="bar bar-11"></div>
+      <div class="bar bar-12"></div>
+      <div class="bar bar-13"></div>
+      <div class="bar bar-14"></div>
+      <div class="bar bar-15"></div>
+      <div class="bar bar-16"></div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="brb-footer">
+    <div class="footer-left">
+      <span class="live-dot"></span>
+      <span class="footer-text">OFFICIAL STREAM BROADCAST · STAY TUNED</span>
+    </div>
+    <div class="footer-right">
+      <span class="ist-clock" id="brb-ist-clock">IST --:--:--</span>
+    </div>
+  </footer>
+
+</div>
+
+<script src="/common/autoscale.js"></script>
+<script src="/common/audio.js"></script>
+<script src="brb.js"></script>
+</body>
+</html>

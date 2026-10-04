@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700;800&family=Inter:wght@400;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: transparent !important;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --gold:         #ffd56b;
+  --gold-glow:    #e5b044;
+  --red:          #ff3b4b;
+  --dark:         #05080e;
+  --panel:        rgba(10, 14, 25, 0.88);
+  --fh: 'Bebas Neue', sans-serif;
+  --fl: 'Rajdhani', sans-serif;
+  --fn: 'Inter', sans-serif;
+}
+
+.winner-root {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#confetti-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.bg-art {
+  position: absolute;
+  inset: 0;
+  background: url('/overlays/versus/versus_bg_art.jpg') center / cover no-repeat;
+  filter: brightness(0.28) saturate(0.8);
+  z-index: 1;
+}
+
+.bg-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 20%, rgba(2, 4, 8, 0.95) 100%);
+  z-index: 2;
+}
+
+.glow-gold {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(255, 213, 107, 0.18) 0%, transparent 70%);
+  filter: blur(80px);
+  z-index: 3;
+  pointer-events: none;
+  animation: gold-pulse 3s ease-in-out infinite alternate;
+}
+@keyframes gold-pulse {
+  0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+}
+
+/* Header */
+.winner-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 80px;
+}
+.header-left { display: flex; align-items: center; gap: 12px; }
+.val-icon { width: 36px; height: 36px; color: var(--gold); }
+.header-esports { font-family: var(--fl); font-weight: 700; letter-spacing: 3px; color: rgba(255,255,255,0.6); }
+
+.tournament-gold {
+  font-family: var(--fh);
+  font-size: 32px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(255, 213, 107, 0.4);
+}
+
+.header-match {
+  font-family: var(--fl);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* Main Ceremony */
+.ceremony-main {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.victory-ribbon {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.gold-line {
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.line-r { transform: rotate(180deg); }
+
+.ribbon-text-wrap { text-align: center; }
+.sub-trophy {
+  font-family: var(--fl);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 6px;
+}
+.victory-word {
+  font-family: var(--fh);
+  font-size: 120px;
+  letter-spacing: 16px;
+  line-height: 0.85;
+  color: #fff;
+  text-shadow: 0 0 50px rgba(255, 213, 107, 0.6), 0 0 90px rgba(255, 213, 107, 0.3);
+}
+
+/* Pedestal */
+.winner-pedestal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.team-crest-box {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.crest-flare {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle, rgba(255, 213, 107, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: flare-spin 6s linear infinite;
+}
+@keyframes flare-spin {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(180deg); }
+  100% { transform: scale(1) rotate(360deg); }
+}
+.winner-logo {
+  position: relative;
+  z-index: 2;
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(255, 213, 107, 0.6));
+}
+
+.winner-titles {
+  text-align: center;
+  margin-top: 10px;
+}
+.winner-tag {
+  font-family: var(--fh);
+  font-size: 64px;
+  color: #fff;
+  letter-spacing: 4px;
+  line-height: 1;
+}
+.winner-name {
+  font-family: var(--fl);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 2px;
+}
+.winner-badge-pill {
+  display: inline-block;
+  font-family: var(--fl);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  background: rgba(255, 213, 107, 0.15);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+/* Final Score Pod */
+.final-score-pod {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  background: var(--panel);
+  border: 1px solid rgba(255, 213, 107, 0.3);
+  padding: 16px 48px;
+  border-radius: 40px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+}
+.score-team {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.score-tag {
+  font-family: var(--fh);
+  font-size: 32px;
+  color: rgba(255,255,255,0.6);
+}
+.score-num {
+  font-family: var(--fh);
+  font-size: 54px;
+  color: rgba(255,255,255,0.4);
+}
+.winner-score-num {
+  color: var(--gold);
+  text-shadow: 0 0 20px var(--gold);
+}
+.score-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.score-def {
+  font-family: var(--fl);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+.score-hyphen {
+  font-size: 20px;
+  color: rgba(255,255,255,0.3);
+  margin-top: -6px;
+}
+
+/* Footer */
+.winner-footer {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 80px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-status { display: flex; align-items: center; gap: 10px; }
+.live-pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 10px var(--gold);
+}
+.footer-msg { font-family: var(--fl); font-weight: 700; letter-spacing: 3px; color: rgba(255,255,255,0.5); font-size: 14px; }
+.footer-clock { font-family: var(--fn); font-size: 15px; color: rgba(255,255,255,0.6); }

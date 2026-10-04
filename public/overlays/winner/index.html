@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Match Winner Ceremony — Valorant Tournament</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: rgba(0,0,0,0) !important;
+      background-color: rgba(0,0,0,0) !important;
+    }
+  </style>
+  <link rel="stylesheet" href="winner.css">
+</head>
+<body>
+
+<div class="winner-root" id="winner-root">
+
+  <!-- BACKGROUND & AMBIENT GLOW -->
+  <div class="bg-art"></div>
+  <div class="bg-vignette"></div>
+  <div class="glow-gold"></div>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- TOP HEADER -->
+  <header class="winner-header">
+    <div class="header-left">
+      <svg class="val-icon" viewBox="0 0 100 100" fill="currentColor">
+        <path d="M99.2 16.5l-44.8 67h-21l44.8-67h21zm-65.8 0l-33.4 34.2h21l22.4-23 10-11.2h-20z"/>
+      </svg>
+      <span class="header-esports">VALORANT ESPORTS</span>
+    </div>
+    <div class="tournament-gold" id="winner-tournament-title">XMD VALORANT TOURNAMENT</div>
+    <div class="header-match" id="winner-match-info">MATCH 5 · FINAL RESULT</div>
+  </header>
+
+  <!-- CEREMONY CORE -->
+  <main class="ceremony-main">
+
+    <!-- VICTORY RIBBON -->
+    <div class="victory-ribbon">
+      <div class="gold-line line-l"></div>
+      <div class="ribbon-text-wrap">
+        <span class="sub-trophy">🏆 OFFICIAL MATCH WINNER 🏆</span>
+        <h1 class="victory-word">VICTORY</h1>
+      </div>
+      <div class="gold-line line-r"></div>
+    </div>
+
+    <!-- WINNING TEAM PEDESTAL -->
+    <div class="winner-pedestal">
+      <div class="trophy-ring"></div>
+      <div class="team-crest-box">
+        <div class="crest-flare"></div>
+        <img id="winner-team-logo" class="winner-logo" src="/logos/naadan-legacy.png" alt="Winner Logo">
+      </div>
+      <div class="winner-titles">
+        <h2 class="winner-tag" id="winner-team-tag">NDL</h2>
+        <h3 class="winner-name" id="winner-team-name">NAADAN LEGACY</h3>
+        <div class="winner-badge-pill" id="winner-sub-badge">MAP 1 CONQUERED</div>
+      </div>
+    </div>
+
+    <!-- FINAL SCORE POD -->
+    <div class="final-score-pod">
+      <div class="score-team team-a">
+        <span class="score-tag" id="score-tag-a">NDL</span>
+        <span class="score-num winner-score-num" id="score-num-a">13</span>
+      </div>
+      <div class="score-divider">
+        <span class="score-def">FINAL</span>
+        <span class="score-hyphen">—</span>
+      </div>
+      <div class="score-team team-b">
+        <span class="score-num" id="score-num-b">8</span>
+        <span class="score-tag" id="score-tag-b">BBZ</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER STATUS -->
+  <footer class="winner-footer">
+    <div class="footer-status">
+      <span class="live-pulse"></span>
+      <span class="footer-msg">CONGRATULATIONS TO THE VICTORS</span>
+    </div>
+    <div class="footer-clock" id="winner-ist-clock">IST --:--:--</div>
+  </footer>
+
+</div>
+
+<script src="/common/autoscale.js"></script>
+<script src="/common/audio.js"></script>
+<script src="winner.js"></script>
+</body>
+</html>
