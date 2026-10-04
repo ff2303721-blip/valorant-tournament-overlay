@@ -526,6 +526,17 @@
     // Listen for poller events from WebSocket
     document.addEventListener('ws-message', (e) => {
       const msg = e.detail;
+      if (msg.type === 'FIXTURE_SCHEDULE_UPDATE') {
+        const badge = document.getElementById('poller-status-badge');
+        const prev = badge ? badge.textContent : '';
+        if (badge) {
+          badge.textContent = `📅 M${msg.fixtureMatchNumber} RESCHEDULED`;
+          badge.style.background = '#8957e5';
+          badge.style.color = '#fff';
+        }
+        setTimeout(() => { if (badge) { badge.textContent = prev || 'AUTO-POLLING'; badge.style.background = '#1e4620'; badge.style.color = '#4caf50'; } }, 6000);
+        console.log(`[Admin] 📅 Fixture M${msg.fixtureMatchNumber} rescheduled: ${msg.scheduledTimeIst} | Map: ${msg.map}`);
+      }
       if (msg.type === 'STATS_UPDATE') {
         const badge = document.getElementById('poller-status-badge');
         const prev = badge ? badge.textContent : '';

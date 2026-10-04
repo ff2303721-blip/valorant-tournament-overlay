@@ -62,7 +62,7 @@
     },
     {
       "matchNumber": 3,
-      "label": "M3: ATX vs BBZ (Bind · Sat 3 Oct, 9:00 PM IST)",
+      "label": "M3: ATX vs BBZ (Bind · Sat 3 Oct, 10:00 PM IST)",
       "stage": "Group Stage · Week 1",
       "t1": "aetrix",
       "t2": "bitter-blade-z",
@@ -70,11 +70,11 @@
       "bestOf": "BO1",
       "side1": "defense",
       "side2": "attack",
-      "time": "Sat 3 Oct, 9:00 PM IST (21:00)"
+      "time": "Sat 3 Oct, 10:00 PM IST (22:00)"
     },
     {
       "matchNumber": 4,
-      "label": "M4: BBZ vs NDL (Corrode · Sat 3 Oct, 10:00 PM IST)",
+      "label": "M4: BBZ vs NDL (Corrode · Sat 3 Oct, 11:00 PM IST)",
       "stage": "Group Stage · Week 1",
       "t1": "bitter-blade-z",
       "t2": "naadan-legacy",
@@ -82,11 +82,11 @@
       "bestOf": "BO1",
       "side1": "defense",
       "side2": "attack",
-      "time": "Sat 3 Oct, 10:00 PM IST (22:00)"
+      "time": "Sat 3 Oct, 11:00 PM IST (23:00)"
     },
     {
       "matchNumber": 5,
-      "label": "M5: NDL vs BBZ (Pearl · Sun 4 Oct, 10:30 PM IST)",
+      "label": "M5: NDL vs BBZ (Pearl · Sat 10 Oct, 10:00 PM IST)",
       "stage": "Group Stage · Week 1",
       "t1": "naadan-legacy",
       "t2": "bitter-blade-z",
@@ -94,11 +94,11 @@
       "bestOf": "BO1",
       "side1": "defense",
       "side2": "attack",
-      "time": "Sun 4 Oct, 10:30 PM IST (22:30)"
+      "time": "Sat 10 Oct, 10:00 PM IST (22:00)"
     },
     {
       "matchNumber": 6,
-      "label": "M6: VRN vs NDL (Bind · Sat 10 Oct, 10:00 PM IST)",
+      "label": "M6: VRN vs NDL (Bind · Sun 11 Oct, 9:00 PM IST)",
       "stage": "Group Stage · Week 2",
       "t1": "veyron",
       "t2": "naadan-legacy",
@@ -106,11 +106,11 @@
       "bestOf": "BO1",
       "side1": "defense",
       "side2": "attack",
-      "time": "Sat 10 Oct, 10:00 PM IST (22:00)"
+      "time": "Sun 11 Oct, 9:00 PM IST (21:00)"
     },
     {
       "matchNumber": 7,
-      "label": "M7: VRN vs ATX (Ascent · Sun 11 Oct, 9:00 PM IST)",
+      "label": "M7: VRN vs ATX (Ascent · Sun 11 Oct, 11:00 PM IST)",
       "stage": "Group Stage · Week 2",
       "t1": "veyron",
       "t2": "aetrix",
@@ -118,11 +118,11 @@
       "bestOf": "BO1",
       "side1": "defense",
       "side2": "attack",
-      "time": "Sun 11 Oct, 9:00 PM IST (21:00)"
+      "time": "Sun 11 Oct, 11:00 PM IST (23:00)"
     },
     {
       "matchNumber": 8,
-      "label": "M8: VRN vs ATX (Breeze · Sun 11 Oct, 11:00 PM IST)",
+      "label": "M8: VRN vs ATX (Breeze · Sat 17 Oct, 9:00 PM IST)",
       "stage": "Group Stage · Week 2",
       "t1": "veyron",
       "t2": "aetrix",
@@ -130,11 +130,11 @@
       "bestOf": "BO1",
       "side1": "attack",
       "side2": "defense",
-      "time": "Sun 11 Oct, 11:00 PM IST (23:00)"
+      "time": "Sat 17 Oct, 9:00 PM IST (21:00)"
     },
     {
       "matchNumber": 9,
-      "label": "M9: BBZ vs VRN (Split · Mon 12 Oct, 9:00 PM IST)",
+      "label": "M9: BBZ vs VRN (Split · Sun 18 Oct, 9:00 PM IST)",
       "stage": "Group Stage · Week 3",
       "t1": "bitter-blade-z",
       "t2": "veyron",
@@ -142,7 +142,7 @@
       "bestOf": "BO1",
       "side1": "defense",
       "side2": "attack",
-      "time": "Mon 12 Oct, 9:00 PM IST (21:00)"
+      "time": "Sun 18 Oct, 9:00 PM IST (21:00)"
     },
     {
       "matchNumber": 10,
@@ -182,7 +182,7 @@
     },
     {
       "matchNumber": 13,
-      "label": "M13: Qualifier 1 (Seed 1 vs 2 · Sat 24 Oct, 9:00 PM IST)",
+      "label": "M13: TBD vs TBD (TBD · Sat 24 Oct, 9:00 PM IST)",
       "stage": "Playoffs: Qualifier 1",
       "t1": "tbd",
       "t2": "tbd",
@@ -194,7 +194,7 @@
     },
     {
       "matchNumber": 14,
-      "label": "M14: Eliminator (Seed 3 vs 4 · Sat 24 Oct, 9:30 PM IST)",
+      "label": "M14: TBD vs TBD (TBD · Sat 24 Oct, 9:30 PM IST)",
       "stage": "Playoffs: Eliminator",
       "t1": "tbd",
       "t2": "tbd",
@@ -206,7 +206,7 @@
     },
     {
       "matchNumber": 15,
-      "label": "M15: Qualifier 2 (Sun 25 Oct, 9:00 PM IST)",
+      "label": "M15: TBD vs TBD (TBD · Sun 25 Oct, 9:00 PM IST)",
       "stage": "Playoffs: Qualifier 2",
       "t1": "tbd",
       "t2": "tbd",
@@ -218,7 +218,7 @@
     },
     {
       "matchNumber": 16,
-      "label": "M16: Grand Final (Sat 31 Oct, 10:00 PM IST)",
+      "label": "M16: TBD vs TBD (TBD · Sat 31 Oct, 10:00 PM IST)",
       "stage": "Grand Final",
       "t1": "tbd",
       "t2": "tbd",

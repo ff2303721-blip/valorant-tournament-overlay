@@ -1150,11 +1150,82 @@ function handlePollerStats(statsArray) {
   console.log(`[Poller] 📊 Updated ${updated} player(s) in roster from site stats.`);
 }
 
+// ── Tournament Poller: auto-update match schedule/reschedule ─────
+function handlePollerSchedule(scheduleUpdate) {
+  if (!scheduleUpdate) return;
+  const { siteMatchId, fixtureMatchNumber, scheduledIso, scheduledTimeIst, map } = scheduleUpdate;
+
+  const fixture = TOURNAMENT_FIXTURES.find(f => f.matchNumber === fixtureMatchNumber);
+  if (!fixture) return;
+
+  let changed = false;
+
+  // 1. Check & update scheduled time if changed
+  if (scheduledTimeIst && fixture.time !== scheduledTimeIst) {
+    console.log(`[Poller] 🔄 RESCHEDULE DETECTED for M${fixtureMatchNumber}:`);
+    console.log(`         Old Time: "${fixture.time}"`);
+    console.log(`         New Time: "${scheduledTimeIst}"`);
+    fixture.time = scheduledTimeIst;
+    changed = true;
+  }
+
+  // 2. Check & update map if changed and non-empty
+  if (map && map !== 'TBD' && fixture.map !== map) {
+    console.log(`[Poller] 🗺️ MAP UPDATE for M${fixtureMatchNumber}: ${fixture.map} -> ${map}`);
+    fixture.map = map;
+    changed = true;
+  }
+
+  // 3. Update fixture label to reflect new map & time
+  const t1Obj = TOURNAMENT_TEAMS.find(t => t.id === fixture.t1);
+  const t2Obj = TOURNAMENT_TEAMS.find(t => t.id === fixture.t2);
+  const tag1 = t1Obj ? t1Obj.tag : (fixture.t1 || 'T1').toUpperCase();
+  const tag2 = t2Obj ? t2Obj.tag : (fixture.t2 || 'T2').toUpperCase();
+  const newLabel = `M${fixtureMatchNumber}: ${tag1} vs ${tag2} (${fixture.map || 'TBD'} · ${fixture.time ? fixture.time.replace(/\s*\(\d{2}:\d{2}\)/, '') : 'TBD'})`;
+  if (fixture.label !== newLabel) {
+    fixture.label = newLabel;
+    changed = true;
+  }
+
+  // If this is the currently loaded active match, sync live match state
+  if (state.match && state.match.fixtureMatchNumber === fixtureMatchNumber) {
+    if (map && state.match.mapName !== map) {
+      state.match.mapName = map;
+      changed = true;
+    }
+  }
+
+  if (changed) {
+    // Keep state.fixturesList synced
+    state.fixturesList = TOURNAMENT_FIXTURES;
+    saveStateToDisk();
+
+    // Broadcast updated fixtures to all overlays & operator admin
+    const todayFixtures = getTodayFixtures();
+    broadcast({
+      type: 'TODAY_FIXTURES_UPDATE',
+      todayFixtures,
+    });
+    broadcast({
+      type: 'FIXTURE_SCHEDULE_UPDATE',
+      fixtureMatchNumber,
+      fixture,
+      scheduledTimeIst: fixture.time,
+      map: fixture.map,
+      allFixtures: TOURNAMENT_FIXTURES,
+    });
+    broadcastStateUpdate();
+
+    console.log(`[Poller] 📡 Broadcasted schedule update for M${fixtureMatchNumber} to all overlays & admin.`);
+  }
+}
+
 function startTournamentPoller() {
   tournamentPoller.start(
     handlePollerResult,
     (statusUpdate) => broadcast({ type: 'POLLER_STATUS', ...statusUpdate }),
-    handlePollerStats
+    handlePollerStats,
+    handlePollerSchedule
   );
 }
 

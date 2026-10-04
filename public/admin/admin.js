@@ -207,6 +207,26 @@ function syncUI(state) {
 
   // Render Veto Table (if present)
   renderVetoTable(state.veto || []);
+
+  // Update Fixture Selector Dropdown options if fixturesList changed/rescheduled
+  if (state.fixturesList && Array.isArray(state.fixturesList)) {
+    const fixtureSel = document.getElementById('select-tournament-fixture');
+    if (fixtureSel) {
+      const currentSelected = fixtureSel.value;
+      state.fixturesList.forEach(fix => {
+        let opt = fixtureSel.querySelector(`option[value="${fix.matchNumber}"]`);
+        if (opt) {
+          if (opt.textContent !== fix.label) opt.textContent = fix.label;
+        } else {
+          opt = document.createElement('option');
+          opt.value = fix.matchNumber;
+          opt.textContent = fix.label;
+          fixtureSel.appendChild(opt);
+        }
+      });
+      if (currentSelected) fixtureSel.value = currentSelected;
+    }
+  }
 }
 
 const AGENTS_LIST = [

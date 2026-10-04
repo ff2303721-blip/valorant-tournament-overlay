@@ -35,10 +35,38 @@ const BASE_URL = 'https://tournament.xmdofficial.in';
 let pollTimer = null;
 let isPolling = false;
 let lastKnownResults = {}; // matchSlug → { score1, score2 }
+let lastKnownSchedules = {}; // matchSlug → { scheduledIso, map }
 let onResultCallback = null;
 let onStatusCallback = null;
 let onStatsCallback = null;
+let onScheduleCallback = null;
 let lastStatsHash = '';
+
+// Helper to format ISO date string into standard IST display format
+// e.g. "Sat 10 Oct, 10:00 PM IST (22:00)"
+function formatIsoToIst(isoString) {
+  if (!isoString) return null;
+  const d = new Date(isoString);
+  if (isNaN(d.getTime())) return null;
+
+  const weekday = d.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata', weekday: 'short' });
+  const day = d.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata', day: 'numeric' });
+  const month = d.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata', month: 'short' });
+  const timeStr = d.toLocaleTimeString('en-US', {
+    timeZone: 'Asia/Kolkata',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  });
+  const hour24 = d.toLocaleTimeString('en-US', {
+    timeZone: 'Asia/Kolkata',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  });
+
+  return `${weekday} ${day} ${month}, ${timeStr} IST (${hour24})`;
+}
 
 // ── HTTP fetch helper ────────────────────────────────────────────
 function fetchUrl(url) {
@@ -73,10 +101,19 @@ function parseMatchPage(html, matchSlug) {
     map: null,
     winner: null,
     players: [],
+    scheduledIso: null,
+    scheduledTimeIst: null,
   };
 
   const rscPushes = [...html.matchAll(/self\.__next_f\.push\(\[1,"([\s\S]*?)"\]\)/g)].map(x => x[1]);
   const fullRSC = rscPushes.join('').replace(/\\"/g, '"').replace(/\\n/g, '\n');
+
+  // Extract Scheduled ISO Time (e.g., "2026-10-10T16:30:00.000Z")
+  const isoMatch = fullRSC.match(/"iso":"([^"]+)"/);
+  if (isoMatch) {
+    result.scheduledIso = isoMatch[1];
+    result.scheduledTimeIst = formatIsoToIst(isoMatch[1]);
+  }
 
   if (fullRSC.includes('"Final"') || fullRSC.includes('Winner')) {
     result.completed = true;
@@ -308,12 +345,46 @@ async function pollCycle() {
 
   const slugs = Object.keys(SITE_SLUG_TO_FIXTURE);
   let newResults = 0;
+  let scheduleUpdates = 0;
 
   for (const slug of slugs) {
     const result = await pollMatch(slug);
-    if (!result || !result.completed) continue;
+    if (!result) continue;
 
     const fixtureNumber = SITE_SLUG_TO_FIXTURE[slug];
+
+    // ── Check for Schedule or Map Reschedule/Update ───────────────
+    if (result.scheduledIso || result.map) {
+      const prevSched = lastKnownSchedules[slug];
+      const schedChanged = !prevSched ||
+        (result.scheduledIso && prevSched.scheduledIso !== result.scheduledIso) ||
+        (result.map && prevSched.map !== result.map);
+
+      if (schedChanged) {
+        lastKnownSchedules[slug] = {
+          scheduledIso: result.scheduledIso,
+          scheduledTimeIst: result.scheduledTimeIst,
+          map: result.map,
+        };
+        scheduleUpdates++;
+
+        console.log(`[Poller] 📅 SCHEDULE DETECTED/UPDATED: ${slug} (M${fixtureNumber})`);
+        console.log(`         Time: ${result.scheduledTimeIst || result.scheduledIso || 'TBD'} | Map: ${result.map || 'TBD'}`);
+
+        if (onScheduleCallback) {
+          onScheduleCallback({
+            siteMatchId: slug,
+            fixtureMatchNumber: fixtureNumber,
+            scheduledIso: result.scheduledIso,
+            scheduledTimeIst: result.scheduledTimeIst,
+            map: result.map,
+          });
+        }
+      }
+    }
+
+    if (!result.completed) continue;
+
     const prev = lastKnownResults[slug];
     const playersCount = (result.players && result.players.length) || 0;
     const hasChanged = !prev ||
@@ -364,10 +435,10 @@ async function pollCycle() {
     console.warn(`[Poller] Stats poll error: ${err.message}`);
   }
 
-  if (newResults === 0) {
-    console.log(`[Poller] ℹ️ Checked all matches. No new results.`);
+  if (newResults === 0 && scheduleUpdates === 0) {
+    console.log(`[Poller] ℹ️ Checked all matches. No new results or schedule changes.`);
   } else {
-    console.log(`[Poller] 🏆 Imported ${newResults} new result(s).`);
+    console.log(`[Poller] 🏆 Cycle complete: ${newResults} new result(s), ${scheduleUpdates} schedule update(s).`);
   }
 
   if (onStatusCallback) {
@@ -375,6 +446,7 @@ async function pollCycle() {
       status: 'idle',
       lastCheck: timestamp,
       resultsFound: newResults,
+      scheduleUpdates,
     });
   }
 
@@ -382,7 +454,7 @@ async function pollCycle() {
 }
 
 // ── Public API ────────────────────────────────────────────────────
-function start(onResult, onStatus, onStats) {
+function start(onResult, onStatus, onStats, onSchedule) {
   if (pollTimer) {
     console.log('[Poller] Already running.');
     return;
@@ -390,6 +462,7 @@ function start(onResult, onStatus, onStats) {
   onResultCallback = onResult;
   onStatusCallback = onStatus;
   onStatsCallback = onStats || null;
+  onScheduleCallback = onSchedule || null;
 
   console.log(`[Poller] 🚀 Starting tournament result auto-poller (every ${POLL_INTERVAL_MS/1000}s)...`);
 
