@@ -61,19 +61,49 @@ function applyState(state) {
 
   const tA = state.teamA || {};
   const tB = state.teamB || {};
+  const sA = parseInt(tA.score, 10) || 0;
+  const sB = parseInt(tB.score, 10) || 0;
+  const mW_A = parseInt(tA.mapWins, 10) || 0;
+  const mW_B = parseInt(tB.mapWins, 10) || 0;
+  const phase = (state.match && state.match.phase) || '';
 
-  // Winner calculation: compare scores / mapWins
-  let winner = tA;
-  let loser  = tB;
-  let scoreWin = tA.score || 0;
-  let scoreLose = tB.score || 0;
+  // Valorant rules: A team wins when they hit 13 (regulation) or >= 13 with at least 2-round lead (overtime)
+  const teamAWon = (sA >= 13 && sA - sB >= 2) || (sA === 13 && sB < 12) || (mW_A > mW_B && phase === 'ended');
+  const teamBWon = (sB >= 13 && sB - sA >= 2) || (sB === 13 && sA < 12) || (mW_B > mW_A && phase === 'ended');
+  const isFinalResult = teamAWon || teamBWon;
 
-  if ((tB.mapWins || 0) > (tA.mapWins || 0) || (tB.score || 0) > (tA.score || 0)) {
-    winner = tB;
-    loser = tA;
-    scoreWin = tB.score || 0;
-    scoreLose = tA.score || 0;
+  const ceremonyEl = document.getElementById('ceremony-main');
+  const standbyEl = document.getElementById('match-ongoing-standby');
+  const confettiCanvas = document.getElementById('confetti-canvas');
+
+  // If match has NOT reached final 13-round result: show live standby view
+  if (!isFinalResult) {
+    if (ceremonyEl) ceremonyEl.style.display = 'none';
+    if (standbyEl) standbyEl.style.display = 'flex';
+    if (confettiCanvas) confettiCanvas.style.display = 'none';
+
+    document.getElementById('sb-tag-a').textContent = tA.tag || 'T1';
+    document.getElementById('sb-score-a').textContent = sA;
+    document.getElementById('sb-tag-b').textContent = tB.tag || 'T2';
+    document.getElementById('sb-score-b').textContent = sB;
+
+    if (state.match) {
+      document.getElementById('winner-tournament-title').textContent = state.match.title || 'VALORANT TOURNAMENT';
+      document.getElementById('winner-match-info').textContent = `${(state.match.stage || 'GROUP STAGE').toUpperCase()} · LIVE`;
+    }
+    return;
   }
+
+  // ── FINAL RESULT REACHED: REVEAL WINNER CEREMONY ───
+  if (ceremonyEl) ceremonyEl.style.display = 'flex';
+  if (standbyEl) standbyEl.style.display = 'none';
+  if (confettiCanvas) confettiCanvas.style.display = 'block';
+
+  // Winner calculation
+  let winner = teamBWon ? tB : tA;
+  let loser  = teamBWon ? tA : tB;
+  let scoreWin = teamBWon ? sB : sA;
+  let scoreLose = teamBWon ? sA : sB;
 
   // Populate UI
   document.getElementById('winner-team-tag').textContent = winner.tag || 'WIN';

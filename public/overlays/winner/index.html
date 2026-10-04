@@ -37,7 +37,7 @@
   </header>
 
   <!-- CEREMONY CORE -->
-  <main class="ceremony-main">
+  <main class="ceremony-main" id="ceremony-main">
 
     <!-- VICTORY RIBBON -->
     <div class="victory-ribbon">
@@ -80,6 +80,23 @@
     </div>
 
   </main>
+
+  <!-- MATCH IN PROGRESS STANDBY CONTAINER (SHOWN WHEN SCORE < 13) -->
+  <div class="match-ongoing-standby" id="match-ongoing-standby" style="display:none;">
+    <div class="standby-card">
+      <div class="standby-live-pulse"></div>
+      <span class="standby-tag">MATCH IN PROGRESS</span>
+      <h2 class="standby-title">AWAITING FINAL RESULT</h2>
+      <p class="standby-desc">Winner ceremony reveals automatically when a team reaches <strong>13 rounds</strong> (or wins overtime by 2).</p>
+      <div class="standby-live-score">
+        <span class="standby-team-tag" id="sb-tag-a">NDL</span>
+        <span class="standby-score-num" id="sb-score-a">0</span>
+        <span class="standby-vs">VS</span>
+        <span class="standby-score-num" id="sb-score-b">0</span>
+        <span class="standby-team-tag" id="sb-tag-b">ATX</span>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER STATUS -->
   <footer class="winner-footer">
