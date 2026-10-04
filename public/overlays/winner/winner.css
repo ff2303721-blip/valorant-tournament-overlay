@@ -272,10 +272,44 @@ html, body {
   border-top: 1px solid rgba(255,255,255,0.06);
 }
 .footer-status { display: flex; align-items: center; gap: 10px; }
-.live-pulse {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 10px var(--gold);
+/* Sound Preview Toolbar */
+.sound-preview-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.7);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 213, 107, 0.25);
+  backdrop-filter: blur(8px);
 }
-.footer-msg { font-family: var(--fl); font-weight: 700; letter-spacing: 3px; color: rgba(255,255,255,0.5); font-size: 14px; }
-.footer-clock { font-family: var(--fn); font-size: 15px; color: rgba(255,255,255,0.6); }
+.preview-label {
+  font-family: var(--fl);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+}
+.sfx-btn {
+  background: #1b2533;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-family: var(--fl);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.sfx-btn:hover {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 213, 107, 0.4);
+}
+.sfx-btn:active {
+  transform: translateY(0);
+}

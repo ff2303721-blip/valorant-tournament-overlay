@@ -82,11 +82,22 @@
   </main>
 
   <!-- FOOTER STATUS -->
+  <!-- FOOTER STATUS & SOUND AUDITION PREVIEW -->
   <footer class="winner-footer">
     <div class="footer-status">
       <span class="live-pulse"></span>
       <span class="footer-msg">CONGRATULATIONS TO THE VICTORS</span>
     </div>
+
+    <!-- PREVIEW / AUDITION SOUND TOOLBAR -->
+    <div class="sound-preview-bar" id="sound-preview-bar">
+      <span class="preview-label">🔊 TEST SOUNDS:</span>
+      <button type="button" class="sfx-btn" onclick="previewSfx('fanfare')">🎺 Brass Fanfare</button>
+      <button type="button" class="sfx-btn" onclick="previewSfx('cinematic')">💥 Valorant Boom</button>
+      <button type="button" class="sfx-btn" onclick="previewSfx('synth')">⚡ Radiant Sweep</button>
+      <button type="button" class="sfx-btn" onclick="previewSfx('chime')">✨ Victory Chimes</button>
+    </div>
+
     <div class="footer-clock" id="winner-ist-clock">IST --:--:--</div>
   </footer>
 
