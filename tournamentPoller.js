@@ -119,10 +119,43 @@ function parseMatchPage(html, matchSlug) {
     result.completed = true;
   }
 
-  // 1. Extract Map round score (e.g., VRN 13 - 8 NDL)
+  // 1. Extract Team Slugs & Tags from match intro header links
+  // e.g. "href":"/teams/veyron" and "href":"/teams/aetrix"
+  const TEAM_SLUG_TO_TAG = {
+    'veyron': 'VRN',
+    'aetrix': 'ATX',
+    'bitter-blade-z': 'BBZ',
+    'naadan-legacy': 'NDL',
+  };
+  const TEAM_NAME_TO_TAG = {
+    'VEYRON': 'VRN',
+    'AETRIX': 'ATX',
+    'BITTER BLADE Z': 'BBZ',
+    'NAADAN LEGACY': 'NDL',
+  };
+  const teamLinks = [...fullRSC.matchAll(/"href":"\/teams\/([a-z0-9-]+)"/g)].map(m => m[1]);
+  const uniqueTeamSlugs = [...new Set(teamLinks)];
+  if (uniqueTeamSlugs.length >= 2) {
+    result.team1Tag = TEAM_SLUG_TO_TAG[uniqueTeamSlugs[0]] || uniqueTeamSlugs[0].toUpperCase().slice(0, 3);
+    result.team2Tag = TEAM_SLUG_TO_TAG[uniqueTeamSlugs[1]] || uniqueTeamSlugs[1].toUpperCase().slice(0, 3);
+  }
+
+  // 2. Extract Match Score
+  // Primary (live match header heading): e.g. [13,["$","span",null,{"className":"mx-2 text-muted","children":":"}],3]
+  const centerScoreMatch = fullRSC.match(/\[(\d+),\["\$","span",null,\{"className":"mx-2 text-muted","children":":"\}\],(\d+)\]/);
+  // Secondary (map round score spans): e.g. VRN 13 - 8 NDL
   const scoreRegex = /"children":"([A-Z]{2,4})"\}\],\["\$","span",null,\{[^}]*"children":(\d+)\}\],\["\$","span",null,\{[^}]*"children":"[–-]"\}[^\]]*\],\["\$","span",null,\{[^}]*"children":(\d+)\}\],\["\$","span",null,\{[^}]*"children":"([A-Z]{2,4})"/;
   const matchScore = fullRSC.match(scoreRegex);
-  if (matchScore) {
+  // Fallback (older layout): [1,[...,":"],0]
+  const seriesScoreMatch = fullRSC.match(/"className":"match-intro-center[^"]*","children":\[(\d+),\["\$","span",null,\{[^}]*"children":":"\}\],(\d+)\]/);
+
+  if (centerScoreMatch) {
+    result.score1 = parseInt(centerScoreMatch[1], 10);
+    result.score2 = parseInt(centerScoreMatch[2], 10);
+    if (result.score1 > 0 || result.score2 > 0) {
+      result.completed = true;
+    }
+  } else if (matchScore) {
     result.team1Tag = matchScore[1];
     result.score1 = parseInt(matchScore[2], 10);
     result.score2 = parseInt(matchScore[3], 10);
@@ -130,32 +163,45 @@ function parseMatchPage(html, matchSlug) {
     if (result.score1 > 0 || result.score2 > 0) {
       result.completed = true;
     }
+  } else if (seriesScoreMatch) {
+    result.score1 = parseInt(seriesScoreMatch[1], 10);
+    result.score2 = parseInt(seriesScoreMatch[2], 10);
+    if (result.score1 > 0 || result.score2 > 0) {
+      result.completed = true;
+    }
   }
 
-  // Fallback: Check overall series match score (e.g. 1 : 0)
-  if (result.score1 === 0 && result.score2 === 0) {
-    const seriesScoreMatch = fullRSC.match(/"className":"match-intro-center[^"]*","children":\[(\d+),\["\$","span",null,\{[^}]*"children":":"\}\],(\d+)\]/);
-    if (seriesScoreMatch) {
-      const s1 = parseInt(seriesScoreMatch[1], 10);
-      const s2 = parseInt(seriesScoreMatch[2], 10);
-      if (s1 > 0 || s2 > 0) {
-        result.completed = true;
+  // 3. Extract Map Name
+  const KNOWN_MAPS = [
+    'Ascent', 'Bind', 'Breeze', 'Fracture', 'Haven', 'Icebox',
+    'Lotus', 'Pearl', 'Split', 'Sunset', 'Abyss', 'Corrode'
+  ];
+  // Check subtitle under score: "className":"mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted","children":"Ascent"
+  const subMapMatch = fullRSC.match(/"className":"[^"]*uppercase tracking-[^"]*text-muted","children":"([^"]+)"/);
+  if (subMapMatch && KNOWN_MAPS.includes(subMapMatch[1])) {
+    result.map = subMapMatch[1];
+  } else {
+    const mapMatch = fullRSC.match(/"className":"title-page","children":"([^"]+)"/);
+    if (mapMatch && KNOWN_MAPS.includes(mapMatch[1])) {
+      result.map = mapMatch[1];
+    } else {
+      for (const m of KNOWN_MAPS) {
+        if (fullRSC.includes(`"${m}"`)) {
+          result.map = m;
+          break;
+        }
       }
     }
   }
 
-  // 2. Extract Map Name
-  const mapRegex = /"className":"title-page","children":"([^"]+)"/;
-  const mapMatch = fullRSC.match(mapRegex);
-  if (mapMatch) result.map = mapMatch[1];
-
-  // 3. Extract Winner
+  // 4. Extract Winner
   const winnerRegex = /"className":"heading text-xl sm:text-3xl text-win","children":"([^"]+)"/;
   const winMatch = fullRSC.match(winnerRegex);
   if (winMatch) {
-    result.winner = winMatch[1];
+    const rawWin = winMatch[1].trim();
+    result.winner = TEAM_NAME_TO_TAG[rawWin] || rawWin;
   } else if (result.completed && result.score1 !== result.score2) {
-    result.winner = result.score1 > result.score2 ? result.team1Tag : result.team2Tag;
+    result.winner = result.score1 > result.score2 ? (result.team1Tag || 'T1') : (result.team2Tag || 'T2');
   }
 
   // 4. Extract Per-Player Combat Stats from match scoreboard tables (Team 1 and Team 2)
@@ -354,22 +400,26 @@ async function pollCycle() {
     const fixtureNumber = SITE_SLUG_TO_FIXTURE[slug];
 
     // ── Check for Schedule or Map Reschedule/Update ───────────────
-    if (result.scheduledIso || result.map) {
+    if (result.scheduledIso || result.map || result.team1Slug) {
       const prevSched = lastKnownSchedules[slug];
       const schedChanged = !prevSched ||
         (result.scheduledIso && prevSched.scheduledIso !== result.scheduledIso) ||
-        (result.map && prevSched.map !== result.map);
+        (result.map && prevSched.map !== result.map) ||
+        (result.team1Slug && prevSched.t1 !== result.team1Slug) ||
+        (result.team2Slug && prevSched.t2 !== result.team2Slug);
 
       if (schedChanged) {
         lastKnownSchedules[slug] = {
           scheduledIso: result.scheduledIso,
           scheduledTimeIst: result.scheduledTimeIst,
           map: result.map,
+          t1: result.team1Slug,
+          t2: result.team2Slug,
         };
         scheduleUpdates++;
 
         console.log(`[Poller] 📅 SCHEDULE DETECTED/UPDATED: ${slug} (M${fixtureNumber})`);
-        console.log(`         Time: ${result.scheduledTimeIst || result.scheduledIso || 'TBD'} | Map: ${result.map || 'TBD'}`);
+        console.log(`         Teams: ${result.team1Tag || 'T1'} vs ${result.team2Tag || 'T2'} | Time: ${result.scheduledTimeIst || result.scheduledIso || 'TBD'} | Map: ${result.map || 'TBD'}`);
 
         if (onScheduleCallback) {
           onScheduleCallback({
@@ -378,6 +428,10 @@ async function pollCycle() {
             scheduledIso: result.scheduledIso,
             scheduledTimeIst: result.scheduledTimeIst,
             map: result.map,
+            t1: result.team1Slug,
+            t2: result.team2Slug,
+            team1Tag: result.team1Tag,
+            team2Tag: result.team2Tag,
           });
         }
       }

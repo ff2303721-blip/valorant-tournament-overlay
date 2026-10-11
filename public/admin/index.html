@@ -489,6 +489,13 @@
       }
     }
 
+    function getFixtureDisplayLabel(mn, r) {
+      if (r && r.team1Tag && r.team2Tag) {
+        return `M${mn} ${r.team1Tag} vs ${r.team2Tag}`;
+      }
+      return FIXTURE_LABELS[mn] || 'M' + mn;
+    }
+
     function renderResultsTable() {
       const tbody = document.getElementById('results-tbody');
       const entries = Object.entries(importedResults);
@@ -498,7 +505,7 @@
       }
       tbody.innerHTML = entries.map(([mn, r]) => `
         <tr style="border-bottom:1px solid #161b22;">
-          <td style="padding:6px 8px;color:#c9d1d9;font-weight:600;">${FIXTURE_LABELS[mn] || 'M'+mn}</td>
+          <td style="padding:6px 8px;color:#c9d1d9;font-weight:600;">${getFixtureDisplayLabel(mn, r)}</td>
           <td style="padding:6px 8px;text-align:center;font-weight:700;color:#ff4655;font-size:14px;">${r.score1} – ${r.score2}</td>
           <td style="padding:6px 8px;text-align:center;color:#ffd700;font-weight:600;">${r.winner || '—'}</td>
           <td style="padding:6px 8px;text-align:center;color:#8892a0;">${r.map || '—'}</td>

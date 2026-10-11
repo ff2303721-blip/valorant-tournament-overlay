@@ -51,14 +51,14 @@ const TOURNAMENT_FIXTURES = [
   { matchNumber: 2, label: "M2: ATX vs BBZ (Abyss · Fri 2 Oct, 10:00 PM IST)", stage: "Group Stage · Week 1", t1: "aetrix", t2: "bitter-blade-z", map: "Abyss", bestOf: "BO1", side1: "defense", side2: "attack", time: "Fri 2 Oct, 10:00 PM IST (22:00)" },
   { matchNumber: 3, label: "M3: ATX vs BBZ (Bind · Sat 3 Oct, 9:00 PM IST)", stage: "Group Stage · Week 1", t1: "aetrix", t2: "bitter-blade-z", map: "Bind", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 3 Oct, 9:00 PM IST (21:00)" },
   { matchNumber: 4, label: "M4: BBZ vs NDL (Corrode · Sat 3 Oct, 10:00 PM IST)", stage: "Group Stage · Week 1", t1: "bitter-blade-z", t2: "naadan-legacy", map: "Corrode", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 3 Oct, 10:00 PM IST (22:00)" },
-  { matchNumber: 5, label: "M5: NDL vs BBZ (Pearl · Sun 4 Oct, 10:30 PM IST)", stage: "Group Stage · Week 1", t1: "naadan-legacy", t2: "bitter-blade-z", map: "Pearl", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sun 4 Oct, 10:30 PM IST (22:30)" },
-  { matchNumber: 6, label: "M6: VRN vs NDL (Bind · Sat 10 Oct, 10:00 PM IST)", stage: "Group Stage · Week 2", t1: "veyron", t2: "naadan-legacy", map: "Bind", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 10 Oct, 10:00 PM IST (22:00)" },
-  { matchNumber: 7, label: "M7: VRN vs ATX (Ascent · Sun 11 Oct, 9:00 PM IST)", stage: "Group Stage · Week 2", t1: "veyron", t2: "aetrix", map: "Ascent", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sun 11 Oct, 9:00 PM IST (21:00)" },
-  { matchNumber: 8, label: "M8: VRN vs ATX (Breeze · Sun 11 Oct, 11:00 PM IST)", stage: "Group Stage · Week 2", t1: "veyron", t2: "aetrix", map: "Breeze", bestOf: "BO1", side1: "attack", side2: "defense", time: "Sun 11 Oct, 11:00 PM IST (23:00)" },
-  { matchNumber: 9, label: "M9: BBZ vs VRN (Split · Mon 12 Oct, 9:00 PM IST)", stage: "Group Stage · Week 3", t1: "bitter-blade-z", t2: "veyron", map: "Split", bestOf: "BO1", side1: "defense", side2: "attack", time: "Mon 12 Oct, 9:00 PM IST (21:00)" },
-  { matchNumber: 10, label: "M10: VRN vs BBZ (Bind · Mon 12 Oct, 10:00 PM IST)", stage: "Group Stage · Week 2", t1: "veyron", t2: "bitter-blade-z", map: "Bind", bestOf: "BO1", side1: "defense", side2: "attack", time: "Mon 12 Oct, 10:00 PM IST (22:00)" },
-  { matchNumber: 11, label: "M11: ATX vs NDL (Corrode · Sat 17 Oct, 9:00 PM IST)", stage: "Group Stage · Week 3", t1: "aetrix", t2: "naadan-legacy", map: "Corrode", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 17 Oct, 9:00 PM IST (21:00)" },
-  { matchNumber: 12, label: "M12: ATX vs NDL (Corrode · Sun 18 Oct, 9:00 PM IST)", stage: "Group Stage · Week 1", t1: "aetrix", t2: "naadan-legacy", map: "Corrode", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sun 18 Oct, 9:00 PM IST (21:00)" },
+  { matchNumber: 5, label: "M5: NDL vs BBZ (Pearl · Sat 10 Oct, 10:00 PM IST)", stage: "Group Stage · Week 2", t1: "naadan-legacy", t2: "bitter-blade-z", map: "Pearl", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 10 Oct, 10:00 PM IST (22:00)" },
+  { matchNumber: 6, label: "M6: VRN vs ATX (Ascent · Sun 11 Oct, 9:00 PM IST)", stage: "Group Stage · Week 2", t1: "veyron", t2: "aetrix", map: "Ascent", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sun 11 Oct, 9:00 PM IST (21:00)" },
+  { matchNumber: 7, label: "M7: VRN vs ATX (Breeze · Sun 11 Oct, 11:00 PM IST)", stage: "Group Stage · Week 2", t1: "veyron", t2: "aetrix", map: "Breeze", bestOf: "BO1", side1: "attack", side2: "defense", time: "Sun 11 Oct, 11:00 PM IST (23:00)" },
+  { matchNumber: 8, label: "M8: ATX vs NDL (Corrode · Tue 13 Oct, 10:00 PM IST)", stage: "Group Stage · Week 3", t1: "aetrix", t2: "naadan-legacy", map: "Corrode", bestOf: "BO1", side1: "defense", side2: "attack", time: "Tue 13 Oct, 10:00 PM IST (22:00)" },
+  { matchNumber: 9, label: "M9: ATX vs NDL (Icebox · Tue 13 Oct, 11:00 PM IST)", stage: "Group Stage · Week 3", t1: "aetrix", t2: "naadan-legacy", map: "Icebox", bestOf: "BO1", side1: "defense", side2: "attack", time: "Tue 13 Oct, 11:00 PM IST (23:00)" },
+  { matchNumber: 10, label: "M10: BBZ vs VRN (Split · Mon 19 Oct, 9:00 PM IST)", stage: "Group Stage · Week 3", t1: "bitter-blade-z", t2: "veyron", map: "Split", bestOf: "BO1", side1: "defense", side2: "attack", time: "Mon 19 Oct, 9:00 PM IST (21:00)" },
+  { matchNumber: 11, label: "M11: VRN vs BBZ (Bind · Mon 19 Oct, 10:00 PM IST)", stage: "Group Stage · Week 3", t1: "veyron", t2: "bitter-blade-z", map: "Bind", bestOf: "BO1", side1: "defense", side2: "attack", time: "Mon 19 Oct, 10:00 PM IST (22:00)" },
+  { matchNumber: 12, label: "M12: VRN vs NDL (Icebox · Mon 19 Oct, 11:00 PM IST)", stage: "Group Stage · Week 3", t1: "veyron", t2: "naadan-legacy", map: "Icebox", bestOf: "BO1", side1: "defense", side2: "attack", time: "Mon 19 Oct, 11:00 PM IST (23:00)" },
   { matchNumber: 13, label: "M13: Qualifier 1 (Seed 1 vs 2 · Sat 24 Oct, 9:00 PM IST)", stage: "Playoffs: Qualifier 1", t1: "tbd", t2: "tbd", map: "TBD", bestOf: "BO3", side1: "defense", side2: "attack", time: "Sat 24 Oct, 9:00 PM IST (21:00)" },
   { matchNumber: 14, label: "M14: Eliminator (Seed 3 vs 4 · Sat 24 Oct, 9:30 PM IST)", stage: "Playoffs: Eliminator", t1: "tbd", t2: "tbd", map: "TBD", bestOf: "BO3", side1: "defense", side2: "attack", time: "Sat 24 Oct, 9:30 PM IST (21:30)" },
   { matchNumber: 15, label: "M15: Qualifier 2 (Sun 25 Oct, 9:00 PM IST)", stage: "Playoffs: Qualifier 2", t1: "tbd", t2: "tbd", map: "TBD", bestOf: "BO3", side1: "defense", side2: "attack", time: "Sun 25 Oct, 9:00 PM IST (21:00)" },
@@ -1176,7 +1176,17 @@ function handlePollerSchedule(scheduleUpdate) {
     changed = true;
   }
 
-  // 3. Update fixture label to reflect new map & time
+  // 3. Check & update teams if known from scheduleUpdate
+  if (scheduleUpdate.t1 && fixture.t1 !== scheduleUpdate.t1) {
+    fixture.t1 = scheduleUpdate.t1;
+    changed = true;
+  }
+  if (scheduleUpdate.t2 && fixture.t2 !== scheduleUpdate.t2) {
+    fixture.t2 = scheduleUpdate.t2;
+    changed = true;
+  }
+
+  // 4. Update fixture label to reflect new map & time
   const t1Obj = TOURNAMENT_TEAMS.find(t => t.id === fixture.t1);
   const t2Obj = TOURNAMENT_TEAMS.find(t => t.id === fixture.t2);
   const tag1 = t1Obj ? t1Obj.tag : (fixture.t1 || 'T1').toUpperCase();
