@@ -16,17 +16,17 @@ const SITE_SLUG_TO_FIXTURE = {
   'match-3':  3,   // M3: ATX vs BBZ (Bind)
   'match-4':  4,   // M4: BBZ vs NDL (Corrode)
   'match-5':  5,   // M5: NDL vs BBZ (Pearl)
-  'match-6':  6,   // M6: ATX vs NDL (Corrode)
-  'match-7':  7,   // M7: BBZ vs VRN (Split)
-  'match-8':  8,   // M8: VRN vs ATX (Ascent)
-  'match-9':  9,   // M9: VRN vs NDL (Bind)
-  'match-10': 10,  // M10: VRN vs BBZ (Bind)
-  'match-11': 11,  // M11: VRN vs ATX (Breeze)
-  'match-12': 12,  // M12: BBZ vs ATX (Bind)
-  'match-13': 13,  // M13: Qualifier 1
-  'match-14': 14,  // M14: Eliminator
-  'match-15': 15,  // M15: Qualifier 2
-  'match-16': 16,  // M16: Grand Final
+  'match-6':  6,   // M6: VRN vs ATX (Ascent)
+  'match-7':  7,   // M7: VRN vs ATX (Breeze)
+  'match-8':  8,   // M8: ATX vs NDL (Corrode)
+  'match-9':  9,   // M9: ATX vs NDL (Icebox)
+  'match-10': 10,  // M10: BBZ vs VRN (Split)
+  'match-11': 11,  // M11: VRN vs BBZ (Bind)
+  'match-12': 12,  // M12: VRN vs NDL (Forfeit)
+  'match-13': 13,  // M13: VRN vs BBZ (Qualifier 1 · BO3 Abyss / Ascent / Icebox)
+  'match-14': 14,  // M14: ATX vs NDL (Eliminator · BO3 Forfeit)
+  'match-15': 15,  // M15: Qualifier 2 (TBD vs ATX · BO3)
+  'match-16': 16,  // M16: Grand Final (BO5)
 };
 
 const POLL_INTERVAL_MS = 30 * 1000; // 30 seconds
@@ -174,22 +174,43 @@ function parseMatchPage(html, matchSlug) {
   // 3. Extract Map Name
   const KNOWN_MAPS = [
     'Ascent', 'Bind', 'Breeze', 'Fracture', 'Haven', 'Icebox',
-    'Lotus', 'Pearl', 'Split', 'Sunset', 'Abyss', 'Corrode'
+    'Lotus', 'Pearl', 'Split', 'Sunset', 'Abyss', 'Corrode', 'Forfeit'
   ];
-  // Check subtitle under score: "className":"mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted","children":"Ascent"
-  const subMapMatch = fullRSC.match(/"className":"[^"]*uppercase tracking-[^"]*text-muted","children":"([^"]+)"/);
-  if (subMapMatch && KNOWN_MAPS.includes(subMapMatch[1])) {
-    result.map = subMapMatch[1];
-  } else {
+
+  // A. Check for multi-map series tabs first (e.g. Bo3 / Bo5 playoffs)
+  const tabsMatch = fullRSC.match(/"tabs":(\[[^\]]+\])/);
+  if (tabsMatch) {
+    try {
+      const tabs = JSON.parse(tabsMatch[1]);
+      const validMapTab = tabs.find(t => t.n > 0 && t.mapName && KNOWN_MAPS.includes(t.mapName));
+      if (validMapTab) {
+        result.map = validMapTab.mapName;
+      }
+    } catch (_) {}
+  }
+
+  // B. Check subtitle under score: "className":"mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted","children":"Ascent"
+  if (!result.map) {
+    const subMapMatch = fullRSC.match(/"className":"[^"]*uppercase tracking-[^"]*text-muted","children":"([^"]+)"/);
+    if (subMapMatch && KNOWN_MAPS.includes(subMapMatch[1])) {
+      result.map = subMapMatch[1];
+    }
+  }
+
+  // C. Check title-page
+  if (!result.map) {
     const mapMatch = fullRSC.match(/"className":"title-page","children":"([^"]+)"/);
     if (mapMatch && KNOWN_MAPS.includes(mapMatch[1])) {
       result.map = mapMatch[1];
-    } else {
-      for (const m of KNOWN_MAPS) {
-        if (fullRSC.includes(`"${m}"`)) {
-          result.map = m;
-          break;
-        }
+    }
+  }
+
+  // D. Fallback check for known map names in page
+  if (!result.map) {
+    for (const m of KNOWN_MAPS) {
+      if (fullRSC.includes(`"${m}"`)) {
+        result.map = m;
+        break;
       }
     }
   }

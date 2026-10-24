@@ -42,7 +42,8 @@ const TOURNAMENT_TEAMS = [
   { id: "naadan-legacy", name: "NAADAN LEGACY", tag: "NDL", logo: "/logos/naadan-legacy.png" },
   { id: "aetrix", name: "AETRIX", tag: "ATX", logo: "/logos/aetrix.png" },
   { id: "bitter-blade-z", name: "BITTER BLADE Z", tag: "BBZ", logo: "/logos/bitter-blade-z.png" },
-  { id: "veyron", name: "VEYRON", tag: "VRN", logo: "/logos/veyron.png" }
+  { id: "veyron", name: "VEYRON", tag: "VRN", logo: "/logos/veyron.png" },
+  { id: "tbd", name: "TBD", tag: "TBD", logo: "" }
 ];
 
 // Official 16 Match Tournament Fixtures
@@ -51,18 +52,18 @@ const TOURNAMENT_FIXTURES = [
   { matchNumber: 2, label: "M2: ATX vs BBZ (Abyss · Fri 2 Oct, 10:00 PM IST)", stage: "Group Stage · Week 1", t1: "aetrix", t2: "bitter-blade-z", map: "Abyss", bestOf: "BO1", side1: "defense", side2: "attack", time: "Fri 2 Oct, 10:00 PM IST (22:00)" },
   { matchNumber: 3, label: "M3: ATX vs BBZ (Bind · Sat 3 Oct, 9:00 PM IST)", stage: "Group Stage · Week 1", t1: "aetrix", t2: "bitter-blade-z", map: "Bind", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 3 Oct, 9:00 PM IST (21:00)" },
   { matchNumber: 4, label: "M4: BBZ vs NDL (Corrode · Sat 3 Oct, 10:00 PM IST)", stage: "Group Stage · Week 1", t1: "bitter-blade-z", t2: "naadan-legacy", map: "Corrode", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 3 Oct, 10:00 PM IST (22:00)" },
-  { matchNumber: 5, label: "M5: NDL vs BBZ (Pearl · Sat 10 Oct, 10:00 PM IST)", stage: "Group Stage · Week 2", t1: "naadan-legacy", t2: "bitter-blade-z", map: "Pearl", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 10 Oct, 10:00 PM IST (22:00)" },
+  { matchNumber: 5, label: "M5: NDL vs BBZ (Pearl · Sat 10 Oct, 9:00 PM IST)", stage: "Group Stage · Week 2", t1: "naadan-legacy", t2: "bitter-blade-z", map: "Pearl", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sat 10 Oct, 9:00 PM IST (21:00)" },
   { matchNumber: 6, label: "M6: VRN vs ATX (Ascent · Sun 11 Oct, 9:00 PM IST)", stage: "Group Stage · Week 2", t1: "veyron", t2: "aetrix", map: "Ascent", bestOf: "BO1", side1: "defense", side2: "attack", time: "Sun 11 Oct, 9:00 PM IST (21:00)" },
   { matchNumber: 7, label: "M7: VRN vs ATX (Breeze · Sun 11 Oct, 11:00 PM IST)", stage: "Group Stage · Week 2", t1: "veyron", t2: "aetrix", map: "Breeze", bestOf: "BO1", side1: "attack", side2: "defense", time: "Sun 11 Oct, 11:00 PM IST (23:00)" },
   { matchNumber: 8, label: "M8: ATX vs NDL (Corrode · Tue 13 Oct, 10:00 PM IST)", stage: "Group Stage · Week 3", t1: "aetrix", t2: "naadan-legacy", map: "Corrode", bestOf: "BO1", side1: "defense", side2: "attack", time: "Tue 13 Oct, 10:00 PM IST (22:00)" },
   { matchNumber: 9, label: "M9: ATX vs NDL (Icebox · Tue 13 Oct, 11:00 PM IST)", stage: "Group Stage · Week 3", t1: "aetrix", t2: "naadan-legacy", map: "Icebox", bestOf: "BO1", side1: "defense", side2: "attack", time: "Tue 13 Oct, 11:00 PM IST (23:00)" },
   { matchNumber: 10, label: "M10: BBZ vs VRN (Split · Mon 19 Oct, 9:00 PM IST)", stage: "Group Stage · Week 3", t1: "bitter-blade-z", t2: "veyron", map: "Split", bestOf: "BO1", side1: "defense", side2: "attack", time: "Mon 19 Oct, 9:00 PM IST (21:00)" },
   { matchNumber: 11, label: "M11: VRN vs BBZ (Bind · Mon 19 Oct, 10:00 PM IST)", stage: "Group Stage · Week 3", t1: "veyron", t2: "bitter-blade-z", map: "Bind", bestOf: "BO1", side1: "defense", side2: "attack", time: "Mon 19 Oct, 10:00 PM IST (22:00)" },
-  { matchNumber: 12, label: "M12: VRN vs NDL (Icebox · Mon 19 Oct, 11:00 PM IST)", stage: "Group Stage · Week 3", t1: "veyron", t2: "naadan-legacy", map: "Icebox", bestOf: "BO1", side1: "defense", side2: "attack", time: "Mon 19 Oct, 11:00 PM IST (23:00)" },
-  { matchNumber: 13, label: "M13: Qualifier 1 (Seed 1 vs 2 · Sat 24 Oct, 9:00 PM IST)", stage: "Playoffs: Qualifier 1", t1: "tbd", t2: "tbd", map: "TBD", bestOf: "BO3", side1: "defense", side2: "attack", time: "Sat 24 Oct, 9:00 PM IST (21:00)" },
-  { matchNumber: 14, label: "M14: Eliminator (Seed 3 vs 4 · Sat 24 Oct, 9:30 PM IST)", stage: "Playoffs: Eliminator", t1: "tbd", t2: "tbd", map: "TBD", bestOf: "BO3", side1: "defense", side2: "attack", time: "Sat 24 Oct, 9:30 PM IST (21:30)" },
-  { matchNumber: 15, label: "M15: Qualifier 2 (Sun 25 Oct, 9:00 PM IST)", stage: "Playoffs: Qualifier 2", t1: "tbd", t2: "tbd", map: "TBD", bestOf: "BO3", side1: "defense", side2: "attack", time: "Sun 25 Oct, 9:00 PM IST (21:00)" },
-  { matchNumber: 16, label: "M16: Grand Final (Sat 31 Oct, 10:00 PM IST)", stage: "Grand Final", t1: "tbd", t2: "tbd", map: "TBD", bestOf: "BO3", side1: "attack", side2: "defense", time: "Sat 31 Oct, 10:00 PM IST (22:00)" }
+  { matchNumber: 12, label: "M12: VRN vs NDL (Forfeit · Mon 19 Oct, 11:00 PM IST)", stage: "Group Stage · Week 3", t1: "veyron", t2: "naadan-legacy", map: "Forfeit", bestOf: "BO1", side1: "defense", side2: "attack", time: "Mon 19 Oct, 11:00 PM IST (23:00)" },
+  { matchNumber: 13, label: "M13: VRN vs BBZ (Abyss / Ascent / Icebox · Sat 24 Oct, 9:30 PM IST)", stage: "Playoffs: Qualifier 1", t1: "veyron", t2: "bitter-blade-z", map: "Abyss", seriesMaps: ["Abyss", "Ascent", "Icebox"], bestOf: "BO3", side1: "defense", side2: "attack", time: "Sat 24 Oct, 9:30 PM IST (21:30)" },
+  { matchNumber: 14, label: "M14: ATX vs NDL (Forfeit · Sat 24 Oct, 9:30 PM IST)", stage: "Playoffs: Eliminator", t1: "aetrix", t2: "naadan-legacy", map: "Forfeit", bestOf: "BO3", side1: "defense", side2: "attack", time: "Sat 24 Oct, 9:30 PM IST (21:30)" },
+  { matchNumber: 15, label: "M15: Qualifier 2 (TBD vs ATX · Sun 25 Oct, 9:00 PM IST)", stage: "Playoffs: Qualifier 2", t1: "tbd", t2: "aetrix", map: "TBD", bestOf: "BO3", side1: "defense", side2: "attack", time: "Sun 25 Oct, 9:00 PM IST (21:00)" },
+  { matchNumber: 16, label: "M16: Grand Final (Winner Q1 vs Winner Q2 · Sat 31 Oct, 10:00 PM IST)", stage: "Grand Final", t1: "tbd", t2: "tbd", map: "TBD", bestOf: "BO5", side1: "attack", side2: "defense", time: "Sat 31 Oct, 10:00 PM IST (22:00)" }
 ];
 
 // Official 4-Team Rosters with Player Portraits from Tournament Manager
