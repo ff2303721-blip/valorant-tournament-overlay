@@ -25,8 +25,8 @@ const SITE_SLUG_TO_FIXTURE = {
   'match-12': 12,  // M12: VRN vs NDL (Forfeit)
   'match-13': 13,  // M13: VRN vs BBZ (Qualifier 1 · BO3 Abyss / Ascent / Icebox)
   'match-14': 14,  // M14: ATX vs NDL (Eliminator · BO3 Forfeit)
-  'match-15': 15,  // M15: Qualifier 2 (TBD vs ATX · BO3)
-  'match-16': 16,  // M16: Grand Final (BO5)
+  'match-15': 15,  // M15: VRN vs ATX (Qualifier 2 · BO3 Split / Abyss / Sunset)
+  'match-16': 16,  // M16: BBZ vs TBD (Grand Final · BO5)
 };
 
 const POLL_INTERVAL_MS = 30 * 1000; // 30 seconds
