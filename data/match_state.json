@@ -4,9 +4,9 @@
     "stage": "Grand Final",
     "seriesType": "BO5",
     "currentMapIndex": 1,
-    "mapName": "Breeze",
+    "mapName": "Ascent",
     "phase": "live",
-    "statusBanner": "GRAND FINAL · BO5",
+    "statusBanner": "ATX WINS!",
     "fixtureMatchNumber": 16
   },
   "teamsList": [
@@ -188,11 +188,11 @@
     },
     {
       "matchNumber": 13,
-      "label": "M13: VRN vs BBZ (Abyss / Ascent · Sat 24 Oct, 9:30 PM IST)",
+      "label": "M13: VRN vs BBZ (Ascent · Sat 24 Oct, 9:30 PM IST)",
       "stage": "Playoffs: Qualifier 1",
       "t1": "veyron",
       "t2": "bitter-blade-z",
-      "map": "Abyss / Ascent",
+      "map": "Ascent",
       "seriesMaps": [
         "Abyss",
         "Ascent",
@@ -217,7 +217,7 @@
     },
     {
       "matchNumber": 15,
-      "label": "M15: VRN vs ATX (Split / Abyss · Sun 25 Oct, 10:00 PM IST)",
+      "label": "M15: VRN vs ATX (Split · Sun 25 Oct, 10:00 PM IST)",
       "stage": "Playoffs: Qualifier 2",
       "t1": "veyron",
       "t2": "aetrix",
@@ -234,11 +234,11 @@
     },
     {
       "matchNumber": 16,
-      "label": "M16: BBZ vs ATX (Breeze / Haven / Sunset / Lotus / Ascent · Sat 31 Oct, 9:00 PM IST)",
+      "label": "M16: BBZ vs ATX (Ascent · Sat 31 Oct, 9:00 PM IST)",
       "stage": "Grand Final",
       "t1": "bitter-blade-z",
       "t2": "aetrix",
-      "map": "Breeze",
+      "map": "Ascent",
       "seriesMaps": [
         "Breeze",
         "Haven",
@@ -256,7 +256,7 @@
     "id": "bitter-blade-z",
     "name": "BITTER BLADE Z",
     "tag": "BBZ",
-    "score": 0,
+    "score": 1,
     "mapWins": 0,
     "side": "attack",
     "color": "#ff4655",
@@ -267,55 +267,65 @@
         "name": "Nishku",
         "role": "Captain",
         "photo": "/players/NISHKU.png",
-        "agent": "Jett",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 245
+        "agent": "Vyse",
+        "kills": 7,
+        "deaths": 14,
+        "assists": 3,
+        "acs": 129,
+        "adr": 50,
+        "hs": 0
       },
       {
         "id": "bbz-2",
         "name": "ASG UnniyAppam",
         "role": "Player",
         "photo": "/players/AXEL.png",
-        "agent": "Omen",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 200
+        "agent": "Viper",
+        "kills": 67,
+        "deaths": 55,
+        "assists": 21,
+        "acs": 244,
+        "adr": 74,
+        "hs": 0
       },
       {
         "id": "bbz-3",
         "name": "Axel Blaze",
         "role": "Player",
         "photo": "/players/AXEL.png",
-        "agent": "Phoenix",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 190
+        "agent": "Sage",
+        "kills": 43,
+        "deaths": 66,
+        "assists": 28,
+        "acs": 163,
+        "adr": 63,
+        "hs": 0
       },
       {
         "id": "bbz-4",
         "name": "CUTEKIDxT",
         "role": "Player",
         "photo": "/players/CUTE.png",
-        "agent": "Gekko",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 170
+        "agent": "Chamber",
+        "kills": 51,
+        "deaths": 56,
+        "assists": 15,
+        "acs": 230,
+        "adr": 65,
+        "hs": 0
       },
       {
         "id": "bbz-5",
         "name": "デヴィカ",
         "role": "Player",
         "photo": "/players/CUTE.png",
-        "agent": "Killjoy",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 160
+        "agent": "Reyna",
+        "kills": 66,
+        "deaths": 65,
+        "assists": 23,
+        "acs": 243,
+        "adr": 67,
+        "hs": 0
       },
       {
         "id": "bbz-6",
@@ -334,7 +344,7 @@
     "id": "aetrix",
     "name": "AETRIX",
     "tag": "ATX",
-    "score": 0,
+    "score": 3,
     "mapWins": 0,
     "side": "defense",
     "color": "#00f0ff",
@@ -345,11 +355,13 @@
         "name": "Aegon XD",
         "role": "Captain",
         "photo": "/players/AEGON.png",
-        "agent": "Omen",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 230
+        "agent": "Cypher",
+        "kills": 43,
+        "deaths": 53,
+        "assists": 17,
+        "acs": 155,
+        "adr": 72,
+        "hs": 0
       },
       {
         "id": "atx-2",
@@ -367,44 +379,52 @@
         "name": "Thakudu Scarlet",
         "role": "Player",
         "photo": "/players/SCARLET.png",
-        "agent": "Skye",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 185
+        "agent": "Fade",
+        "kills": 33,
+        "deaths": 61,
+        "assists": 24,
+        "acs": 124,
+        "adr": 65,
+        "hs": 0
       },
       {
         "id": "atx-4",
         "name": "SHREYA",
         "role": "Player",
         "photo": "/players/SREYA.png",
-        "agent": "Fade",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 175
+        "agent": "Sage",
+        "kills": 53,
+        "deaths": 56,
+        "assists": 24,
+        "acs": 186,
+        "adr": 70,
+        "hs": 0
       },
       {
         "id": "atx-5",
         "name": "PorottaBeef",
         "role": "Player",
         "photo": "/players/POROTTA.png",
-        "agent": "Cypher",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 165
+        "agent": "Raze",
+        "kills": 94,
+        "deaths": 49,
+        "assists": 18,
+        "acs": 333,
+        "adr": 81,
+        "hs": 0
       },
       {
         "id": "atx-6",
         "name": "NANDU",
         "role": "Sub",
         "photo": "/players/NANDU.png",
-        "agent": "Brimstone",
-        "kills": 0,
-        "deaths": 0,
-        "assists": 0,
-        "acs": 140
+        "agent": "Astra",
+        "kills": 101,
+        "deaths": 69,
+        "assists": 25,
+        "acs": 361,
+        "adr": 80,
+        "hs": 0
       }
     ]
   },
@@ -416,15 +436,15 @@
     "teamTag": "ATX",
     "teamName": "AETRIX",
     "role": "Match MVP",
-    "agent": "Clove",
+    "agent": "Astra",
     "photo": "/players/NANDU.png",
     "logo": "/logos/aetrix.png",
-    "kills": 67,
-    "deaths": 38,
-    "assists": 16,
-    "acs": 371,
-    "adr": 75,
-    "hs": 234
+    "kills": 101,
+    "deaths": 69,
+    "assists": 25,
+    "acs": 361,
+    "adr": 80,
+    "hs": 0
   },
   "timeout": {
     "active": false,
@@ -2415,7 +2435,7 @@
           "hs": 79
         }
       ],
-      "importedAt": "2026-10-25T16:49:19.214Z"
+      "importedAt": "2026-10-31T16:17:02.244Z"
     },
     "14": {
       "score1": 2,
@@ -2425,7 +2445,7 @@
       "winner": "ATX",
       "map": "Forfeit",
       "players": [],
-      "importedAt": "2026-10-25T16:49:20.822Z"
+      "importedAt": "2026-10-31T16:17:03.844Z"
     },
     "15": {
       "score1": 0,
@@ -2433,7 +2453,7 @@
       "team1Tag": "VRN",
       "team2Tag": "ATX",
       "winner": "ATX",
-      "map": "Split / Abyss",
+      "map": "Split",
       "players": [
         {
           "teamTag": "VRN",
@@ -2586,7 +2606,183 @@
           "hs": 72
         }
       ],
-      "importedAt": "2026-10-31T16:16:03.922Z"
+      "importedAt": "2026-10-31T16:17:06.117Z"
+    },
+    "16": {
+      "score1": 1,
+      "score2": 3,
+      "team1Tag": "BBZ",
+      "team2Tag": "ATX",
+      "winner": "ATX",
+      "map": "Ascent",
+      "players": [
+        {
+          "teamTag": "BBZ",
+          "name": "ASG UnniyAppam",
+          "riotTag": "scena",
+          "agent": "Viper",
+          "isMatchMvp": false,
+          "isTeamMvp": true,
+          "acs": 244,
+          "kills": 67,
+          "deaths": 55,
+          "assists": 21,
+          "plusMinus": "+12",
+          "adr": 74,
+          "hs": 0
+        },
+        {
+          "teamTag": "BBZ",
+          "name": "Kakashi",
+          "riotTag": "Dani",
+          "agent": "Reyna",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 243,
+          "kills": 66,
+          "deaths": 65,
+          "assists": 23,
+          "plusMinus": "+1",
+          "adr": 67,
+          "hs": 0
+        },
+        {
+          "teamTag": "BBZ",
+          "name": "CUTEKIDxT",
+          "riotTag": "8898",
+          "agent": "Chamber",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 230,
+          "kills": 51,
+          "deaths": 56,
+          "assists": 15,
+          "plusMinus": -5,
+          "adr": 65,
+          "hs": 0
+        },
+        {
+          "teamTag": "BBZ",
+          "name": "デヴィカ",
+          "riotTag": "MAT22",
+          "agent": "Skye",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 192,
+          "kills": 49,
+          "deaths": 68,
+          "assists": 42,
+          "plusMinus": -19,
+          "adr": 72,
+          "hs": 0
+        },
+        {
+          "teamTag": "BBZ",
+          "name": "Axel Blaze",
+          "riotTag": "9418",
+          "agent": "Sage",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 163,
+          "kills": 43,
+          "deaths": 66,
+          "assists": 28,
+          "plusMinus": -23,
+          "adr": 63,
+          "hs": 0
+        },
+        {
+          "teamTag": "BBZ",
+          "name": "Nishku",
+          "riotTag": "nishk",
+          "agent": "Vyse",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 129,
+          "kills": 7,
+          "deaths": 14,
+          "assists": 3,
+          "plusMinus": -7,
+          "adr": 50,
+          "hs": 0
+        },
+        {
+          "teamTag": "ATX",
+          "name": "NANDU",
+          "riotTag": "4941",
+          "agent": "Astra",
+          "isMatchMvp": true,
+          "isTeamMvp": false,
+          "acs": 361,
+          "kills": 101,
+          "deaths": 69,
+          "assists": 25,
+          "plusMinus": "+32",
+          "adr": 80,
+          "hs": 0
+        },
+        {
+          "teamTag": "ATX",
+          "name": "PorottaBeef",
+          "riotTag": "Beef",
+          "agent": "Raze",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 333,
+          "kills": 94,
+          "deaths": 49,
+          "assists": 18,
+          "plusMinus": "+45",
+          "adr": 81,
+          "hs": 0
+        },
+        {
+          "teamTag": "ATX",
+          "name": "SHREYA",
+          "riotTag": "01814",
+          "agent": "Sage",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 186,
+          "kills": 53,
+          "deaths": 56,
+          "assists": 24,
+          "plusMinus": -3,
+          "adr": 70,
+          "hs": 0
+        },
+        {
+          "teamTag": "ATX",
+          "name": "AEGON XD",
+          "riotTag": "007",
+          "agent": "Cypher",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 155,
+          "kills": 43,
+          "deaths": 53,
+          "assists": 17,
+          "plusMinus": -10,
+          "adr": 72,
+          "hs": 0
+        },
+        {
+          "teamTag": "ATX",
+          "name": "Thakudu Scarlet",
+          "riotTag": "2406",
+          "agent": "Fade",
+          "isMatchMvp": false,
+          "isTeamMvp": false,
+          "acs": 124,
+          "kills": 33,
+          "deaths": 61,
+          "assists": 24,
+          "plusMinus": -28,
+          "adr": 65,
+          "hs": 0
+        }
+      ],
+      "importedAt": "2026-10-31T19:36:16.755Z"
     }
   }
 }
